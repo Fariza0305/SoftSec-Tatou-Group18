@@ -205,3 +205,79 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+keys/server/server_priv.asc
+
+# ===========================================
+# 🔒 安全敏感文件 (绝对不能提交到 GitHub!)
+# ===========================================
+
+# 私钥和证书
+*.key
+*.pem
+*.crt
+*.cer
+*.pfx
+*.p12
+*.der
+
+# SSH 密钥
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.pub
+
+# 密码文件
+*.passwd
+*.password
+passwords.txt
+secrets.txt
+
+# API 密钥和令牌
+*_key
+*_token
+*_secret
+api_key*
+secret_key*
+access_token*
+
+# 配置文件中的敏感部分
+# 忽略包含敏感信息的配置文件
+config/credentials*
+config/secrets*
+config/production*
+
+# 数据库连接信息
+*.db
+*.sqlite
+*.sqlite3
+database_url
+db_password
+
+# 环境变量文件 (再次强调，非常重要!)
+.env
+.env.*
+!*.example.env
+.local.env
+
+# ===========================================
+# 🔒 项目特定的敏感文件
+# ===========================================
+
+# 标志文件/测试文件
+flag.txt
+flag
+flag_*
+test_flag.txt
+
+# 提交历史中的敏感信息
+# 注意：这需要清理已有的提交历史
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 临时敏感文件
+*.tmp.secret
+*.temp.key

@@ -270,3 +270,27 @@ __all__ = [
     "WatermarkingMethod",
 ]
 
+
+# === 自动追加：注册 metadata 方法（正式版） ===
+try:
+    # 导入你刚刚调通的函数
+    from .watermark_metadata import add_metadata_watermark, extract_metadata_secret
+except Exception:
+    from watermark_metadata import add_metadata_watermark, extract_metadata_secret
+
+# metadata 方法注册描述
+_metadata_method = {
+    "description": "Embed secret & flag1 in PDF metadata (Info fields).",
+    "add": add_metadata_watermark,
+    "extract": extract_metadata_secret,
+}
+
+# 尝试写入常见注册表变量（不覆盖已有 QR 方法）
+for _registry_name in ("WATERMARK_METHODS", "METHODS", "METHOD_REGISTRY", "METHOD_MAP"):
+    _reg = globals().get(_registry_name)
+    if isinstance(_reg, dict):
+        if "metadata" not in _reg:
+            _reg["metadata"] = _metadata_method
+            print(f"[metadata] 已注册到 {_registry_name}")
+        break
+# === 自动追加结束 ===
