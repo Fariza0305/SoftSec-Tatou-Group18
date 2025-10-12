@@ -281,3 +281,4 @@ test_flag.txt
 # 临时敏感文件
 *.tmp.secret
 *.temp.key
+mysql-data/
