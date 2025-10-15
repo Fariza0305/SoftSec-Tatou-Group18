@@ -282,3 +282,64 @@ test_flag.txt
 *.tmp.secret
 *.temp.key
 mysql-data/
+###############################################
+# 🧱 SECURITY: Ignore ALL flag-related files
+###############################################
+
+# Common naming patterns
+flag
+FLAG
+*/flag
+**/flag
+*/flag.*
+**/flag.*
+*/flag_*
+**/flag_*
+flag*.*
+FLAG*.*
+*flag*
+*FLAG*
+
+# PDFs or other documents containing flag (used in tatou watermark tests)
+server/src/flag*.pdf
+server/src/*flag*.pdf
+server/src/watermarked*.pdf
+server/src/*watermark*.pdf
+server/src/clean_base.pdf
+server/src/test.pdf
+server/src/tests/
+server/storage/
+*.watermarked.pdf
+
+# backup or export files that may include flags
+*.tar.gz
+*.zip
+*.bak
+*.tmp
+*.old
+*.backup
+
+# temporary run artifacts that might contain flag data
+tmp/
+tmp-*/
+tmp-gnupg/
+*.gpg
+*.asc~
+*.pgp
+*.sig
+
+# any hidden or accidentally exported flag files
+**/.flag*
+**/.FLAG*
+**/FLAG.txt
+**/flag.txt
+**/secret*
+**/.secret*
+**/secrets.env
+**/.env
+.env
+.env.*
+
+# ignore all flag files
+server/flag
+server/src/flag1_*.pdf
