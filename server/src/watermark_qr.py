@@ -46,20 +46,21 @@ class QRCodeWatermarking(WatermarkingMethod):
         self,
         pdf,
         secret: str,
-        key: str,
+        key: str | None = None,
         position: str | None = None,
     ) -> bytes:
         """Add QR code watermark to PDF."""
         if not QR_AVAILABLE:
             raise WatermarkingError("qrcode library is required for QR code watermarking")
-        
+
         if not PYMUPDF_AVAILABLE:
             raise WatermarkingError("PyMuPDF library is required for QR code watermarking")
 
         if not secret:
             raise ValueError("Secret must be a non-empty string")
-        if not isinstance(key, str) or not key:
-            raise ValueError("Key must be a non-empty string")
+
+        if key is None or not isinstance(key, str) or not key.strip():
+            key = "default-key"
 
         # Load PDF
         pdf_data = load_pdf_bytes(pdf)
@@ -231,4 +232,19 @@ class SimpleQRWatermarking(WatermarkingMethod):
 
 
 __all__ = ["QRCodeWatermarking", "SimpleQRWatermarking"]
+
+WATERMARK_METHODS = {
+    "qr": {
+        "description": "Embed secret text as QR code image inside PDF.",
+        "add": QRCodeWatermarking().add_watermark,
+        "extract": QRCodeWatermarking().read_secret,
+    },
+    "simple-qr": {
+        "description": "Simple QR watermark appended after EOF.",
+        "add": SimpleQRWatermarking().add_watermark,
+        "extract": SimpleQRWatermarking().read_secret,
+    },
+}
+
+print(f"[qr] Registered watermark method: {list(WATERMARK_METHODS.keys())}")
 
