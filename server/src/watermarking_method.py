@@ -294,3 +294,17 @@ for _registry_name in ("WATERMARK_METHODS", "METHODS", "METHOD_REGISTRY", "METHO
             print(f"[metadata] 已注册到 {_registry_name}")
         break
 # === 自动追加结束 ===
+# --- Register Attachment Watermark (duanwenyi) ---
+from watermark_attachment import AttachmentWatermark
+
+try:
+    METHODS
+except NameError:
+    METHODS = {}
+
+METHODS["attachment"] = {
+    "description": AttachmentWatermark.description,
+    "add": AttachmentWatermark().add_watermark,
+    "extract": AttachmentWatermark().read_secret,
+}
+
