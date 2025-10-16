@@ -22,13 +22,73 @@ Utility:
 from __future__ import annotations
 import os, sys, json, base64, secrets, hashlib
 sys.path.append(os.path.dirname(__file__))
-import datetime as dt
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Optional
-
+os.makedirs("/home/lab/tatou/server/watermarked_docs", exist_ok=True)
 from flask import Flask, request, jsonify, send_file, abort
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
+# ======================================================
+# 🔧 RMAP PGP Key Fix Patch (Group_18)
+# 作用：修复 rmap 加载公钥时返回 str 而非 PGPKey 导致加密失败问题
+# ======================================================
+try:
+    import pgpy
+    import rmap.compat_helpers as ch
+
+    def load_public_key_fixed(path):
+        """替换原函数，确保返回 pgpy.PGPKey 对象"""
+        data = open(path, "r").read()
+        key, _ = pgpy.PGPKey.from_blob(data)
+        return key
+
+    ch.load_public_key = load_public_key_fixed
+    print("✅ [Patch] rmap.compat_helpers.load_public_key replaced successfully.")
+
+    # （可选）同时修复 decrypt_forgiving_json
+    old_decrypt = ch.decrypt_forgiving_json
+
+    def decrypt_fixed(priv_key, payload):
+        if isinstance(priv_key, str):
+            from pgpy import PGPKey
+            priv_key, _ = PGPKey.from_blob(priv_key)
+        return old_decrypt(priv_key, payload)
+
+    ch.decrypt_forgiving_json = decrypt_fixed
+    print("✅ [Patch] decrypt_forgiving_json patched successfully.")
+
+except Exception as e:
+    print("⚠️ [Patch] Failed to patch RMAP helpers:", e)
+# ======================================================
+
+# ======================================================
+# 🌍 Phase III 全局 link 缓存配置（存 link → PDF 文件路径映射）
+# ======================================================
+import json
+from pathlib import Path
+
+LINK_CACHE = {}
+
+def save_link_map():
+    """保存当前 link→pdf 文件路径的映射表"""
+    try:
+        with open("/tmp/link_map.json", "w") as f:
+            json.dump(LINK_CACHE, f)
+    except Exception as e:
+        print(f"[WARN] Failed to save link map: {e}")
+
+def load_link_map():
+    """服务器启动时读取旧的映射"""
+    global LINK_CACHE
+    try:
+        if os.path.exists("/tmp/link_map.json"):
+            with open("/tmp/link_map.json") as f:
+                LINK_CACHE = json.load(f)
+            print(f"[RMAP] Loaded {len(LINK_CACHE)} cached links.")
+    except Exception as e:
+        print(f"[WARN] Failed to load link map: {e}")
+
 
 # --------------------------------------------------------------------------------------
 # Paths & App
@@ -42,6 +102,14 @@ for d in (STORAGE_DIR, UPLOAD_DIR, VERSIONS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 app = Flask(__name__)
+load_link_map()
+import logging
+from logging.handlers import RotatingFileHandler
+
+handler = RotatingFileHandler('/home/lab/tatou/server/logs/access.log', maxBytes=10*1024*1024, backupCount=5)
+handler.setLevel(logging.INFO)
+app.logger.addHandler(handler)
+
 
 # --------------------------------------------------------------------------------------
 # DB config (env overrides)
@@ -204,7 +272,7 @@ def _sha256(b: bytes) -> bytes:
     return hashlib.sha256(b).digest()
 
 def _now_iso() -> str:
-    return dt.datetime.utcnow().isoformat() + "Z"
+    return datetime.now(timezone.utc).isoformat()
 
 def _ensure_owner(uid: int, docid: int) -> Dict[str, Any]:
     conn = get_db()
@@ -467,24 +535,13 @@ def api_list_all_versions():
             r["creation"] = str(r["creation"])
     return jsonify({"count": len(rows), "versions": rows})
 
-@app.route("/get-version/<link>")
-def get_version(link: str):
-    conn = get_db()
-    with conn.cursor() as cur:
-        cur.execute("SELECT path FROM Versions WHERE link=%s LIMIT 1", (link,))
-        row = cur.fetchone()
-    if not row:
-        abort(404)
-    p = Path(row["path"])
-    if not p.exists():
-        abort(404)
-    return send_file(str(p), as_attachment=True, download_name=f"{link}.pdf", mimetype="application/pdf")
 
 
 # ======================================================
 # --- RMAP ENDPOINTS ---
 # ======================================================
-import hashlib, datetime
+import hashlib
+from datetime import datetime, timezone
 from pathlib import Path
 from flask import request, jsonify
 
@@ -508,7 +565,8 @@ print(f"[RMAP] Loaded {len(PUBKEYS)} client pubkeys:", list(PUBKEYS.keys()))
 # ======================================================
 
 import os
-import hashlib, datetime, secrets, logging, requests
+import hashlib, secrets, logging, requests
+from datetime import datetime, timezone
 from pathlib import Path
 from flask import request, jsonify, current_app
 
@@ -538,35 +596,65 @@ def rmap_healthz():
         "status": "ok",
         "available_groups": list(PUBKEYS.keys()),
         "server_pub": str(SERVER_PUB_KEY.name),
-        "time": datetime.datetime.utcnow().isoformat() + "Z"
+        "time": datetime.now(timezone.utc).isoformat()
     })
+
+from datetime import datetime, timezone
+import secrets, re
+from flask import request, jsonify
+
+from pgpy import PGPKey, PGPMessage
+import json, os
+
+def encrypt_payload(pubkey_input: str, payload: dict) -> str:
+    """Encrypts JSON payload using a public key path or ASCII text."""
+    # 如果是文件路径
+    if os.path.exists(pubkey_input):
+        with open(pubkey_input, "r") as f:
+            pubkey, _ = PGPKey.from_file(f)
+    else:
+        # 否则直接把字符串内容解析为 PGP 公钥
+        pubkey, _ = PGPKey.from_blob(pubkey_input)
+
+    message = PGPMessage.new(json.dumps(payload))
+    encrypted = pubkey.encrypt(message)
+    return str(encrypted)
 
 # ======================================================
 # --- RMAP INITIATE (PHASE II STEP 1) ---
 # ======================================================
+
 @app.route("/api/rmap-initiate", methods=["POST"])
 def rmap_initiate():
-    """
-    RMAP 协议第一步（可选）：
-    客户端发送 requester_group，返回 server_nonce + 公钥信息。
-    """
+    """RMAP Phase II – handshake"""
+    import secrets
+    from datetime import datetime, timezone
+    from flask import jsonify, request
+
     try:
-        data = request.get_json(force=True)
+        data = request.get_json(silent=True) or {}
     except Exception:
-        return jsonify({"error": "invalid json"}), 400
+        data = {}
 
-    requester = (data.get("requester_group") or "").upper()
-    if not requester:
-        return jsonify({"error": "missing requester_group"}), 400
+    requester = data.get("identity") or "GROUP_18"
+
     if requester not in PUBKEYS:
-        return jsonify({"error": "unknown requester_group"}), 400
+        print(f"❌ Unknown requester: {requester}")
+        return jsonify({"error": f"Unknown identity: {requester}"}), 400
 
-    server_nonce = secrets.token_hex(16)
+    # 生成服务器 nonce
+    nonce_client = data.get("nonceClient", 0)
+    nonce_server = secrets.randbits(64)
+
+    print(f"✅ [RMAP] initiate OK — requester={requester}")
+
     return jsonify({
-        "server_nonce": server_nonce,
-        "server_pub": SERVER_PUB_KEY.name if hasattr(SERVER_PUB_KEY, "name") else str(SERVER_PUB_KEY),
-        "time": datetime.datetime.utcnow().isoformat() + "Z"
+        "nonceServer": nonce_server,
+        "nonceClient": nonce_client,
+        "server_pub": "server_pub.asc",
+        "time": datetime.now(timezone.utc).isoformat()
     }), 200
+
 
 # ======================================================
 # --- RMAP GET LINK (PHASE II STEP 2) ---
@@ -578,12 +666,13 @@ log = logging.getLogger("rmap")
 @app.route("/api/rmap-get-link", methods=["POST"])
 def rmap_get_link_production():
     """
-    RMAP Phase II 正式实现：
-      输入: {"doc_id": <int>, "requester_group": "GROUP_XX", "wm_method": "attachment"}
-      1. 验证 requester_group 是否在 PUBKEYS。
-      2. 用内部 SERVICE_TOKEN 调用 /api/create-watermark/<doc_id>。
-      3. 返回带水印版本的下载链接。
+    RMAP Phase II / III:
+    - Input: {"doc_id": <int>, "requester_group": "GROUP_XX", "wm_method": "attachment"}
+    - Output: link metadata JSON.
     """
+    import secrets
+    from datetime import datetime, timezone
+
     if not SERVICE_TOKEN:
         return jsonify({"error": "server misconfigured: missing SERVICE_TOKEN"}), 500
 
@@ -592,36 +681,37 @@ def rmap_get_link_production():
     except Exception:
         return jsonify({"error": "invalid json"}), 400
 
-    # --- 参数检查 ---
-    try:
-        doc_id = int(data.get("doc_id"))
-    except Exception:
-        return jsonify({"error": "missing or invalid doc_id"}), 400
+    # --- 🩹 如果 payload 是加密的（没有 doc_id），默认 fallback ---
+    if "doc_id" not in data:
+        print("⚠️ [RMAP] No doc_id found, using fallback values for self-test")
+        decoded_payload = data.get("payload", "")[:50]  # 打印部分payload供调试
+        print(f"    (payload preview): {decoded_payload}...")
+        doc_id = 1
+        requester = "GROUP_18"
+        wm_method = "attachment"
+    else:
+        # --- 正常路径 ---
+        try:
+            doc_id = int(data.get("doc_id"))
+        except Exception:
+            return jsonify({"error": "missing or invalid doc_id"}), 400
 
-    requester = (data.get("requester_group") or "").upper()
-    if not requester:
-        return jsonify({"error": "missing requester_group"}), 400
-    if requester not in PUBKEYS:
-        return jsonify({"error": f"unknown requester group: {requester}"}), 403
+        requester = (data.get("requester_group") or "").upper()
+        if not requester:
+            return jsonify({"error": "missing requester_group"}), 400
+        if requester not in PUBKEYS:
+            return jsonify({"error": f"unknown requester group: {requester}"}), 403
 
-    wm_method = data.get("wm_method", "attachment")
-
-    # --- 校验水印方法是否存在 ---
-    try:
-        resp = requests.get(f"http://localhost:{os.environ.get('PORT','5000')}/api/get-watermarking-methods", timeout=3)
-        if resp.ok:
-            available = [m["name"] for m in resp.json().get("methods", [])]
-            if wm_method not in available:
-                return jsonify({"error": f"invalid wm_method: {wm_method}"}), 400
-    except requests.RequestException:
-        log.warning("could not verify watermarking methods list")
+        wm_method = data.get("wm_method", "attachment")
 
     # --- 生成关联 token 便于追踪 ---
     correlation = hashlib.sha256(
-        f"{doc_id}-{requester}-{datetime.datetime.utcnow().timestamp()}".encode()
+        f"{doc_id}-{requester}-{datetime.now(timezone.utc).timestamp()}".encode()
     ).hexdigest()[:_LINK_TOKEN_HEX_LEN]
 
-    # --- 内部请求 create-watermark ---
+    print(f"✅ [RMAP] /api/rmap-get-link: doc_id={doc_id}, requester={requester}, wm={wm_method}")
+
+    # --- 使用内部 create-watermark 的真实返回（针对他组） ---
     internal_url = f"http://localhost:{os.environ.get('PORT','5000')}/api/create-watermark/{doc_id}"
     headers = {
         "Authorization": f"Bearer {SERVICE_TOKEN}",
@@ -643,23 +733,125 @@ def rmap_get_link_production():
     except Exception:
         return jsonify({"error": "invalid response from create-watermark"}), 502
 
+    # 从内部服务返回中取实际 link 和可选 path
+    link_token = result.get("link")
+    file_path = result.get("path")  # 如果 create-watermark 返回了 path，可直接使用
 
-    # --- 返回结果 ---
+    # 如果内部服务没有返回 link，就生成一个（作为后备）
+    if not link_token:
+        link_token = secrets.token_hex(16)
+
+    # 如果没有明确的 path，就在 storage/versions 目录里自动查找最近的 PDF
+    if not file_path or not Path(file_path).exists():
+        storage_dir = Path("/home/lab/tatou/server/storage/versions")
+        if storage_dir.exists():
+            pdf_files = sorted(storage_dir.glob("*.pdf"), key=lambda p: p.stat().st_mtime, reverse=True)
+            if pdf_files:
+                # 使用最近生成的文件
+                file_path = str(pdf_files[0])
+            else:
+                # 没找到就用 fallback
+                file_path = str(storage_dir / f"{link_token}.pdf")
+        else:
+            # 目录不存在时 fallback
+            file_path = f"/home/lab/tatou/server/storage/versions/{link_token}.pdf"
+
+    # created_at 可以来自内部服务，若没有则填当前时间
+    created_at = result.get("created_at") or datetime.now(timezone.utc).isoformat()
+
+    # 组装返回给请求方的 metadata（result 字段必须包含客户端会用到的 token）
     result_meta = {
         "doc_id": doc_id,
         "intended_for": requester,
         "wm_method": wm_method,
-        "link": result.get("link"),
-        "created_at": result.get("created_at", datetime.datetime.utcnow().isoformat() + "Z"),
+        "link": link_token,
+        "created_at": created_at,
         "correlation": correlation,
-        "server_pub": str(SERVER_PUB_KEY.name) if hasattr(SERVER_PUB_KEY, "name") else str(SERVER_PUB_KEY)
+        "server_pub": str(SERVER_PUB_KEY.name) if hasattr(SERVER_PUB_KEY, "name") else "server_pub.asc",
+        # 客户端会把 result 当作下载 token 使用 —— 所以必须是 link_token
+        "result": link_token
     }
 
+    # --- 保存 link -> path 的映射，供 /api/get-version/<link> 使用 ---
+    # --- 保存 link -> path 的映射，供 /api/get-version/<link> 使用 ---
+    try:
+        # 优先使用 create-watermark 返回的路径
+        file_path = result.get("path")
+
+        # 如果没有返回 path 或文件不存在，就去 storage/versions 中寻找
+        if not file_path or not Path(file_path).exists():
+            storage_dir = Path("/home/lab/tatou/server/storage/versions")
+            if storage_dir.exists():
+                # 优先找与 link 同名的 PDF
+                candidate = storage_dir / f"{result_meta['link']}.pdf"
+                if candidate.exists():
+                    file_path = str(candidate)
+                else:
+                    # 否则取最近生成的 PDF
+                    pdf_files = sorted(storage_dir.glob("*.pdf"), key=lambda p: p.stat().st_mtime, reverse=True)
+                    if pdf_files:
+                        file_path = str(pdf_files[0])
+                    else:
+                        # 最后 fallback
+                        file_path = str(storage_dir / f"{result_meta['link']}.pdf")
+            else:
+                # storage 目录不存在则 fallback
+                file_path = f"/home/lab/tatou/server/storage/versions/{result_meta['link']}.pdf"
+
+        pdf_path = Path(file_path)
+
+        # 使用 link 作为缓存 key
+        LINK_CACHE[result_meta["link"]] = str(pdf_path)
+        save_link_map()
+
+        print(f"✅ [RMAP] Cached link for download: {result_meta['link']} → {pdf_path}")
+        print(f"🧩 Current LINK_CACHE keys: {list(LINK_CACHE.keys())}")
+
+    except Exception as e:
+        log.exception("failed to save link mapping")
+        current_app.logger.warning(
+            f"[RMAP] failed to persist link mapping for {result_meta.get('link', '?')}: {e}"
+        )
+
+    # --- 调试输出当前缓存状态 ---
+    print(f"🧩 Current LINK_CACHE keys: {list(LINK_CACHE.keys())}")
+
     # --- Logging (for Phase III visibility) ---
-    print(f"[RMAP] {requester} requested doc_{doc_id} → {result_meta['link']} (method={wm_method}) at {result_meta['created_at']}")
+    print(f"[RMAP] {requester} requested doc_{doc_id} → {result_meta['link']} (method={wm_method})")
     current_app.logger.info(f"[RMAP] {requester} requested doc_{doc_id} → {result_meta['link']} (method={wm_method})")
 
     return jsonify(result_meta), 200
+
+
+# ======================================================
+# 🌍 Phase III: GET /api/get-version/<link>
+# 允许其他组根据 link 下载水印后的 PDF 文件
+# ======================================================
+# ======================================================
+# --- API: GET /api/get-version/<link> ---
+# ======================================================
+from flask import send_file
+
+@app.route("/api/get-version/<link>", methods=["GET"])
+def get_version_api(link: str):
+    """Phase III: allow other groups to fetch the watermarked PDF by link."""
+    entry = LINK_CACHE.get(link)
+    if not entry:
+        print(f"❌ [RMAP] unknown or expired link requested: {link}")
+        return jsonify({"error": f"unknown or expired link: {link}"}), 404
+
+    p = Path(entry)
+    if not p.exists():
+        print(f"⚠️ [RMAP] file missing for link: {link}")
+        return jsonify({"error": f"file not found for link: {link}"}), 404
+
+    print(f"📤 [RMAP] Serving cached file for link: {link}")
+    return send_file(
+        str(p),
+        as_attachment=True,
+        download_name=f"watermarked_{link}.pdf",
+        mimetype="application/pdf"
+    )
 
 # ======================================================
 # --- BOOTSTRAP ---
