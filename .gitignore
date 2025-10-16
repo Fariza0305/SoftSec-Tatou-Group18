@@ -391,3 +391,20 @@ server/reachability.csv
 mysql-data/
 .venv/
 __pycache__/
+# keys and secrets
+server/keys/
+*.asc
+*.pem
+*.key
+
+# logs & db dumps & evidence
+server/logs/
+backups/
+evidence/
+*.sql
+*.pcap
+
+# python env / virtualenv
+.venv/
+__pycache__/
+*.pyc
