@@ -1,0 +1,3240 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# UV
+#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#uv.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
+#poetry.toml
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#   pdm recommends including project-wide configuration in pdm.toml, but excluding .pdm-python.
+#   https://pdm-project.org/en/latest/usage/project/#working-with-version-control
+#pdm.lock
+#pdm.toml
+.pdm-python
+.pdm-build/
+
+# pixi
+#   Similar to Pipfile.lock, it is generally recommended to include pixi.lock in version control.
+#pixi.lock
+#   Pixi creates a virtual environment in the .pixi directory, just like venv module creates one
+#   in the .venv directory. It is recommended not to include this directory in version control.
+.pixi
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
+
+# Abstra
+# Abstra is an AI-powered process automation framework.
+# Ignore directories containing user credentials, local state, and settings.
+# Learn more at https://abstra.io/docs
+.abstra/
+
+# Visual Studio Code
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  you could uncomment the following to ignore the entire vscode folder
+# .vscode/
+
+# Ruff stuff:
+.ruff_cache/
+
+# PyPI configuration file
+.pypirc
+
+# Cursor
+#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
+#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+
+# Marimo
+marimo/_static/
+marimo/_lsp/
+__marimo__/
+keys/server/server_priv.asc
+
+# ===========================================
+# 🔒 安全敏感文件 (绝对不能提交到 GitHub!)
+# ===========================================
+
+# 私钥和证书
+*.key
+*.pem
+*.crt
+*.cer
+*.pfx
+*.p12
+*.der
+
+# SSH 密钥
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.pub
+
+# 密码文件
+*.passwd
+*.password
+passwords.txt
+secrets.txt
+
+# API 密钥和令牌
+*_key
+*_token
+*_secret
+api_key*
+secret_key*
+access_token*
+
+# 配置文件中的敏感部分
+# 忽略包含敏感信息的配置文件
+config/credentials*
+config/secrets*
+config/production*
+
+# 数据库连接信息
+*.db
+*.sqlite
+*.sqlite3
+database_url
+db_password
+
+# 环境变量文件 (再次强调，非常重要!)
+.env
+.env.*
+!*.example.env
+.local.env
+
+# ===========================================
+# 🔒 项目特定的敏感文件
+# ===========================================
+
+# 标志文件/测试文件
+flag.txt
+flag
+flag_*
+test_flag.txt
+
+# 提交历史中的敏感信息
+# 注意：这需要清理已有的提交历史
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 临时敏感文件
+*.tmp.secret
+*.temp.key
+mysql-data/
+server/keys/
+.venv/
+__pycache__/
+*.backup
+*swo
+.swo
+*.swo
+*.swn
+storage/versions/
+*.pdf
+*.sqlite*
+.env
+# server/src/server.py
+from __future__ import annotations
+
+import os
+import io
+import secrets
+import datetime
+from pathlib import Path
+from typing import Dict, Any, Optional, Tuple
+
+from flask import Flask, jsonify, request, g, send_file, current_app
+from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import IntegrityError
+
+# === 5.2 Listing 2: 导入 RMAP 库 ===
+from rmap.identity_manager import IdentityManager
+from rmap.rmap import RMAP
+
+# 仅用于在内存中给 PDF 写入 metadata（最小侵入，不改你们的水印方法）
+from pypdf import PdfReader, PdfWriter
+
+from functools import wraps
+
+def require_auth(f):
+    """TEMP: no-op auth decorator so server can start.
+       TODO: replace with real auth check (token/header) if needed."""
+    @wraps(f)
+    def _inner(*args, **kwargs):
+        return f(*args, **kwargs)
+    return _inner
+
+# 你项目里的水印实现模块（保持不动）
+try:
+    from wm_mod import WMUtils, WatermarkingMethod
+except Exception:
+    WMUtils = None
+    class WatermarkingMethod:
+        pass
+
+
+def create_app():
+    app = Flask(__name__, static_folder="static", static_url_path="")
+
+    # ------- 基础配置 -------
+    app.config.setdefault("SECRET_KEY", os.environ.get("SECRET_KEY", "dev-secret"))
+    app.config.setdefault("TOKEN_TTL_SECONDS", int(os.environ.get("TOKEN_TTL_SECONDS", "86400")))
+    app.config.setdefault("DB_USER", os.environ.get("DB_USER", "root"))
+    app.config.setdefault("DB_PASSWORD", os.environ.get("DB_PASSWORD", "password"))
+    app.config.setdefault("DB_HOST", os.environ.get("DB_HOST", "127.0.0.1"))
+    app.config.setdefault("DB_PORT", int(os.environ.get("DB_PORT", "3306")))
+    app.config.setdefault("DB_NAME", os.environ.get("DB_NAME", "tatou"))
+    # --- force SECRET_KEY fallback if missing ---
+    if not app.config.get("SECRET_KEY"):
+        import os as _os
+        app.config["SECRET_KEY"] = _os.environ.get("SECRET_KEY","dev-secret")
+    
+
+    storage_root = os.environ.get("STORAGE_DIR", os.path.join(os.path.dirname(__file__), "..", "storage"))
+    app.config["STORAGE_DIR"] = Path(storage_root).resolve()
+    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+    # ------- RMAP 初始化 -------
+    base_dir = Path(__file__).resolve().parent.parent  # server/src/..
+    app.config.setdefault("CLIENT_KEYS_DIR", base_dir / "keys" / "clients")
+    app.config.setdefault("SERVER_PUB",     base_dir / "keys" / "server" / "server_pub.asc")
+    app.config.setdefault("SERVER_PRIV",    base_dir / "keys" / "server" / "server_priv.asc")
+
+    print(f"[RMAP] Initializing with clients_dir={app.config['CLIENT_KEYS_DIR']}")
+    if not Path(app.config["SERVER_PUB"]).exists():
+        print(f"[RMAP] Warning: server public key not found: {app.config['SERVER_PUB']}")
+    if not Path(app.config["SERVER_PRIV"]).exists():
+        print(f"[RMAP] Warning: server private key not found: {app.config['SERVER_PRIV']}")
+
+    try:
+        identity_mgr = IdentityManager(
+            client_keys_dir=str(app.config["CLIENT_KEYS_DIR"]),
+            server_public_key_path=str(app.config["SERVER_PUB"]),
+            server_private_key_path=str(app.config["SERVER_PRIV"]),
+            # server_private_key_passphrase=os.getenv("SERVER_PRIV_PASSPHRASE")
+        )
+        rmap = RMAP(identity_mgr)
+        print("[RMAP] ✓ initialization successful")
+    except Exception as e:
+        print(f"[RMAP] ✗ initialization failed: {e}")
+        rmap = None
+        identity_mgr = None
+
+    app.extensions = getattr(app, "extensions", {})
+    app.extensions["identity_mgr"] = identity_mgr
+    app.extensions["rmap"] = rmap
+
+    # ------------------------------
+    # DB engine helpers
+    # ------------------------------
+    def db_url() -> str:
+        return (
+            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+        )
+
+    # In-memory token store: { token -> (user_id, expiry_datetime_utc) }
+    app.config["TOKENS"]: Dict[str, Tuple[int, datetime.datetime]] = {}
+
+    # ------------------------------
+    # Auth helpers
+    # ------------------------------
+    def _serializer():
+        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+
+    # -------------------------------------------------------------------------
+    # Auth helpers
+    # -------------------------------------------------------------------------
+    def issue_token(user_id: int) -> str:
+        token = secrets.token_hex(16)
+        ttl = int(app.config["TOKEN_TTL_SECONDS"])
+        exp = datetime.datetime.utcnow() + datetime.timedelta(seconds=ttl)
+        app.config["TOKENS"][token] = (user_id, exp)
+        return token
+
+    def get_user_id_from_auth() -> Optional[int]:
+        auth = request.headers.get("Authorization", "")
+        if not auth.startswith("Bearer "):
+            return None
+        token = auth.split(" ", 1)[1].strip()
+        pair = app.config["TOKENS"].get(token)
+        if not pair:
+            return None
+        uid, exp = pair
+        if datetime.datetime.utcnow() > exp:
+            # Expired -> drop it
+            app.config["TOKENS"].pop(token, None)
+            return None
+        return uid
+
+    # ------------------------------
+    # Utils
+    # ------------------------------
+    def _sha256_file(path: Path) -> str:
+        h = hashlib.sha256()
+        with path.open("rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+        storage_root = storage_root.resolve()
+        fp = Path(p)
+        if not fp.is_absolute():
+            fp = storage_root / fp
+        fp = fp.resolve()
+        try:
+            fp.relative_to(storage_root)
+        except ValueError:
+            raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+        return fp
+
+    # ------------------------------
+    # Static & Health
+    # ------------------------------
+    @app.route("/<path:filename>")
+    def static_files(filename):
+        return app.send_static_file(filename)
+
+    @app.route("/")
+    def home():
+        return app.send_static_file("index.html")
+
+    @app.get("/healthz")
+    def healthz():
+        return jsonify({"ok": True})
+
+    # ------------------------------
+    # Users
+    # ------------------------------
+    @app.post("/api/create-user")
+    def create_user():
+        data = request.get_json(force=True, silent=True) or {}
+        email = (data.get("email") or "").strip()
+        login = (data.get("login") or "").strip()
+        password = (data.get("password") or "").strip()
+        if not email or not login or not password:
+            return jsonify({"error": "email, login, and password are required"}), 400
+
+        pwd_hash = generate_password_hash(password)
+        try:
+            with app.config["ENGINE"].begin() as conn:
+                conn.execute(
+                    text("INSERT INTO Users(email, login, password_hash) VALUES (:e,:l,:p)"),
+                    {"e": email, "l": login, "p": pwd_hash},
+                )
+                row = conn.execute(
+                    text("SELECT id FROM Users WHERE email=:e"),
+                    {"e": email},
+                ).first()
+                uid = int(row.id)
+        except IntegrityError:
+            return jsonify({"error": "email or login already exists"}), 409
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        return jsonify({"id": uid, "email": email, "login": login}), 201
+
+    @app.post("/api/login")
+    def login():
+        payload = request.get_json(silent=True) or {}
+        email = (payload.get("email") or "").strip()
+        password = payload.get("password") or ""
+        if not email or not password:
+            return jsonify({"error": "email and password are required"}), 400
+        try:
+            with app.config["ENGINE"].begin() as conn:
+                row = conn.execute(
+                    text("SELECT id, password_hash FROM Users WHERE email=:x OR login=:x"),
+                    {"x": email_or_login},
+                ).first()
+        except Exception:
+            current_app.logger.exception("DB error during login")
+            return jsonify({"error": "database error"}), 503
+
+        valid = False
+        if row:
+            try:
+                valid = check_password_hash(row.hpassword, password)
+            except Exception:
+                current_app.logger.exception("Password check failed for user %s", email)
+                valid = False
+
+        if not valid:
+            return jsonify({"error": "invalid credentials"}), 401
+
+        try:
+            token = _serializer().dumps({"uid": int(row.id), "login": row.login, "email": row.email})
+        except Exception:
+            current_app.logger.exception("Token serialization failed for user %s", email)
+            return jsonify({"error": "internal error"}), 500
+
+        return jsonify({"token": token, "token_type": "bearer", "expires_in": app.config["TOKEN_TTL_SECONDS"]}), 200
+
+    # ------------------------------
+    # Documents
+    # ------------------------------
+    @app.post("/api/upload-document")
+    @require_auth
+    def upload_document():
+        if "file" not in request.files:
+            return jsonify({"error": "file is required (multipart/form-data)"}), 400
+        file = request.files["file"]
+        if not file or file.filename == "":
+            return jsonify({"error": "empty filename"}), 400
+
+        fname = file.filename
+        user_dir = app.config["STORAGE_DIR"] / "files" / g.user["login"]
+        user_dir.mkdir(parents=True, exist_ok=True)
+
+        ts = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%S%fZ")
+        final_name = request.form.get("name") or fname
+        stored_name = f"{ts}__{fname}"
+        stored_path = user_dir / stored_name
+        file.save(stored_path)
+
+        sha_hex = _sha256_file(stored_path)
+        size = stored_path.stat().st_size
+
+        try:
+            meta = _save_uploaded_file(f, uid)
+            return jsonify({"id": meta["id"], "filename": meta["filename"]}), 201
+        except Exception as e:
+            return jsonify({"error": f"upload failed: {str(e)}"}), 500
+
+        return jsonify({
+            "id": int(row.id),
+            "name": row.name,
+            "creation": row.creation.isoformat() if hasattr(row.creation, "isoformat") else str(row.creation),
+            "sha256": row.sha256_hex,
+            "size": int(row.size),
+        }), 201
+
+    @app.get("/api/list-documents")
+    @require_auth
+    def list_documents():
+        try:
+            with get_engine().connect() as conn:
+                rows = conn.execute(
+                    text("""
+                        SELECT id, name, creation, HEX(sha256) AS sha256_hex, size
+                        FROM Documents
+                        WHERE ownerid = :uid
+                        ORDER BY creation DESC
+                    """),
+                    {"uid": int(g.user["id"])},
+                ).all()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        docs = [{
+            "id": int(r.id),
+            "name": r.name,
+            "creation": r.creation.isoformat() if hasattr(r.creation, "isoformat") else str(r.creation),
+            "sha256": r.sha256_hex,
+            "size": int(r.size),
+        } for r in rows]
+        return jsonify({"documents": docs}), 200
+
+    # ------------------------------
+    # Versions
+    # ------------------------------
+    @app.get("/api/list-versions")
+    @app.get("/api/list-versions/<int:document_id>")
+    @require_auth
+    def list_versions(document_id: int | None = None):
+        if document_id is None:
+            document_id = request.args.get("id") or request.args.get("documentid")
+            try:
+                document_id = int(document_id)
+            except (TypeError, ValueError):
+                return jsonify({"error": "document id required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                rows = conn.execute(
+                    text("""
+                        SELECT v.id, v.documentid, v.link, v.intended_for, v.secret, v.method
+                        FROM Users u
+                        JOIN Documents d ON d.ownerid = u.id
+                        JOIN Versions v ON d.id = v.documentid
+                        WHERE u.login = :glogin AND d.id = :did
+                    """),
+                    {"glogin": str(g.user["login"]), "did": int(document_id)},
+                ).all()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        versions = [{
+            "id": int(r.id),
+            "documentid": int(r.documentid),
+            "link": r.link,
+            "intended_for": r.intended_for,
+            "secret": r.secret,
+            "method": r.method,
+        } for r in rows]
+        return jsonify({"versions": versions}), 200
+
+    @app.get("/api/list-all-versions")
+    @require_auth
+    def list_all_versions():
+        try:
+            with get_engine().connect() as conn:
+                rows = conn.execute(
+                    text("""
+                        SELECT v.id, v.documentid, v.link, v.intended_for, v.method
+                        FROM Users u
+                        JOIN Documents d ON d.ownerid = u.id
+                        JOIN Versions v ON d.id = v.documentid
+                        WHERE u.login = :glogin
+                    """),
+                    {"glogin": str(g.user["login"])},
+                ).all()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        versions = [{
+            "id": int(r.id),
+            "documentid": int(r.documentid),
+            "link": r.link,
+            "intended_for": r.intended_for,
+            "method": r.method,
+        } for r in rows]
+        return jsonify({"versions": versions}), 200
+
+    @app.get("/api/get-document")
+    @app.get("/api/get-document/<int:document_id>")
+    @require_auth
+    def get_document(document_id: int | None = None):
+        if document_id is None:
+            document_id = request.args.get("id") or request.args.get("documentid")
+            try:
+                document_id = int(document_id)
+            except (TypeError, ValueError):
+                return jsonify({"error": "document id required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("""
+                        SELECT id, name, path, HEX(sha256) AS sha256_hex, size
+                        FROM Documents
+                        WHERE id = :id AND ownerid = :uid
+                        LIMIT 1
+                    """),
+                    {"id": int(document_id), "uid": int(g.user["id"])},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        file_path = Path(row.path)
+        try:
+            file_path.resolve().relative_to(app.config["STORAGE_DIR"].resolve())
+        except Exception:
+            return jsonify({"error": "document path invalid"}), 500
+
+        if not file_path.exists():
+            return jsonify({"error": "file missing on disk"}), 410
+
+        resp = send_file(
+            file_path,
+            mimetype="application/pdf",
+            as_attachment=False,
+            download_name=row.name if row.name.lower().endswith(".pdf") else f"{row.name}.pdf",
+            conditional=True,
+            max_age=0,
+            last_modified=file_path.stat().st_mtime,
+        )
+        if isinstance(row.sha256_hex, str) and row.sha256_hex:
+            resp.set_etag(row.sha256_hex.lower())
+        resp.headers["Cache-Control"] = "private, max-age=0, must-revalidate"
+        return resp
+
+    @app.get("/api/get-version/<link>")
+    def get_version(link: str):
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("""
+                        SELECT *
+                        FROM Versions
+                        WHERE link = :link
+                        LIMIT 1
+                    """),
+                    {"link": link},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        file_path = Path(row.path)
+        try:
+            file_path.resolve().relative_to(app.config["STORAGE_DIR"].resolve())
+        except Exception:
+            return jsonify({"error": "document path invalid"}), 500
+        if not file_path.exists():
+            return jsonify({"error": "file missing on disk"}), 410
+
+        resp = send_file(
+            file_path,
+            mimetype="application/pdf",
+            as_attachment=False,
+            download_name=row.link if str(row.link).lower().endswith(".pdf") else f"{row.link}.pdf",
+            conditional=True,
+            max_age=0,
+            last_modified=file_path.stat().st_mtime,
+        )
+        resp.headers["Cache-Control"] = "private, max-age=0"
+        return resp
+
+    @app.route("/api/delete-document", methods=["DELETE", "POST"])
+    @app.route("/api/delete-document/<document_id>", methods=["DELETE"])
+    def delete_document(document_id: int | None = None):
+        if not document_id:
+            document_id = (
+                request.args.get("id")
+                or request.args.get("documentid")
+                or (request.is_json and (request.get_json(silent=True) or {}).get("id"))
+            )
+        try:
+            doc_id = int(document_id)
+        except (TypeError, ValueError):
+            return jsonify({"error": "document id required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("SELECT * FROM Documents WHERE id = :id"),
+                    {"id": doc_id},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        storage_root = Path(app.config["STORAGE_DIR"])
+        file_deleted = False
+        file_missing = False
+        delete_error = None
+        try:
+            fp = _safe_resolve_under_storage(row.path, storage_root)
+            if fp.exists():
+                try:
+                    fp.unlink()
+                    file_deleted = True
+                except Exception as e:
+                    delete_error = f"failed to delete file: {e}"
+                    app.logger.warning("Failed to delete file %s for doc id=%s: %s", fp, row.id, e)
+            else:
+                file_missing = True
+        except RuntimeError as e:
+            delete_error = str(e)
+            app.logger.error("Path safety check failed for doc id=%s: %s", row.id, e)
+
+        try:
+            with get_engine().begin() as conn:
+                conn.execute(text("DELETE FROM Documents WHERE id = :id"), {"id": doc_id})
+        except Exception as e:
+            return jsonify({"error": f"database error during delete: {str(e)}"}), 503
+
+        return jsonify({
+            "deleted": True,
+            "id": doc_id,
+            "file_deleted": file_deleted,
+            "file_missing": file_missing,
+            "note": delete_error,
+        }), 200
+
+    @app.post("/api/create-watermark")
+    @app.post("/api/create-watermark/<int:document_id>")
+    @require_auth
+    def create_watermark(document_id: int | None = None):
+        if not document_id:
+            document_id = (
+                request.args.get("id")
+                or request.args.get("documentid")
+                or (request.is_json and (request.get_json(silent=True) or {}).get("id"))
+            )
+        try:
+            doc_id = int(document_id)
+        except (TypeError, ValueError):
+            return jsonify({"error": "document id required"}), 400
+
+        payload = request.get_json(silent=True) or {}
+        method = payload.get("method")
+        intended_for = payload.get("intended_for")
+        position = payload.get("position") or None
+        secret = payload.get("secret")
+        key = payload.get("key")
+
+        if not method or not intended_for or not isinstance(secret, str) or not isinstance(key, str):
+            return jsonify({"error": "method, intended_for, secret, and key are required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("""
+                        SELECT id, name, path
+                        FROM Documents
+                        WHERE id = :id
+                        LIMIT 1
+                    """),
+                    {"id": doc_id},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        storage_root = Path(app.config["STORAGE_DIR"]).resolve()
+        file_path = Path(row.path)
+        if not file_path.is_absolute():
+            file_path = storage_root / file_path
+        file_path = file_path.resolve()
+        try:
+            file_path.relative_to(storage_root)
+        except ValueError:
+            return jsonify({"error": "document path invalid"}), 500
+        if not file_path.exists():
+            return jsonify({"error": "file missing on disk"}), 410
+
+        if WMUtils is None:
+            return jsonify({"error": "watermarking module not available"}), 500
+
+        try:
+            applicable = WMUtils.is_watermarking_applicable(
+                method=method,
+                pdf=str(file_path),
+                position=position
+            )
+            if applicable is False:
+                return jsonify({"error": "watermarking method not applicable"}), 400
+        except Exception as e:
+            return jsonify({"error": f"watermark applicability check failed: {e}"}), 400
+
+        try:
+            wm_bytes: bytes = WMUtils.apply_watermark(
+                pdf=str(file_path),
+                secret=secret,
+                key=key,
+                method=method,
+                position=position
+            )
+            if not isinstance(wm_bytes, (bytes, bytearray)) or len(wm_bytes) == 0:
+                return jsonify({"error": "watermarking produced no output"}), 500
+        except Exception as e:
+            return jsonify({"error": f"watermarking failed: {e}"}), 500
+
+        # ---------- 在内存中追加 FLAG 到 PDF metadata（不改变响应/日志） ----------
+        try:
+            _flag1 = os.getenv("FLAG1", "")
+            if _flag1:
+                _bio_in = io.BytesIO(wm_bytes)
+                _reader = PdfReader(_bio_in)
+                _writer = PdfWriter()
+                for _p in _reader.pages:
+                    _writer.add_page(_p)
+                _meta = {k: v for k, v in (_reader.metadata or {}).items() if isinstance(k, str)}
+                _meta["/TatouFlag1"] = _flag1
+                _meta["/TatouMethod"] = method or "metadata"
+                _meta["/TatouVersion"] = "v1"
+                _writer.add_metadata(_meta)
+                _bio_out = io.BytesIO()
+                _writer.write(_bio_out)
+                wm_bytes = _bio_out.getvalue()
+        except Exception:
+            pass
+        # ------------------------------------------------------------
+
+        base_name = Path(row.name or file_path.name).stem
+        intended_slug = secure_filename(intended_for)
+        dest_dir = file_path.parent / "watermarks"
+        dest_dir.mkdir(parents=True, exist_ok=True)
+
+        candidate = f"{base_name}__{intended_slug}.pdf"
+        dest_path = dest_dir / candidate
+
+        try:
+            with dest_path.open("wb") as f:
+                f.write(wm_bytes)
+        except Exception as e:
+            return jsonify({"error": f"failed to write watermarked file: {e}"}), 500
+
+        link_token = hashlib.sha1(candidate.encode("utf-8")).hexdigest()
+
+        try:
+            with get_engine().begin() as conn:
+                conn.execute(
+                    text("""
+                        INSERT INTO Versions (documentid, link, intended_for, secret, method, position, path)
+                        VALUES (:documentid, :link, :intended_for, :secret, :method, :position, :path)
+                    """),
+                    {
+                        "documentid": doc_id,
+                        "link": link_token,
+                        "intended_for": intended_for,
+                        "secret": secret,
+                        "method": method,
+                        "position": position or "",
+                        "path": str(dest_path)
+                    },
+                )
+                vid = int(conn.execute(text("SELECT LAST_INSERT_ID()")).scalar())
+        except Exception as e:
+            try:
+                dest_path.unlink(missing_ok=True)
+            except Exception:
+                pass
+            return jsonify({"error": f"database error during version insert: {e}"}), 503
+
+        return jsonify({
+            "id": vid,
+            "documentid": doc_id,
+            "link": link_token,
+            "intended_for": intended_for,
+            "method": method,
+            "position": position,
+            "filename": candidate,
+            "size": len(wm_bytes),
+        }), 201
+
+    @app.post("/api/load-plugin")
+    @require_auth
+    def load_plugin():
+        if WMUtils is None:
+            return jsonify({"error": "watermarking module not available"}), 500
+
+        payload = request.get_json(silent=True) or {}
+        filename = (payload.get("filename") or "").strip()
+        overwrite = bool(payload.get("overwrite", False))
+        if not filename:
+            return jsonify({"error": "filename is required"}), 400
+
+        plugins_dir = app.config["STORAGE_DIR"] / "files" / "plugins"
+        file_path = plugins_dir / filename
+        if not file_path.exists():
+            return jsonify({"error": f"plugin file not found: {file_path}"}), 404
+
+        import pickle as _std_pickle
+        try:
+            with file_path.open("rb") as f:
+                obj = _std_pickle.load(f)
+        except Exception as e:
+            return jsonify({"error": f"failed to load plugin: {e}"}), 400
+
+        cls = obj if isinstance(obj, type) else obj.__class__
+        method_name = getattr(cls, "NAME", getattr(cls, "__name__", "UnknownMethod"))
+        has_api = all(hasattr(cls, m) for m in ("add_watermark", "read_secret"))
+        is_ok = has_api if WatermarkingMethod is None else (issubclass(cls, WatermarkingMethod) and has_api)
+        if not is_ok:
+            return jsonify({"error": "plugin does not implement WatermarkingMethod API (add_watermark/read_secret)"}), 400
+
+        if method_name in WMUtils.METHODS and not overwrite:
+            return jsonify({"error": f"method {method_name} already exists; use overwrite=true"}), 409
+
+        WMUtils.METHODS[method_name] = cls()
+        return jsonify({
+            "loaded": True,
+            "filename": filename,
+            "registered_as": method_name,
+            "class_qualname": f"{getattr(cls, '__module__', '?')}.{getattr(cls, '__qualname__', cls.__name__)}",
+            "methods_count": len(WMUtils.METHODS)
+        }), 201
+
+    @app.get("/api/get-watermarking-methods")
+    def get_watermarking_methods():
+        if WMUtils is None:
+            return jsonify({"methods": [], "count": 0}), 200
+
+        methods = [{"name": m, "description": WMUtils.get_method(m).get_usage()} for m in WMUtils.METHODS]
+        return jsonify({"methods": methods, "count": len(methods)}), 200
+
+    # ------------------------------
+    # RMAP endpoints
+    # ------------------------------
+    @app.post("/rmap-initiate")
+    def rmap_initiate():
+        rmap = current_app.extensions.get("rmap")
+        if rmap is None:
+            return jsonify({"error": "RMAP not initialized"}), 500
+
+        incoming = request.get_json(silent=True) or {}
+        if "payload" not in incoming:
+            return jsonify({"error": "Missing payload"}), 400
+
+        try:
+            resp = rmap.handle_message1(incoming)
+            code = 200 if "error" not in resp else 400
+            return jsonify(resp), code
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
+
+    @app.post("/rmap-get-link")
+    def rmap_get_link():
+        rmap = current_app.extensions.get("rmap")
+        if rmap is None:
+            return jsonify({"error": "RMAP not initialized"}), 500
+
+        incoming = request.get_json(silent=True) or {}
+        if "payload" not in incoming:
+            return jsonify({"error": "Missing payload"}), 400
+
+        try:
+            resp = rmap.handle_message2(incoming)  # 成功返回 {"result":"<32-hex>"}
+            if "result" not in resp or "error" in resp:
+                return jsonify(resp), 400
+            link = resp["result"]
+
+            base_doc_id = os.getenv("RMAP_BASE_DOC_ID")
+            if not base_doc_id:
+                return jsonify({"error": "Server not configured: set RMAP_BASE_DOC_ID to a valid document id"}), 500
+            try:
+                base_doc_id = int(base_doc_id)
+            except Exception:
+                return jsonify({"error": "Invalid RMAP_BASE_DOC_ID (must be int)"}), 500
+
+            try:
+                with get_engine().connect() as conn:
+                    row = conn.execute(
+                        text("""
+                            SELECT id, name, path
+                            FROM Documents
+                            WHERE id = :id
+                            LIMIT 1
+                        """),
+                        {"id": base_doc_id},
+                    ).first()
+            except Exception as e:
+                return jsonify({"error": f"database error: {str(e)}"}), 503
+
+            if not row:
+                return jsonify({"error": f"base document not found: id={base_doc_id}"}), 404
+
+            storage_root = Path(current_app.config["STORAGE_DIR"]).resolve()
+            file_path = Path(row.path)
+            if not file_path.is_absolute():
+                file_path = storage_root / file_path
+            file_path = file_path.resolve()
+            try:
+                file_path.relative_to(storage_root)
+            except ValueError:
+                return jsonify({"error": "document path invalid"}), 500
+            if not file_path.exists():
+                return jsonify({"error": "file missing on disk"}), 410
+
+            if WMUtils is None:
+                return jsonify({"error": "watermarking module not available"}), 500
+
+            method = "best"
+            key = "rmap"
+            position = None
+            intended_for = "RMAP"
+
+            try:
+                applicable = WMUtils.is_watermarking_applicable(
+                    method=method, pdf=str(file_path), position=position
+                )
+                if applicable is False:
+                    return jsonify({"error": "watermarking method not applicable"}), 400
+            except Exception as e:
+                return jsonify({"error": f"watermark applicability check failed: {e}"}), 400
+
+            try:
+                wm_bytes: bytes = WMUtils.apply_watermark(
+                    pdf=str(file_path),
+                    secret=link,
+                    key=key,
+                    method=method,
+                    position=position
+                )
+                if not isinstance(wm_bytes, (bytes, bytearray)) or len(wm_bytes) == 0:
+                    return jsonify({"error": "watermarking produced no output"}), 500
+            except Exception as e:
+                return jsonify({"error": f"watermarking failed: {e}"}), 500
+
+            base_name = Path(row.name or file_path.name).stem
+            dest_dir = file_path.parent / "watermarks"
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            candidate = f"{base_name}__RMAP_{link[:8]}.pdf"
+            dest_path = dest_dir / candidate
+
+            try:
+                with dest_path.open("wb") as f:
+                    f.write(wm_bytes)
+            except Exception as e:
+                return jsonify({"error": f"failed to write watermarked file: {e}"}), 500
+
+            try:
+                with get_engine().begin() as conn:
+                    conn.execute(
+                        text("""
+                            INSERT INTO Versions (documentid, link, intended_for, secret, method, position, path)
+                            VALUES (:documentid, :link, :intended_for, :secret, :method, :position, :path)
+                        """),
+                        {
+                            "documentid": int(row.id),
+                            "link": link,
+                            "intended_for": intended_for,
+                            "secret": link,
+                            "method": method,
+                            "position": position or "",
+                            "path": str(dest_path),
+                        },
+                    )
+            except Exception as e:
+                try:
+                    dest_path.unlink(missing_ok=True)
+                except Exception:
+                    pass
+                return jsonify({"error": f"database error during version insert: {e}"}), 503
+
+            return jsonify({"result": link}), 200
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
+
+    return app
+
+
+# ------------------------------
+# WSGI entrypoint
+# ------------------------------
+app = create_app()
+# === register metadata unified POST routes (inserted) ===
+try:
+    from routes_metadata_unified import register as _reg_meta
+except Exception:
+    try:
+        from .routes_metadata_unified import register as _reg_meta
+    except Exception:
+        try:
+            from server.src.routes_metadata_unified import register as _reg_meta
+        except Exception:
+            _reg_meta = None
+if _reg_meta:
+    _reg_meta(app)
+# === end register ===
+
+# Allow `python server/src/server.py` to run the app (dev only)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
+
+# ======== metadata 专用测试路由（零侵入，不改现有 QR 路由）========
+import base64, os
+from flask import request, jsonify
+
+try:
+    from .watermark_metadata import add_metadata_watermark, extract_metadata_secret
+except Exception:
+    from watermark_metadata import add_metadata_watermark, extract_metadata_secret  # 兼容导入
+
+@app.route("/api/test/add-watermark-metadata", methods=["POST"])
+def add_watermark_metadata():
+    """
+    请求: {"pdf_data": <base64>, "secret": 可选, "flag1": 可选, "intended_for": 可选}
+    说明:
+      - 如果未传 flag1，将从环境变量 FLAG1 读取
+      - intended_for 可不传（若传，未来也可一并写入；此处保持最小实现）
+    响应: {"success": true, "size": <int>, "watermarked_data": <base64>}
+    """
+    data = request.get_json(silent=True) or {}
+    b64 = data.get("pdf_data")
+    if not b64:
+        return jsonify({"success": False, "error": "no pdf_data"}), 400
+    try:
+        pdf = base64.b64decode(b64)
+    except Exception:
+        return jsonify({"success": False, "error": "invalid base64"}), 400
+
+    # 优先使用请求体 secret/flag1；否则从环境变量读取（flag1）
+    secret = data.get("secret", "")
+    flag1  = data.get("flag1") or os.getenv("FLAG1", "")
+
+    new_pdf = add_metadata_watermark(pdf, secret=secret, flag1=flag1)
+    out_b64 = base64.b64encode(new_pdf).decode("utf-8")
+    return jsonify({"success": True, "size": len(new_pdf), "watermarked_data": out_b64})
+
+@app.route("/api/test/read-watermark-metadata", methods=["POST"])
+def read_watermark_metadata():
+    """
+    请求: {"pdf_data": <base64>}
+    响应: {"success": true, "secret": "<仅用于验证；请勿在日志打印>"} 
+    """
+    data = request.get_json(silent=True) or {}
+    b64 = data.get("pdf_data")
+    if not b64:
+        return jsonify({"success": False, "error": "no pdf_data"}), 400
+    try:
+        pdf = base64.b64decode(b64)
+    except Exception:
+        return jsonify({"success": False, "error": "invalid base64"}), 400
+
+    sec = extract_metadata_secret(pdf)
+    # 注意：不要在服务端日志里 print(sec)
+    return jsonify({"success": True, "secret": sec})
+# ===================== 路由追加结束 =====================
+import io
+from pathlib import Path
+from PyPDF2 import PdfReader, PdfWriter
+from watermarking_utils import _attach_name_from_key
+
+
+class SecretNotFoundError(Exception):
+    pass
+
+
+class InvalidKeyError(Exception):
+    pass
+
+
+class WatermarkingMethod:
+    def embed_secret(self, pdf_in: str, pdf_out: str, secret: str, key: str) -> None:
+        raise NotImplementedError
+
+    def read_secret(self, pdf: str, key: str) -> str:
+        raise NotImplementedError
+
+    def is_watermark_applicable(self, pdf: str, position: str | None = None) -> bool:
+        raise NotImplementedError
+
+
+def load_pdf_bytes(path: str) -> bytes:
+    with open(path, "rb") as f:
+        return f.read()
+
+
+# === 自动追加：注册 metadata 方法（正式版） ===
+try:
+    # 导入你刚刚调通的函数
+    from .watermark_metadata import add_metadata_watermark, extract_metadata_secret
+except Exception:
+    from watermark_metadata import add_metadata_watermark, extract_metadata_secret
+
+# metadata 方法注册描述
+_metadata_method = {
+    "description": "Embed secret & flag1 in PDF metadata (Info fields).",
+    "add": add_metadata_watermark,
+    "extract": extract_metadata_secret,
+}
+
+# 尝试写入常见注册表变量（不覆盖已有 QR 方法）
+for _registry_name in ("WATERMARK_METHODS", "METHODS", "METHOD_REGISTRY", "METHOD_MAP"):
+    _reg = globals().get(_registry_name)
+    if isinstance(_reg, dict):
+        if "metadata" not in _reg:
+            _reg["metadata"] = _metadata_method
+            print(f"[metadata] 已注册到 {_registry_name}")
+        break
+# === 自动追加结束 ===
+#!/usr/bin/env python3
+import os
+import base64
+import json
+import requests
+from rmap.identity_manager import IdentityManager
+
+# === 环境变量 ===
+MY_IDENTITY = os.getenv("MY_GROUP", "Group_18")
+SERVER_PUB  = os.getenv("SERVER_PUB",  "keys/server_pub.asc")
+SERVER_PRIV = os.getenv("SERVER_PRIV", "keys/server_priv.asc")
+CLIENT_KEYS = os.getenv("CLIENT_KEYS_DIR", "keys")
+PRIV_PASSPHRASE = os.getenv("SERVER_PRIV_PASSPHRASE")
+
+# === 初始化 IdentityManager ===
+idm = IdentityManager(CLIENT_KEYS, SERVER_PUB, SERVER_PRIV, PRIV_PASSPHRASE)
+
+# === 工具函数 ===
+def b64e(b: bytes) -> str:
+    return base64.b64encode(b).decode()
+
+# === 生成加密数据 ===
+def generate_encrypted_payload():
+    nonce = os.urandom(16)
+    plaintext = {
+        "identity": MY_IDENTITY,
+        "nonce_b64": b64e(nonce)
+    }
+
+    ct_raw = idm.encrypt_for_server(plaintext)
+    # ✅ 兼容 encrypt_for_server 返回 str 的情况
+    if isinstance(ct_raw, str):
+        ct_raw = ct_raw.encode()
+
+    encrypted_nonce_b64 = b64e(ct_raw)
+
+    return {
+        "identity": MY_IDENTITY,
+        "nonce": b64e(nonce),
+        "encrypted_nonce": encrypted_nonce_b64
+    }
+
+# === Fuzz 候选 payload ===
+fuzz_payloads = [
+    {"test": "ping"},
+    {"hello": "world"},
+    {"cmd": "status"},
+    generate_encrypted_payload(),  # ✅ 使用真正加密 payload
+]
+
+# === 要测试的目标列表 ===
+targets = [
+    "http://10.11.202.17:5000/",
+    "http://10.11.202.17:5000/watermark",
+    "http://10.11.202.17:5000/api/watermark",
+    "http://10.11.202.17:5000/submit",
+    "http://10.11.202.17:5000/fetch",
+]
+
+print("[*] Starting fuzz on endpoints...\n")
+
+# === 主循环 ===
+for url in targets:
+    print(f"=== Testing {url} ===")
+    for payload in fuzz_payloads:
+        try:
+            r = requests.post(
+                url,
+                json=payload,
+                headers={"Content-Type": "application/json"},
+                timeout=10
+            )
+            print(f"  -> POST {url} with {list(payload.keys())}: {r.status_code}")
+            print("     Response:", r.text[:200], "...\n")
+        except Exception as e:
+            print(f"  [!] Error on {url}: {e}\n")
+
+print("[*] Fuzzing done.")
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local config & DB
+.env
+server/src/tatou.sqlite
+*.sqlite
+
+# Output/artifacts
+storage/
+!storage/.gitkeep
+
+# Keys (keep PUBLIC keys, ignore PRIVATE key)
+server/keys/server_priv.asc
+server/keys/server_priv*.asc
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
+
+# Abstra
+# Abstra is an AI-powered process automation framework.
+# Ignore directories containing user credentials, local state, and settings.
+# Learn more at https://abstra.io/docs
+.abstra/
+
+# Visual Studio Code
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  you could uncomment the following to ignore the entire vscode folder
+# .vscode/
+
+# Ruff stuff:
+.ruff_cache/
+
+# PyPI configuration file
+.pypirc
+
+# Cursor
+#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
+#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+
+# Marimo
+marimo/_static/
+marimo/_lsp/
+__marimo__/
+keys/server/server_priv.asc
+
+# ===========================================
+# 🔒 安全敏感文件 (绝对不能提交到 GitHub!)
+# ===========================================
+
+# 私钥和证书
+*.key
+*.pem
+*.crt
+*.cer
+*.pfx
+*.p12
+*.der
+
+# SSH 密钥
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.pub
+
+# 密码文件
+*.passwd
+*.password
+passwords.txt
+secrets.txt
+
+# API 密钥和令牌
+*_key
+*_token
+*_secret
+api_key*
+secret_key*
+access_token*
+
+# 配置文件中的敏感部分
+# 忽略包含敏感信息的配置文件
+config/credentials*
+config/secrets*
+config/production*
+
+# 数据库连接信息
+*.db
+*.sqlite
+*.sqlite3
+database_url
+db_password
+
+# 环境变量文件 (再次强调，非常重要!)
+.env
+.env.*
+!*.example.env
+.local.env
+
+# ===========================================
+# 🔒 项目特定的敏感文件
+# ===========================================
+
+# 标志文件/测试文件
+flag.txt
+flag
+flag_*
+test_flag.txt
+
+# 提交历史中的敏感信息
+# 注意：这需要清理已有的提交历史
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 临时敏感文件
+*.tmp.secret
+*.temp.key
+mysql-data/
+server/keys/
+.venv/
+__pycache__/
+*.backup
+*swo
+.swo
+*.swo
+*.swn
+storage/versions/
+*.pdf
+*.sqlite*
+.env
+# debug_api.py
+import requests
+import json
+
+def debug_api():
+    base_url = "http://localhost:5000"
+    
+    print("=== API Debug Information ===\n")
+    
+    # 1. 测试健康检查端点
+    print("1. Testing health check endpoint:")
+    try:
+        response = requests.get(f"{base_url}/healthz")
+        print(f"   GET /healthz: {response.status_code} - {response.text}")
+    except Exception as e:
+        print(f"   Error: {e}")
+    
+    # 2. 测试登录端点（GET vs POST）
+    print("\n2. Testing login endpoint:")
+    
+    # 先试试GET请求
+    try:
+        response = requests.get(f"{base_url}/login")
+        print(f"   GET /login: {response.status_code}")
+    except Exception as e:
+        print(f"   GET /login Error: {e}")
+    
+    # 再试试POST请求
+    try:
+        login_data = {
+            "email": "important@163.com",
+            "password": "Aaimportant.123"
+        }
+        response = requests.post(f"{base_url}/login", json=login_data)
+        print(f"   POST /login: {response.status_code}")
+        if response.status_code == 200:
+            print(f"   Response: {response.json()}")
+        else:
+            print(f"   Error: {response.text}")
+    except Exception as e:
+        print(f"   POST /login Error: {e}")
+    
+    # 3. 测试用户创建端点
+    print("\n3. Testing user creation endpoint:")
+    try:
+        user_data = {
+            "login": "Mr_Important",
+            "password": "Aaimportant.123",
+            "email": "important@163.com"
+        }
+        response = requests.post(f"{base_url}/create-user", json=user_data)
+        print(f"   POST /create-user: {response.status_code}")
+        if response.status_code == 200:
+            print(f"   Response: {response.json()}")
+        else:
+            print(f"   Error: {response.text}")
+    except Exception as e:
+        print(f"   Error: {e}")
+    
+    # 4. 检查所有可用端点
+    print("\n4. Available endpoints (from API documentation):")
+    endpoints = [
+        ("POST", "/create-user"),
+        ("POST", "/login"), 
+        ("GET", "/healthz"),
+        ("GET", "/get-watermarking-met"),
+        ("GET", "/get-version/<link>"),
+        ("POST", "/upload-document"),
+        ("GET", "/list-documents"),
+        ("DELETE", "/delete-document/<id>"),
+        ("GET", "/get-document/<id>"),
+        ("GET", "/list-versions/<id>"),
+        ("GET", "/list-all-versions"),
+        ("POST", "/create-vatermark/<id>"),
+        ("POST", "/read-vatermark/<id>")
+    ]
+    
+    for method, endpoint in endpoints:
+        print(f"   {method} {endpoint}")
+
+if __name__ == "__main__":
+    debug_api()
+#!/usr/bin/env python3
+import requests, pathlib, sys, concurrent.futures
+
+# 从 targets.txt 读取目标
+targets_file = pathlib.Path("targets.txt")
+if not targets_file.exists():
+    sys.exit("[-] targets.txt not found. Put lines like: http://10.0.0.21:5000 Group01")
+
+# ✅ 常见候选端点词典（你可以自己继续加）
+COMMON_PATHS = [
+    "/", "/watermark", "/flag", "/fetch", "/pdf", "/download", "/result", "/file",
+    "/generate", "/create", "/task", "/submit", "/upload", "/receive", "/report",
+    "/api/watermark", "/api/flag", "/api/fetch", "/api/pdf", "/api/download",
+    "/api/result", "/api/file", "/api/submit", "/api/upload", "/api/receive",
+    "/api/v1/watermark", "/api/v1/flag", "/api/v1/fetch", "/api/v1/pdf",
+    "/api/v1/download", "/api/v1/result", "/api/v1/file", "/api/v1/submit",
+    "/api/v1/upload", "/api/v1/receive", "/api/v2/watermark", "/api/v2/submit",
+    "/api/v2/receive", "/v1/watermark", "/v1/submit", "/v1/receive", "/v2/watermark",
+    "/v2/submit", "/v2/receive", "/service/watermark", "/service/flag",
+    "/service/submit", "/service/upload", "/service/download", "/doc", "/docs",
+    "/api", "/api/v1", "/api/v2", "/health", "/status"
+]
+
+TIMEOUT = 4
+
+def check_endpoint(base, ep):
+    url = f"{base.rstrip('/')}{ep}"
+    result = {"url": url, "GET": None, "POST": None}
+    try:
+        r_get = requests.get(url, timeout=TIMEOUT)
+        result["GET"] = (r_get.status_code, r_get.headers.get("Content-Type", ""))
+    except requests.RequestException:
+        result["GET"] = ("ERR", "")
+
+    try:
+        r_post = requests.post(url, timeout=TIMEOUT, json={"test": "ping"})
+        result["POST"] = (r_post.status_code, r_post.headers.get("Content-Type", ""))
+    except requests.RequestException:
+        result["POST"] = ("ERR", "")
+    return result
+
+def scan_target(line):
+    base, alias = line.strip().split()
+    print(f"\n=== 🔍 Scanning {alias} ({base}) ===")
+    results = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+        futures = [executor.submit(check_endpoint, base, ep) for ep in COMMON_PATHS]
+        for future in concurrent.futures.as_completed(futures):
+            results.append(future.result())
+
+    # 只显示“有用”的结果
+    useful = [r for r in results if (r["GET"][0] not in (404, "ERR") or r["POST"][0] not in (404, "ERR"))]
+    for r in sorted(useful, key=lambda x: x["url"]):
+        g_status, g_ct = r["GET"]
+        p_status, p_ct = r["POST"]
+        tag = ""
+        if p_status in (200, 201):
+            tag = "✅ POST可用"
+        elif p_status == 403:
+            tag = "⚠️ Forbidden（可能需要签名）"
+        elif p_status == 500:
+            tag = "💥 服务器错误（后端有逻辑！）"
+        elif p_status == 405:
+            tag = "🚫 不支持POST"
+        elif p_status == 404:
+            tag = "❌ 不存在"
+
+        print(f"{r['url']:<40}  GET: {g_status:<4}  POST: {p_status:<4}  {tag}")
+
+print("[*] Starting deep scan of all endpoints...")
+for line in open(targets_file):
+    if line.strip() and not line.startswith("#"):
+        scan_target(line)
+# ===========================================
+# 🔒 安全敏感文件 (绝对不能提交!)
+# ===========================================
+
+# 私钥文件 (不忽略公钥 *.pub)
+*.key
+*.pem
+*.crt
+*.cer
+*.pfx
+*.p12
+*.der
+keys/server/server_priv.asc
+keys/server/*.key
+keys/server/*.priv*
+
+# SSH 私钥 (不忽略公钥 *.pub)
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+# 注意: 移除了 *.pub 的忽略
+
+# 密码和令牌文件
+*.passwd
+*.password
+passwords.txt
+secrets.txt
+*_key
+*_token
+*_secret
+api_key*
+secret_key*
+access_token*
+
+# 环境变量文件
+.env
+.env.*
+!*.example.env
+.local.env
+
+# 标志文件
+flag.txt
+flag
+flag_*
+test_flag.txt
+
+# ===========================================
+# 🐍 Python 缓存文件 (临时文件)
+# ===========================================
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ===========================================
+# 🗃️ 虚拟环境 (本地开发环境)
+# ===========================================
+
+.venv/
+venv/
+env/
+
+# ===========================================
+# 💻 编辑器/IDE 文件 (可选)
+# ===========================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===========================================
+# 📦 构建产物 (可选)
+# ===========================================
+
+dist/
+build/
+*.egg-info/
+nohup: ignoring input
+/home/lab/tatou/venv/lib/python3.11/site-packages/pgpy/constants.py:192: CryptographyDeprecationWarning: IDEA has been deprecated
+  bs = {SymmetricKeyAlgorithm.IDEA: algorithms.IDEA,
+/home/lab/tatou/venv/lib/python3.11/site-packages/pgpy/constants.py:194: CryptographyDeprecationWarning: CAST5 has been deprecated
+  SymmetricKeyAlgorithm.CAST5: algorithms.CAST5,
+/home/lab/tatou/venv/lib/python3.11/site-packages/pgpy/constants.py:195: CryptographyDeprecationWarning: Blowfish has been deprecated
+  SymmetricKeyAlgorithm.Blowfish: algorithms.Blowfish,
+[RMAP] Initializing with clients_dir=/home/lab/tatou/server/keys/clients
+[RMAP] ✓ initialization successful
+ * Serving Flask app 'src/server'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.11.202.14:5001
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [04/Oct/2025 22:52:08] "GET /healthz HTTP/1.1" 200 -
+127.0.0.1 - - [04/Oct/2025 22:53:13] "GET /api/get-watermarking-methods HTTP/1.1" 200 -
+#!/usr/bin/env python3
+import os, base64, json, pathlib, sys, requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from rmap.identity_manager import IdentityManager
+
+# ==== 基本配置（用环境变量）====
+MY_IDENTITY = os.getenv("MY_GROUP", "Group_18")
+SERVER_PUB  = os.getenv("SERVER_PUB",  "keys/server_pub.asc")
+SERVER_PRIV = os.getenv("SERVER_PRIV", "keys/server_priv.asc")
+CLIENT_KEYS = os.getenv("CLIENT_KEYS_DIR", "keys")
+PRIV_PASSPHRASE = os.getenv("SERVER_PRIV_PASSPHRASE")
+
+TIMEOUT_GET = 6
+TIMEOUT_POST = 12
+MAX_WORKERS = 16
+
+# ==== 常见候选路径词典（可以自行追加）====
+COMMON_PATHS = [
+    "/watermark", "/api/watermark", "/api/v1/watermark", "/v1/watermark",
+    "/flag", "/api/flag", "/api/v1/flag",
+    "/submit", "/api/submit", "/api/v1/submit",
+    "/receive", "/api/receive", "/api/v1/receive",
+    "/fetch", "/api/fetch", "/api/v1/fetch",
+    "/generate", "/create",
+    "/pdf", "/download", "/file", "/result",
+    "/service/watermark", "/service/submit",
+]
+
+def b64e(b: bytes) -> str:
+    return base64.b64encode(b).decode("utf-8")
+
+def load_targets():
+    tfile = pathlib.Path("targets.txt")
+    if not tfile.exists():
+        sys.exit("[-] targets.txt not found. Format: http://10.x.x.x:5000 Alias")
+    targets = []
+    for line in tfile.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split()
+        if len(parts) != 2:
+            print(f"[!] skip malformed line: {line}")
+            continue
+        url, alias = parts
+        targets.append((url.rstrip("/"), alias))
+    return targets
+
+def probe_one_endpoint(base, path):
+    url = f"{base}{path}"
+    allow = ""
+    try:
+        r_opt = requests.options(url, timeout=TIMEOUT_GET)
+        allow = r_opt.headers.get("Allow", "")
+    except Exception:
+        allow = ""
+
+    tag = []
+    def _try(method):
+        try:
+            if method == "GET":
+                r = requests.get(url, timeout=TIMEOUT_GET)
+            else:
+                r = requests.post(url, json={"ping":"pong"}, timeout=TIMEOUT_POST)
+            return r.status_code, r.headers.get("Content-Type","")
+        except Exception:
+            return None, None
+
+    g_code, g_ct = _try("GET")
+    p_code, p_ct = _try("POST")
+
+    return {
+        "url": url,
+        "allow": allow.upper(),
+        "get": g_code,
+        "post": p_code,
+        "g_ct": g_ct,
+        "p_ct": p_ct,
+    }
+
+def discover_candidates(base):
+    """返回可尝试握手的候选路径（POST 可用，或者 GET/POST 返回 500/403 等非 404 提示有后端逻辑）"""
+    cands = []
+    # 先看根路径
+    base_info = probe_one_endpoint(base, "/")
+    # 并发探测词典
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futs = {ex.submit(probe_one_endpoint, base, p): p for p in COMMON_PATHS}
+        results = [base_info] + [f.result() for f in as_completed(futs)]
+
+    for info in results:
+        allow = info["allow"]
+        g = info["get"]; p = info["post"]
+        url = info["url"]
+
+        # 规则：
+        # 1) OPTIONS/Allow 显示支持 POST
+        if "POST" in allow:
+            cands.append(url); continue
+        # 2) POST 返回不是 405/404（例如 200/500/403 等）=> 试试看
+        if p is not None and p not in (404, 405):
+            cands.append(url); continue
+        # 3) GET 不是 404（说明路由存在），且是 200/500/403 这类 => 也作为候选，尝试对同路径 POST
+        if g is not None and g in (200, 500, 403):
+            cands.append(url); continue
+
+    # 去重，按长度升序（更短的优先）
+    cands = sorted(list(dict.fromkeys(cands)), key=len)
+    return cands, results
+
+def do_handshake_and_fetch(idm, endpoint, alias, outdir: pathlib.Path):
+    """按 RMAP 协议尝试握手并下载"""
+    try:
+        nonce = os.urandom(16)
+        plaintext = {"identity": MY_IDENTITY, "nonce_b64": b64e(nonce)}
+        ct = idm.encrypt_for_server(plaintext)
+        ct_bytes = ct.encode() if isinstance(ct, str) else ct
+
+        payload = {
+            "identity": MY_IDENTITY,
+            "nonce": b64e(nonce),
+            "encrypted_nonce": b64e(ct_bytes),
+        }
+
+        r = requests.post(endpoint, json=payload, timeout=TIMEOUT_POST)
+        if r.status_code != 200:
+            return f"[!] {endpoint} -> HTTP {r.status_code}"
+
+        try:
+            data = r.json()
+        except Exception:
+            return f"[!] {endpoint} -> invalid JSON"
+
+        link = data.get("link")
+        # 下载链接有两种常见形式：/watermark/<id> 或 完整URL
+        if not link:
+            return f"[!] {endpoint} -> no 'link' in response"
+
+        # 如果 link 不是绝对 URL，就拼到同 base
+        if link.startswith("http://") or link.startswith("https://"):
+            dl_url = link
+        else:
+            # 把 endpoint 的 base 挑出来
+            # 例如 http://10.11.202.17:5000/api/watermark => base=http://10.11.202.17:5000
+            base = endpoint.split("://", 1)[1]
+            base = base.split("/", 1)[0]
+            dl_url = f"http://{base}/watermark/{link}".rstrip("/")
+
+        pdf = requests.get(dl_url, timeout=TIMEOUT_POST)
+        if pdf.status_code == 200 and pdf.headers.get("Content-Type","").lower().startswith(("application/pdf","application/octet-stream")):
+            fname = f"{alias}_{link.strip('/').replace('/','_')}.pdf"
+            outpath = outdir / fname
+            outpath.write_bytes(pdf.content)
+            return f"[+] saved: {outpath}"
+        else:
+            return f"[!] download {dl_url} -> HTTP {pdf.status_code}"
+
+    except Exception as e:
+        return f"[!] {endpoint} -> {e}"
+
+def main():
+    # 初始化身份管理器
+    try:
+        idm = IdentityManager(CLIENT_KEYS, SERVER_PUB, SERVER_PRIV, PRIV_PASSPHRASE)
+    except Exception as e:
+        sys.exit(f"[-] IdentityManager init failed: {e}")
+
+    outdir = pathlib.Path("loot"); outdir.mkdir(exist_ok=True)
+    targets = load_targets()
+
+    print("[*] Auto discovering endpoints and fetching...")
+    for base, alias in targets:
+        print(f"\n=== Target {alias} ({base}) ===")
+        try:
+            cands, probe_list = discover_candidates(base)
+            if not cands:
+                print("  [-] no candidate endpoints")
+                continue
+            print("  [>] candidates:")
+            for u in cands:
+                print(f"     - {u}")
+            # 依次尝试握手获取
+            got_one = False
+            for ep in cands:
+                res = do_handshake_and_fetch(idm, ep, alias, outdir)
+                print("   ", res)
+                if res.startswith("[+] saved:"):
+                    got_one = True
+                    break
+            if not got_one:
+                print("  [-] no success on this target")
+        except Exception as e:
+            print(f"  [!] scan error: {e}")
+
+if __name__ == "__main__":
+    main()
+#!/usr/bin/env python3
+import json, os, requests, base64, pathlib, sys
+from rmap.identity_manager import IdentityManager
+
+MY_IDENTITY = os.getenv("MY_GROUP", "Group_18")
+SERVER_PUB  = os.getenv("SERVER_PUB",  "keys/server_pub.asc")
+SERVER_PRIV = os.getenv("SERVER_PRIV", "keys/server_priv.asc")
+CLIENT_KEYS = os.getenv("CLIENT_KEYS_DIR", "keys")
+PRIV_PASSPHRASE = os.getenv("SERVER_PRIV_PASSPHRASE")
+
+idm = IdentityManager(CLIENT_KEYS, SERVER_PUB, SERVER_PRIV, PRIV_PASSPHRASE)
+targets_file = pathlib.Path("targets.txt")
+if not targets_file.exists():
+    sys.exit("[-] targets.txt not found.")
+
+outdir = pathlib.Path("loot"); outdir.mkdir(exist_ok=True)
+
+def b64e(b): return base64.b64encode(b).decode()
+
+# 🚀 只尝试 500 的目标
+for line in open(targets_file):
+    if not line.strip() or line.startswith("#"): continue
+    url, alias = line.strip().split()
+    if alias not in ["10.11.202.17"]:  # ✅ 换成你扫描里500的主机别名
+        continue
+
+    print(f"[*] Trying {alias} ({url}) ...")
+    try:
+        nonce = os.urandom(16)
+        ct = idm.encrypt_for_server(nonce)
+        payload = {
+            "identity": MY_IDENTITY,
+            "nonce": b64e(nonce),
+            "encrypted_nonce": b64e(ct)
+        }
+        print("[DEBUG] Sending payload:")
+        print(json.dumps(payload, indent=2))
+
+        r = requests.post(f"{url}/watermark", json=payload, timeout=10)
+        print("[*] Status:", r.status_code)
+        print("[*] Response:", r.text)
+
+    except Exception as e:
+        print(f"[!] Failed: {e}")
+# server/src/server.py
+from __future__ import annotations
+
+import os
+import io
+import secrets
+import datetime
+from pathlib import Path
+from typing import Dict, Any, Optional, Tuple
+
+from flask import Flask, jsonify, request, g, send_file, current_app
+from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import IntegrityError
+
+# === 5.2 Listing 2: 导入 RMAP 库 ===
+from rmap.identity_manager import IdentityManager
+from rmap.rmap import RMAP
+
+# 仅用于在内存中给 PDF 写入 metadata（最小侵入，不改你们的水印方法）
+from pypdf import PdfReader, PdfWriter
+
+# 你项目里的水印实现模块（保持不动）
+try:
+    from wm_mod import WMUtils, WatermarkingMethod
+except Exception:
+    WMUtils = None
+    class WatermarkingMethod:
+        pass
+
+
+def create_app():
+    app = Flask(__name__, static_folder="static", static_url_path="")
+
+    # ------- 基础配置 -------
+    app.config.setdefault("SECRET_KEY", os.environ.get("SECRET_KEY", "dev-secret"))
+    app.config.setdefault("TOKEN_TTL_SECONDS", int(os.environ.get("TOKEN_TTL_SECONDS", "86400")))
+    app.config.setdefault("DB_USER", os.environ.get("DB_USER", "root"))
+    app.config.setdefault("DB_PASSWORD", os.environ.get("DB_PASSWORD", "password"))
+    app.config.setdefault("DB_HOST", os.environ.get("DB_HOST", "127.0.0.1"))
+    app.config.setdefault("DB_PORT", int(os.environ.get("DB_PORT", "3306")))
+    app.config.setdefault("DB_NAME", os.environ.get("DB_NAME", "tatou"))
+    # --- force SECRET_KEY fallback if missing ---
+    if not app.config.get("SECRET_KEY"):
+        import os as _os
+        app.config["SECRET_KEY"] = _os.environ.get("SECRET_KEY","dev-secret")
+    
+
+    storage_root = os.environ.get("STORAGE_DIR", os.path.join(os.path.dirname(__file__), "..", "storage"))
+    app.config["STORAGE_DIR"] = Path(storage_root).resolve()
+    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+    # ------- RMAP 初始化 -------
+    base_dir = Path(__file__).resolve().parent.parent  # server/src/..
+    app.config.setdefault("CLIENT_KEYS_DIR", base_dir / "keys" / "clients")
+    app.config.setdefault("SERVER_PUB",     base_dir / "keys" / "server" / "server_pub.asc")
+    app.config.setdefault("SERVER_PRIV",    base_dir / "keys" / "server" / "server_priv.asc")
+
+    print(f"[RMAP] Initializing with clients_dir={app.config['CLIENT_KEYS_DIR']}")
+    if not Path(app.config["SERVER_PUB"]).exists():
+        print(f"[RMAP] Warning: server public key not found: {app.config['SERVER_PUB']}")
+    if not Path(app.config["SERVER_PRIV"]).exists():
+        print(f"[RMAP] Warning: server private key not found: {app.config['SERVER_PRIV']}")
+
+    try:
+        identity_mgr = IdentityManager(
+            client_keys_dir=str(app.config["CLIENT_KEYS_DIR"]),
+            server_public_key_path=str(app.config["SERVER_PUB"]),
+            server_private_key_path=str(app.config["SERVER_PRIV"]),
+            # server_private_key_passphrase=os.getenv("SERVER_PRIV_PASSPHRASE")
+        )
+        rmap = RMAP(identity_mgr)
+        print("[RMAP] ✓ initialization successful")
+    except Exception as e:
+        print(f"[RMAP] ✗ initialization failed: {e}")
+        rmap = None
+        identity_mgr = None
+
+    app.extensions = getattr(app, "extensions", {})
+    app.extensions["identity_mgr"] = identity_mgr
+    app.extensions["rmap"] = rmap
+
+    # ------------------------------
+    # DB engine helpers
+    # ------------------------------
+    def db_url() -> str:
+        return (
+            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+        )
+
+    # In-memory token store: { token -> (user_id, expiry_datetime_utc) }
+    app.config["TOKENS"]: Dict[str, Tuple[int, datetime.datetime]] = {}
+
+    # ------------------------------
+    # Auth helpers
+    # ------------------------------
+    def _serializer():
+        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+
+    # -------------------------------------------------------------------------
+    # Auth helpers
+    # -------------------------------------------------------------------------
+    def issue_token(user_id: int) -> str:
+        token = secrets.token_hex(16)
+        ttl = int(app.config["TOKEN_TTL_SECONDS"])
+        exp = datetime.datetime.utcnow() + datetime.timedelta(seconds=ttl)
+        app.config["TOKENS"][token] = (user_id, exp)
+        return token
+
+    def get_user_id_from_auth() -> Optional[int]:
+        auth = request.headers.get("Authorization", "")
+        if not auth.startswith("Bearer "):
+            return None
+        token = auth.split(" ", 1)[1].strip()
+        pair = app.config["TOKENS"].get(token)
+        if not pair:
+            return None
+        uid, exp = pair
+        if datetime.datetime.utcnow() > exp:
+            # Expired -> drop it
+            app.config["TOKENS"].pop(token, None)
+            return None
+        return uid
+
+    # ------------------------------
+    # Utils
+    # ------------------------------
+    def _sha256_file(path: Path) -> str:
+        h = hashlib.sha256()
+        with path.open("rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+        storage_root = storage_root.resolve()
+        fp = Path(p)
+        if not fp.is_absolute():
+            fp = storage_root / fp
+        fp = fp.resolve()
+        try:
+            fp.relative_to(storage_root)
+        except ValueError:
+            raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+        return fp
+
+    # ------------------------------
+    # Static & Health
+    # ------------------------------
+    @app.route("/<path:filename>")
+    def static_files(filename):
+        return app.send_static_file(filename)
+
+    @app.route("/")
+    def home():
+        return app.send_static_file("index.html")
+
+    @app.get("/healthz")
+    def healthz():
+        return jsonify({"ok": True})
+
+    # ------------------------------
+    # Users
+    # ------------------------------
+    @app.post("/api/create-user")
+    def create_user():
+        data = request.get_json(force=True, silent=True) or {}
+        email = (data.get("email") or "").strip()
+        login = (data.get("login") or "").strip()
+        password = (data.get("password") or "").strip()
+        if not email or not login or not password:
+            return jsonify({"error": "email, login, and password are required"}), 400
+
+        pwd_hash = generate_password_hash(password)
+        try:
+            with app.config["ENGINE"].begin() as conn:
+                conn.execute(
+                    text("INSERT INTO Users(email, login, password_hash) VALUES (:e,:l,:p)"),
+                    {"e": email, "l": login, "p": pwd_hash},
+                )
+                row = conn.execute(
+                    text("SELECT id FROM Users WHERE email=:e"),
+                    {"e": email},
+                ).first()
+                uid = int(row.id)
+        except IntegrityError:
+            return jsonify({"error": "email or login already exists"}), 409
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        return jsonify({"id": uid, "email": email, "login": login}), 201
+
+    @app.post("/api/login")
+    def login():
+        payload = request.get_json(silent=True) or {}
+        email = (payload.get("email") or "").strip()
+        password = payload.get("password") or ""
+        if not email or not password:
+            return jsonify({"error": "email and password are required"}), 400
+        try:
+            with app.config["ENGINE"].begin() as conn:
+                row = conn.execute(
+                    text("SELECT id, password_hash FROM Users WHERE email=:x OR login=:x"),
+                    {"x": email_or_login},
+                ).first()
+        except Exception:
+            current_app.logger.exception("DB error during login")
+            return jsonify({"error": "database error"}), 503
+
+        valid = False
+        if row:
+            try:
+                valid = check_password_hash(row.hpassword, password)
+            except Exception:
+                current_app.logger.exception("Password check failed for user %s", email)
+                valid = False
+
+        if not valid:
+            return jsonify({"error": "invalid credentials"}), 401
+
+        try:
+            token = _serializer().dumps({"uid": int(row.id), "login": row.login, "email": row.email})
+        except Exception:
+            current_app.logger.exception("Token serialization failed for user %s", email)
+            return jsonify({"error": "internal error"}), 500
+
+        return jsonify({"token": token, "token_type": "bearer", "expires_in": app.config["TOKEN_TTL_SECONDS"]}), 200
+
+    # ------------------------------
+    # Documents
+    # ------------------------------
+    @app.post("/api/upload-document")
+    @require_auth
+    def upload_document():
+        if "file" not in request.files:
+            return jsonify({"error": "file is required (multipart/form-data)"}), 400
+        file = request.files["file"]
+        if not file or file.filename == "":
+            return jsonify({"error": "empty filename"}), 400
+
+        fname = file.filename
+        user_dir = app.config["STORAGE_DIR"] / "files" / g.user["login"]
+        user_dir.mkdir(parents=True, exist_ok=True)
+
+        ts = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%S%fZ")
+        final_name = request.form.get("name") or fname
+        stored_name = f"{ts}__{fname}"
+        stored_path = user_dir / stored_name
+        file.save(stored_path)
+
+        sha_hex = _sha256_file(stored_path)
+        size = stored_path.stat().st_size
+
+        try:
+            meta = _save_uploaded_file(f, uid)
+            return jsonify({"id": meta["id"], "filename": meta["filename"]}), 201
+        except Exception as e:
+            return jsonify({"error": f"upload failed: {str(e)}"}), 500
+
+        return jsonify({
+            "id": int(row.id),
+            "name": row.name,
+            "creation": row.creation.isoformat() if hasattr(row.creation, "isoformat") else str(row.creation),
+            "sha256": row.sha256_hex,
+            "size": int(row.size),
+        }), 201
+
+    @app.get("/api/list-documents")
+    @require_auth
+    def list_documents():
+        try:
+            with get_engine().connect() as conn:
+                rows = conn.execute(
+                    text("""
+                        SELECT id, name, creation, HEX(sha256) AS sha256_hex, size
+                        FROM Documents
+                        WHERE ownerid = :uid
+                        ORDER BY creation DESC
+                    """),
+                    {"uid": int(g.user["id"])},
+                ).all()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        docs = [{
+            "id": int(r.id),
+            "name": r.name,
+            "creation": r.creation.isoformat() if hasattr(r.creation, "isoformat") else str(r.creation),
+            "sha256": r.sha256_hex,
+            "size": int(r.size),
+        } for r in rows]
+        return jsonify({"documents": docs}), 200
+
+    # ------------------------------
+    # Versions
+    # ------------------------------
+    @app.get("/api/list-versions")
+    @app.get("/api/list-versions/<int:document_id>")
+    @require_auth
+    def list_versions(document_id: int | None = None):
+        if document_id is None:
+            document_id = request.args.get("id") or request.args.get("documentid")
+            try:
+                document_id = int(document_id)
+            except (TypeError, ValueError):
+                return jsonify({"error": "document id required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                rows = conn.execute(
+                    text("""
+                        SELECT v.id, v.documentid, v.link, v.intended_for, v.secret, v.method
+                        FROM Users u
+                        JOIN Documents d ON d.ownerid = u.id
+                        JOIN Versions v ON d.id = v.documentid
+                        WHERE u.login = :glogin AND d.id = :did
+                    """),
+                    {"glogin": str(g.user["login"]), "did": int(document_id)},
+                ).all()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        versions = [{
+            "id": int(r.id),
+            "documentid": int(r.documentid),
+            "link": r.link,
+            "intended_for": r.intended_for,
+            "secret": r.secret,
+            "method": r.method,
+        } for r in rows]
+        return jsonify({"versions": versions}), 200
+
+    @app.get("/api/list-all-versions")
+    @require_auth
+    def list_all_versions():
+        try:
+            with get_engine().connect() as conn:
+                rows = conn.execute(
+                    text("""
+                        SELECT v.id, v.documentid, v.link, v.intended_for, v.method
+                        FROM Users u
+                        JOIN Documents d ON d.ownerid = u.id
+                        JOIN Versions v ON d.id = v.documentid
+                        WHERE u.login = :glogin
+                    """),
+                    {"glogin": str(g.user["login"])},
+                ).all()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        versions = [{
+            "id": int(r.id),
+            "documentid": int(r.documentid),
+            "link": r.link,
+            "intended_for": r.intended_for,
+            "method": r.method,
+        } for r in rows]
+        return jsonify({"versions": versions}), 200
+
+    @app.get("/api/get-document")
+    @app.get("/api/get-document/<int:document_id>")
+    @require_auth
+    def get_document(document_id: int | None = None):
+        if document_id is None:
+            document_id = request.args.get("id") or request.args.get("documentid")
+            try:
+                document_id = int(document_id)
+            except (TypeError, ValueError):
+                return jsonify({"error": "document id required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("""
+                        SELECT id, name, path, HEX(sha256) AS sha256_hex, size
+                        FROM Documents
+                        WHERE id = :id AND ownerid = :uid
+                        LIMIT 1
+                    """),
+                    {"id": int(document_id), "uid": int(g.user["id"])},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        file_path = Path(row.path)
+        try:
+            file_path.resolve().relative_to(app.config["STORAGE_DIR"].resolve())
+        except Exception:
+            return jsonify({"error": "document path invalid"}), 500
+
+        if not file_path.exists():
+            return jsonify({"error": "file missing on disk"}), 410
+
+        resp = send_file(
+            file_path,
+            mimetype="application/pdf",
+            as_attachment=False,
+            download_name=row.name if row.name.lower().endswith(".pdf") else f"{row.name}.pdf",
+            conditional=True,
+            max_age=0,
+            last_modified=file_path.stat().st_mtime,
+        )
+        if isinstance(row.sha256_hex, str) and row.sha256_hex:
+            resp.set_etag(row.sha256_hex.lower())
+        resp.headers["Cache-Control"] = "private, max-age=0, must-revalidate"
+        return resp
+
+    @app.get("/api/get-version/<link>")
+    def get_version(link: str):
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("""
+                        SELECT *
+                        FROM Versions
+                        WHERE link = :link
+                        LIMIT 1
+                    """),
+                    {"link": link},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        file_path = Path(row.path)
+        try:
+            file_path.resolve().relative_to(app.config["STORAGE_DIR"].resolve())
+        except Exception:
+            return jsonify({"error": "document path invalid"}), 500
+        if not file_path.exists():
+            return jsonify({"error": "file missing on disk"}), 410
+
+        resp = send_file(
+            file_path,
+            mimetype="application/pdf",
+            as_attachment=False,
+            download_name=row.link if str(row.link).lower().endswith(".pdf") else f"{row.link}.pdf",
+            conditional=True,
+            max_age=0,
+            last_modified=file_path.stat().st_mtime,
+        )
+        resp.headers["Cache-Control"] = "private, max-age=0"
+        return resp
+
+    @app.route("/api/delete-document", methods=["DELETE", "POST"])
+    @app.route("/api/delete-document/<document_id>", methods=["DELETE"])
+    def delete_document(document_id: int | None = None):
+        if not document_id:
+            document_id = (
+                request.args.get("id")
+                or request.args.get("documentid")
+                or (request.is_json and (request.get_json(silent=True) or {}).get("id"))
+            )
+        try:
+            doc_id = int(document_id)
+        except (TypeError, ValueError):
+            return jsonify({"error": "document id required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("SELECT * FROM Documents WHERE id = :id"),
+                    {"id": doc_id},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        storage_root = Path(app.config["STORAGE_DIR"])
+        file_deleted = False
+        file_missing = False
+        delete_error = None
+        try:
+            fp = _safe_resolve_under_storage(row.path, storage_root)
+            if fp.exists():
+                try:
+                    fp.unlink()
+                    file_deleted = True
+                except Exception as e:
+                    delete_error = f"failed to delete file: {e}"
+                    app.logger.warning("Failed to delete file %s for doc id=%s: %s", fp, row.id, e)
+            else:
+                file_missing = True
+        except RuntimeError as e:
+            delete_error = str(e)
+            app.logger.error("Path safety check failed for doc id=%s: %s", row.id, e)
+
+        try:
+            with get_engine().begin() as conn:
+                conn.execute(text("DELETE FROM Documents WHERE id = :id"), {"id": doc_id})
+        except Exception as e:
+            return jsonify({"error": f"database error during delete: {str(e)}"}), 503
+
+        return jsonify({
+            "deleted": True,
+            "id": doc_id,
+            "file_deleted": file_deleted,
+            "file_missing": file_missing,
+            "note": delete_error,
+        }), 200
+
+    @app.post("/api/create-watermark")
+    @app.post("/api/create-watermark/<int:document_id>")
+    @require_auth
+    def create_watermark(document_id: int | None = None):
+        if not document_id:
+            document_id = (
+                request.args.get("id")
+                or request.args.get("documentid")
+                or (request.is_json and (request.get_json(silent=True) or {}).get("id"))
+            )
+        try:
+            doc_id = int(document_id)
+        except (TypeError, ValueError):
+            return jsonify({"error": "document id required"}), 400
+
+        payload = request.get_json(silent=True) or {}
+        method = payload.get("method")
+        intended_for = payload.get("intended_for")
+        position = payload.get("position") or None
+        secret = payload.get("secret")
+        key = payload.get("key")
+
+        if not method or not intended_for or not isinstance(secret, str) or not isinstance(key, str):
+            return jsonify({"error": "method, intended_for, secret, and key are required"}), 400
+
+        try:
+            with get_engine().connect() as conn:
+                row = conn.execute(
+                    text("""
+                        SELECT id, name, path
+                        FROM Documents
+                        WHERE id = :id
+                        LIMIT 1
+                    """),
+                    {"id": doc_id},
+                ).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+
+        if not row:
+            return jsonify({"error": "document not found"}), 404
+
+        storage_root = Path(app.config["STORAGE_DIR"]).resolve()
+        file_path = Path(row.path)
+        if not file_path.is_absolute():
+            file_path = storage_root / file_path
+        file_path = file_path.resolve()
+        try:
+            file_path.relative_to(storage_root)
+        except ValueError:
+            return jsonify({"error": "document path invalid"}), 500
+        if not file_path.exists():
+            return jsonify({"error": "file missing on disk"}), 410
+
+        if WMUtils is None:
+            return jsonify({"error": "watermarking module not available"}), 500
+
+        try:
+            applicable = WMUtils.is_watermarking_applicable(
+                method=method,
+                pdf=str(file_path),
+                position=position
+            )
+            if applicable is False:
+                return jsonify({"error": "watermarking method not applicable"}), 400
+        except Exception as e:
+            return jsonify({"error": f"watermark applicability check failed: {e}"}), 400
+
+        try:
+            wm_bytes: bytes = WMUtils.apply_watermark(
+                pdf=str(file_path),
+                secret=secret,
+                key=key,
+                method=method,
+                position=position
+            )
+            if not isinstance(wm_bytes, (bytes, bytearray)) or len(wm_bytes) == 0:
+                return jsonify({"error": "watermarking produced no output"}), 500
+        except Exception as e:
+            return jsonify({"error": f"watermarking failed: {e}"}), 500
+
+        # ---------- 在内存中追加 FLAG 到 PDF metadata（不改变响应/日志） ----------
+        try:
+            _flag1 = os.getenv("FLAG1", "")
+            if _flag1:
+                _bio_in = io.BytesIO(wm_bytes)
+                _reader = PdfReader(_bio_in)
+                _writer = PdfWriter()
+                for _p in _reader.pages:
+                    _writer.add_page(_p)
+                _meta = {k: v for k, v in (_reader.metadata or {}).items() if isinstance(k, str)}
+                _meta["/TatouFlag1"] = _flag1
+                _meta["/TatouMethod"] = method or "metadata"
+                _meta["/TatouVersion"] = "v1"
+                _writer.add_metadata(_meta)
+                _bio_out = io.BytesIO()
+                _writer.write(_bio_out)
+                wm_bytes = _bio_out.getvalue()
+        except Exception:
+            pass
+        # ------------------------------------------------------------
+
+        base_name = Path(row.name or file_path.name).stem
+        intended_slug = secure_filename(intended_for)
+        dest_dir = file_path.parent / "watermarks"
+        dest_dir.mkdir(parents=True, exist_ok=True)
+
+        candidate = f"{base_name}__{intended_slug}.pdf"
+        dest_path = dest_dir / candidate
+
+        try:
+            with dest_path.open("wb") as f:
+                f.write(wm_bytes)
+        except Exception as e:
+            return jsonify({"error": f"failed to write watermarked file: {e}"}), 500
+
+        link_token = hashlib.sha1(candidate.encode("utf-8")).hexdigest()
+
+        try:
+            with get_engine().begin() as conn:
+                conn.execute(
+                    text("""
+                        INSERT INTO Versions (documentid, link, intended_for, secret, method, position, path)
+                        VALUES (:documentid, :link, :intended_for, :secret, :method, :position, :path)
+                    """),
+                    {
+                        "documentid": doc_id,
+                        "link": link_token,
+                        "intended_for": intended_for,
+                        "secret": secret,
+                        "method": method,
+                        "position": position or "",
+                        "path": str(dest_path)
+                    },
+                )
+                vid = int(conn.execute(text("SELECT LAST_INSERT_ID()")).scalar())
+        except Exception as e:
+            try:
+                dest_path.unlink(missing_ok=True)
+            except Exception:
+                pass
+            return jsonify({"error": f"database error during version insert: {e}"}), 503
+
+        return jsonify({
+            "id": vid,
+            "documentid": doc_id,
+            "link": link_token,
+            "intended_for": intended_for,
+            "method": method,
+            "position": position,
+            "filename": candidate,
+            "size": len(wm_bytes),
+        }), 201
+
+    @app.post("/api/load-plugin")
+    @require_auth
+    def load_plugin():
+        if WMUtils is None:
+            return jsonify({"error": "watermarking module not available"}), 500
+
+        payload = request.get_json(silent=True) or {}
+        filename = (payload.get("filename") or "").strip()
+        overwrite = bool(payload.get("overwrite", False))
+        if not filename:
+            return jsonify({"error": "filename is required"}), 400
+
+        plugins_dir = app.config["STORAGE_DIR"] / "files" / "plugins"
+        file_path = plugins_dir / filename
+        if not file_path.exists():
+            return jsonify({"error": f"plugin file not found: {file_path}"}), 404
+
+        import pickle as _std_pickle
+        try:
+            with file_path.open("rb") as f:
+                obj = _std_pickle.load(f)
+        except Exception as e:
+            return jsonify({"error": f"failed to load plugin: {e}"}), 400
+
+        cls = obj if isinstance(obj, type) else obj.__class__
+        method_name = getattr(cls, "NAME", getattr(cls, "__name__", "UnknownMethod"))
+        has_api = all(hasattr(cls, m) for m in ("add_watermark", "read_secret"))
+        is_ok = has_api if WatermarkingMethod is None else (issubclass(cls, WatermarkingMethod) and has_api)
+        if not is_ok:
+            return jsonify({"error": "plugin does not implement WatermarkingMethod API (add_watermark/read_secret)"}), 400
+
+        if method_name in WMUtils.METHODS and not overwrite:
+            return jsonify({"error": f"method {method_name} already exists; use overwrite=true"}), 409
+
+        WMUtils.METHODS[method_name] = cls()
+        return jsonify({
+            "loaded": True,
+            "filename": filename,
+            "registered_as": method_name,
+            "class_qualname": f"{getattr(cls, '__module__', '?')}.{getattr(cls, '__qualname__', cls.__name__)}",
+            "methods_count": len(WMUtils.METHODS)
+        }), 201
+
+    @app.get("/api/get-watermarking-methods")
+    def get_watermarking_methods():
+        if WMUtils is None:
+            return jsonify({"methods": [], "count": 0}), 200
+
+        methods = [{"name": m, "description": WMUtils.get_method(m).get_usage()} for m in WMUtils.METHODS]
+        return jsonify({"methods": methods, "count": len(methods)}), 200
+
+    # ------------------------------
+    # RMAP endpoints
+    # ------------------------------
+    @app.post("/rmap-initiate")
+    def rmap_initiate():
+        rmap = current_app.extensions.get("rmap")
+        if rmap is None:
+            return jsonify({"error": "RMAP not initialized"}), 500
+
+        incoming = request.get_json(silent=True) or {}
+        if "payload" not in incoming:
+            return jsonify({"error": "Missing payload"}), 400
+
+        try:
+            resp = rmap.handle_message1(incoming)
+            code = 200 if "error" not in resp else 400
+            return jsonify(resp), code
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
+
+    @app.post("/rmap-get-link")
+    def rmap_get_link():
+        rmap = current_app.extensions.get("rmap")
+        if rmap is None:
+            return jsonify({"error": "RMAP not initialized"}), 500
+
+        incoming = request.get_json(silent=True) or {}
+        if "payload" not in incoming:
+            return jsonify({"error": "Missing payload"}), 400
+
+        try:
+            resp = rmap.handle_message2(incoming)  # 成功返回 {"result":"<32-hex>"}
+            if "result" not in resp or "error" in resp:
+                return jsonify(resp), 400
+            link = resp["result"]
+
+            base_doc_id = os.getenv("RMAP_BASE_DOC_ID")
+            if not base_doc_id:
+                return jsonify({"error": "Server not configured: set RMAP_BASE_DOC_ID to a valid document id"}), 500
+            try:
+                base_doc_id = int(base_doc_id)
+            except Exception:
+                return jsonify({"error": "Invalid RMAP_BASE_DOC_ID (must be int)"}), 500
+
+            try:
+                with get_engine().connect() as conn:
+                    row = conn.execute(
+                        text("""
+                            SELECT id, name, path
+                            FROM Documents
+                            WHERE id = :id
+                            LIMIT 1
+                        """),
+                        {"id": base_doc_id},
+                    ).first()
+            except Exception as e:
+                return jsonify({"error": f"database error: {str(e)}"}), 503
+
+            if not row:
+                return jsonify({"error": f"base document not found: id={base_doc_id}"}), 404
+
+            storage_root = Path(current_app.config["STORAGE_DIR"]).resolve()
+            file_path = Path(row.path)
+            if not file_path.is_absolute():
+                file_path = storage_root / file_path
+            file_path = file_path.resolve()
+            try:
+                file_path.relative_to(storage_root)
+            except ValueError:
+                return jsonify({"error": "document path invalid"}), 500
+            if not file_path.exists():
+                return jsonify({"error": "file missing on disk"}), 410
+
+            if WMUtils is None:
+                return jsonify({"error": "watermarking module not available"}), 500
+
+            method = "best"
+            key = "rmap"
+            position = None
+            intended_for = "RMAP"
+
+            try:
+                applicable = WMUtils.is_watermarking_applicable(
+                    method=method, pdf=str(file_path), position=position
+                )
+                if applicable is False:
+                    return jsonify({"error": "watermarking method not applicable"}), 400
+            except Exception as e:
+                return jsonify({"error": f"watermark applicability check failed: {e}"}), 400
+
+            try:
+                wm_bytes: bytes = WMUtils.apply_watermark(
+                    pdf=str(file_path),
+                    secret=link,
+                    key=key,
+                    method=method,
+                    position=position
+                )
+                if not isinstance(wm_bytes, (bytes, bytearray)) or len(wm_bytes) == 0:
+                    return jsonify({"error": "watermarking produced no output"}), 500
+            except Exception as e:
+                return jsonify({"error": f"watermarking failed: {e}"}), 500
+
+            base_name = Path(row.name or file_path.name).stem
+            dest_dir = file_path.parent / "watermarks"
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            candidate = f"{base_name}__RMAP_{link[:8]}.pdf"
+            dest_path = dest_dir / candidate
+
+            try:
+                with dest_path.open("wb") as f:
+                    f.write(wm_bytes)
+            except Exception as e:
+                return jsonify({"error": f"failed to write watermarked file: {e}"}), 500
+
+            try:
+                with get_engine().begin() as conn:
+                    conn.execute(
+                        text("""
+                            INSERT INTO Versions (documentid, link, intended_for, secret, method, position, path)
+                            VALUES (:documentid, :link, :intended_for, :secret, :method, :position, :path)
+                        """),
+                        {
+                            "documentid": int(row.id),
+                            "link": link,
+                            "intended_for": intended_for,
+                            "secret": link,
+                            "method": method,
+                            "position": position or "",
+                            "path": str(dest_path),
+                        },
+                    )
+            except Exception as e:
+                try:
+                    dest_path.unlink(missing_ok=True)
+                except Exception:
+                    pass
+                return jsonify({"error": f"database error during version insert: {e}"}), 503
+
+            return jsonify({"result": link}), 200
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
+
+    return app
+
+
+# ------------------------------
+# WSGI entrypoint
+# ------------------------------
+app = create_app()
+# === register metadata unified POST routes (inserted) ===
+try:
+    from routes_metadata_unified import register as _reg_meta
+except Exception:
+    try:
+        from .routes_metadata_unified import register as _reg_meta
+    except Exception:
+        try:
+            from server.src.routes_metadata_unified import register as _reg_meta
+        except Exception:
+            _reg_meta = None
+if _reg_meta:
+    _reg_meta(app)
+# === end register ===
+
+# Allow `python server/src/server.py` to run the app (dev only)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
+
+# ======== metadata 专用测试路由（零侵入，不改现有 QR 路由）========
+import base64, os
+from flask import request, jsonify
+
+try:
+    from .watermark_metadata import add_metadata_watermark, extract_metadata_secret
+except Exception:
+    from watermark_metadata import add_metadata_watermark, extract_metadata_secret  # 兼容导入
+
+@app.route("/api/test/add-watermark-metadata", methods=["POST"])
+def add_watermark_metadata():
+    """
+    请求: {"pdf_data": <base64>, "secret": 可选, "flag1": 可选, "intended_for": 可选}
+    说明:
+      - 如果未传 flag1，将从环境变量 FLAG1 读取
+      - intended_for 可不传（若传，未来也可一并写入；此处保持最小实现）
+    响应: {"success": true, "size": <int>, "watermarked_data": <base64>}
+    """
+    data = request.get_json(silent=True) or {}
+    b64 = data.get("pdf_data")
+    if not b64:
+        return jsonify({"success": False, "error": "no pdf_data"}), 400
+    try:
+        pdf = base64.b64decode(b64)
+    except Exception:
+        return jsonify({"success": False, "error": "invalid base64"}), 400
+
+    # 优先使用请求体 secret/flag1；否则从环境变量读取（flag1）
+    secret = data.get("secret", "")
+    flag1  = data.get("flag1") or os.getenv("FLAG1", "")
+
+    new_pdf = add_metadata_watermark(pdf, secret=secret, flag1=flag1)
+    out_b64 = base64.b64encode(new_pdf).decode("utf-8")
+    return jsonify({"success": True, "size": len(new_pdf), "watermarked_data": out_b64})
+
+@app.route("/api/test/read-watermark-metadata", methods=["POST"])
+def read_watermark_metadata():
+    """
+    请求: {"pdf_data": <base64>}
+    响应: {"success": true, "secret": "<仅用于验证；请勿在日志打印>"} 
+    """
+    data = request.get_json(silent=True) or {}
+    b64 = data.get("pdf_data")
+    if not b64:
+        return jsonify({"success": False, "error": "no pdf_data"}), 400
+    try:
+        pdf = base64.b64decode(b64)
+    except Exception:
+        return jsonify({"success": False, "error": "invalid base64"}), 400
+
+    sec = extract_metadata_secret(pdf)
+    # 注意：不要在服务端日志里 print(sec)
+    return jsonify({"success": True, "secret": sec})
+# ===================== 路由追加结束 =====================
+<!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+<<<<<<< HEAD
+# tatou
+A web platform for pdf watermarking. This project is intended for pedagogical use, and contain security vulnerabilities. Do not deploy on an open network.
+
+## Instructions
+
+The following instructions are meant for a bash terminal on a Linux machine. If you are using something else, you will need to adapt them.
+
+To clone the repo, you can simply run:
+
+```bash
+git clone https://github.com/nharrand/tatou.git
+```
+
+Note that you should probably fork the repo and clone your own repo.
+
+
+### Run python unit tests
+
+```bash
+cd tatou/server
+
+# Create a python virtual environement
+python3 -m venv .venv
+
+# Activate your virtual environement
+. .venv/bin/activate
+
+# Install the necessary dependencies
+python -m pip install -e ".[dev]"
+
+# Run the unit tests
+python -m pytest
+```
+
+### Deploy
+
+From the root of the directory:
+
+```bash
+# Create a file to set environement variables like passwords.
+cp sample.env .env
+
+# Edit .env and pick the passwords you want
+
+# Rebuild the docker image and deploy the containers
+docker compose up --build -d
+
+# Monitor logs in realtime 
+docker compose logs -f
+
+# Test if the API is up
+http -v :5000/healthz
+
+# Open your browser at 127.0.0.1:5000 to check if the website is up.
+```
+
+
+
+=======
+# SoftSec-Tatou-Group18
+>>>>>>> c0b1e568831c977f87309a823a29edb3be62acc5
+%PDF-1.3
+%���� ReportLab Generated PDF document http://www.reportlab.com
+1 0 obj
+<<
+/F1 2 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/Contents 7 0 R /MediaBox [ 0 0 612 792 ] /Parent 6 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+4 0 obj
+<<
+/PageMode /UseNone /Pages 6 0 R /Type /Catalog
+>>
+endobj
+5 0 obj
+<<
+/Author (anonymous) /CreationDate (D:20250926213135-01'00') /Creator (ReportLab PDF Library - www.reportlab.com) /Keywords () /ModDate (D:20250926213135-01'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
+  /Subject (unspecified) /Title (untitled) /Trapped /False
+>>
+endobj
+6 0 obj
+<<
+/Count 1 /Kids [ 3 0 R ] /Type /Pages
+>>
+endobj
+7 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 257
+>>
+stream
+GasbT4V*,u&;GCY`Ogs:B[L4,1s"aNVMP[R6OuIe0N^12HQ2GV&dNKE)rBYI-[,tt>HF6L#$)_-Lk0j0.G3FHK5\!VK6Q`BH/O#+S@oIA%h!joY2Mc@*"eK.Xf4"1SOASgimA&0"?u8EIX&H:=j,i.IYDWiL4jC\iLZO?X:7Sf^g.eW[&D8f?dV<I(3Q:D;Q)7K'G@s-.:G!KQ)Yd'(+,`roHG`dGIRTBiWlUHF*\ud/Wnb2\/1QVp+U^m$3"Ib~>endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000073 00000 n 
+0000000104 00000 n 
+0000000211 00000 n 
+0000000404 00000 n 
+0000000472 00000 n 
+0000000768 00000 n 
+0000000827 00000 n 
+trailer
+<<
+/ID 
+[<15558a5b1844b8b105b325c592cc5b76><15558a5b1844b8b105b325c592cc5b76>]
+% ReportLab generated PDF document -- digest (http://www.reportlab.com)
+
+/Info 5 0 R
+/Root 4 0 R
+/Size 8
+>>
+startxref
+1174
+%%EOF
+from reportlab.pdfgen import canvas
+
+c = canvas.Canvas("flag.pdf")
+c.drawString(100, 750, "This is Mr Important's document named flag.")
+c.save()
+print("已生成 flag.pdf")
+
+%PDF-1.3
+%����
+1 0 obj
+<<
+/Producer (pypdf)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 1
+/Kids [ 4 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 7 0 R
+>>
+/XObject <<
+/FormXob.fb1b808e7ea0d17c35bd08ab6e2aab8d 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 407
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+BT /F1 18 Tf 21.6 TL ET
+BT 1 0 0 1 72 769.8898 Tm (Flag Document \(placeholder\)) Tj T* ET
+BT /F1 12 Tf 14.4 TL ET
+BT 1 0 0 1 72 745.8898 Tm (This is a simple PDF named flag.pdf) Tj T* ET
+ 
+
+Q
+
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+q
+79.37008 0 0 79.37008 481.8898 34.01575 cm
+/FormXob.fb1b808e7ea0d17c35bd08ab6e2aab8d Do
+Q
+Q
+
+
+endstream
+endobj
+6 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+7 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+8 0 obj
+<<
+/BitsPerComponent 8
+/ColorSpace /DeviceRGB
+/Filter [ /ASCII85Decode /FlateDecode ]
+/Height 328
+/Subtype /Image
+/Type /XObject
+/Width 328
+/Length 7082
+>>
+stream
+Gb"/a6*fjm%E!5d9.,Y!qpfWoI&]?H\r-W(s7a:OZ7O2)/Bb=MbH`\BZ7O2)/Bb=MbH`\BZ7O2)/Bb=MbH`\BZ7O2)/Bb=Mb;]@^&lO4ZYJ#"XQeg9]Q+ilFZgN0`T\cS,eBY1&G$hj_qL0@.]'n='HCs=r41BOhII1A*qe8%U^1R]9I@<Ojh!/JF[<nb=Vr=`SSfOd(Bb%OlX-_YomZkMYL9p;pG+d]i3Rl?V??T\f=8I@acFWJtJU3sN:cl.4fmW6ol2,0Slb7!:l@#*gmG-u<pU,@En#,-Gqu(Eu_d_M?oh%e=WV8;&TAAHf*t%m_X&hpY8\MTIq<SUKq,#^f>J3p4:[5Vfb@c%ocA09NgZk&eH;a3K>!BR9G<Q`7h,^_De<>2se+204^@S&&n$[P=Un6(_S!MCgn=:)DICI`W-2"(jgU)?OL[TU=m(9B+.B+]fhPTC%m?U*7fR7]4[.A-1gZS2mL%:r4[2l4D><M;#gXGjV]hb>L."6"<.fU8[45]b=I8960-m+=RgO[M^`RE,A4`-h?q\72.in&@Hno+'*o5.:XkO^rlntGid*N8m?4RIONe+Pf8:SE.aIVf<>rt\BlhtFF*:@D+0+,XF[J]baHe'>EcD4f;S'Zu3jp)R=#/^O&A[53NmQ[7Q[Tt#N+Q;>[[]h@`d@J?VT[sTTAhkB/\nkALM4&ad[WV7tdMVE>gq6W95]@>+?G$jN_bD5*N*EkWYch&it1POYOHJe:e\:'-u:WkQ-9C5D]pSH`UHmimiU#jbo9^bk@;qQMtpFRJEgNR?,ZolgLeBSbO?g<'_LZ8"JW4S9)Q#GPsOnMLnT\d/*-uRpn\kDiqq=`V[C#=";l@$j2iq=Ck]9EhkDr5Dop.]b(hR@k\DVp#V9DME[p>$KuhfK+gIERE*p)U*DPRj$theeML9m<8e[sTTAhgr@3q,$n\h%j_^F9h)ZbD5*N*N6T7&!_(jD3=NdGG*g%HmimiJ\"MM;#0h@(2;ZJ#O6`\LSApXntGtGs+7>5I5fEEB_f%3:@l#E#Km(2A,Fo&di=72:TNq@TA+R_r(f>]O*rt3TkO8/qG-XmI0[ppP[jUCGLIOhQ;=RM1nWNHT_qSG[Z>hqc(ShH[/*Ph\U=_*s-.$jfQYdaMO%&=mkgZkGG+k03OXus2pJ%0q6]uno=98Sb5[]9qq-,A*/^%XX7%m;FT3-+DYsDlhbW:n:XSV).B3?]htN<pq,=ZtI7ie>n+Zck:AtspI\2f"n,%MtR?Kj(]AKN^rqh0%:Zg_6dI-`XWW0]ipQIW5;mcFM9'X1[p\eVtrY4aKT9B'>qgC\sPQ13'W'.-SXm_YR9_5X[/pBV[\((<+J"-:.o<ds=G<u2:eGIgHS,,hM[-oVk62e:Bqpp7dqFpLfmk/fMrO:;Repj1c9_5X[/pBV[\((<+J"-:.o<ds=G<u2:eGIgHS,,hM[-oVk62e:Bqpp7dqFpLfn,=7!c>!:,s70BD43.&5os/Y1mRYg\D;*f&s68t/qV+$=J#ep,o5mKkeo&t)VYO#3s46)QZ2In?m$st8d^41eFuRZq])/u9G)ktIl=K-@h3"SBgU+S,rmT]<os]!Ys&Ld7kNS!`Xkfl1:%P"FriNr+A,E`]ff;iPUhT3Sm;ABmFSB_Pm2Xlqe]Z6`\g'pb[qU'8r27/VlYkt=riKLMcI3eJ>.[X*o1;OPDs@/p+8DE,[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S"2uj`-W9tKqV(u"[,%[pBat<S6cq68l7V0ih6h=&I+sFN[K#Li1nLhmpSI:UT%%%-LW[)S-sHM?hG<1b\pRlM0',[\[<&9ogP;N2s69J=Sup31V=%6Qe6P.kb-udI>5OrK:ZL->Hsc.kj[n:9F/XK@LSD3Vl2<H1XipI8mS]Y+>s!ha[s]Z.qk)_@j4V"k?g99*8_pdqW-m?TU:($crA:+JbP.k$;P)BD4,:tfI4/:rTAKSdp-._b[(e9UEspKAD!c0<]G5dKoK/p6eGH^AIE0q<[a/0_G=]JYl9i77/(AcZm;Mm7'mk`.4/P3kqmSn?a4C6ucWdYu8AA["6bRt"e9>`rDu70^H\_5TVEWN,[mGM`f)E,(>HrBC^LQOr]mhQ^GAQYbqn*YjL\*[*51KJ=6@Ho*rjL-0W'/W(Fq/Y]g7bp8rI3I+b*2C7Oa9pom2YCD[6n^Oqu*n6PUGSM,5%bggH!bhC5:A(pA8QJ.8S+$7I!IX[r\L[e./U/m.\us;P',&Mq!r:Ds'r@W?#1>f^G`oV*$4,(9&\ShThh_;EM8ZZ/8?h96jG7/Q,C0]q%OHV06P>A&"XZQh$sM>GRk?HTR"o9C:*[a*p8?0',\#[qP.bc%jG[Gu?hL51M1&p9FQp55ugVF1VsJht!Rjm!Pg7MX=pNVgSJ4roSAG._k(:q:PLBY8#a3p.tM^Mu:ie5#d!SPOc!MWEq$^O6rS1q%rjrgO6$uQ7(d(k>T&lC`hCrjmt.r2n/Z\q(5Cba3LT/V:[u?J'-q]jDSr1U%2EZP`MA2oh)K;D#]aG^W><fmR-*F4=M@6TB_\Nqq1lsT7<!l8FKIU<8X!;HC)M*@G3o0k;:Une.0uGeD4h&l!4XCLM?W^T$p5W;*.Ud;0Sr6Uj"9S*N&3kGtoUO7I<A-7bsWtPMW.?GF5fLjZ/=-(UX@Q)g-@n:O8AEhI5,%PijmO?ITJ7DUdKV53Z>[H\Z>4:nH-,HVlk$]2<dMq4r3`llDtj6[;EOm7$D-m7,p&k*+YuY]lJC&*5e\HfnVI9.S&s9>+,pno*3:l:Z,Dhbu`#C$4,mWV7i@r[n"DI49(&Hci6Km2Z!Uofe)P^L\Le0?*=,:\g6QSR^QRhPX3G\*QKTV7=5-.A-1<F6pNgq\1O[Q@5^G'Y!g"j\qaoNd[7?T0hYsZ4GKPiqC*aI*0p`Z0tTZ;lKUup7_=\gtqdi:O1YSp0Hs3$C-+a5#gF(F<@NLSPQr6jmKK^XhL#aotEk12`mXXJ'6Y^]ioh5J*MH?eo#Xpp&:8hdsAFu;Z>2C(9QEZI-UY^GGk+KoqhScpFTR\g%j.p>OG8Pe`og';t!qtG-ge>pUAqKeuR>fnu(?RB^KEp;t"Y840;Sb0BH!CDpd:`cDTOVEd(]j<aX"AH9Vk]TA&2r]\VK=D#(HpV`D4Oos/eJpV4])p2'Q3hPWBC5kVF,ZhM5RhtCm^[,.]@[m9VlGI.%Y`S^B*q6]"V3O_9HZ?NYL^W#+(D#(HpV`D4Oos/eJpV4])p2'Q3hPWBC5kVF,ZhM5RhtCm^[,.]@[m9VlGI.%Y`S^B*q6]"V3OdAhBA1Y>:R[p4[JfL,drNn7C"W=83>AntR\/HErU%>JEmjl"f_a;]'Xgf+TAI!SmCq%idemh3qq*nC[SN?ahR3=L^=.,Nr+Xg\fJsYS:R[p4[JfL,drNn7C"W=83>AntR\/HErU%>JEmjl"f_a;]'Xgf+TAI!SmCq%idemh3qq*nC[SN?ahR3=L^=.,Nr3p/(o@EkE]1pJBngXUge+R]gpO2A!Xkfl9;#-?*l=p.)Yku.Wcdm!_Ei=B.5P;D^>M+A]\n>ffBfT-Vje$kQr[mKNDr%b-gU%qMTCPc@D>tAphm`%,g21"'Pu%4RT!j+V]C/tuD!a,4LWZOm;bu/_L#)L*Ha\*eQ:'b4ri)g_5L$OB6^iKt?b7-9RH@FE5-5giDJM1XLG]$s^320P1X2hjHs/P[h:?K;%VbnoII1@*B:;U^q6Y1@]<0oU*RajiqV&V2cSV8GnnI2^G?_]44/D\]oX0$CSnU@ljjVAGm^@;FG=_=Dl"g$f4O\Zbb,:Llh/2OkmuZ\hdb!nUH)CBOPYWfb]%br`hBC.YV6A^5nkAX(.%aNMFk=Y,^HJ4Cdsb*cII$bG-Vk]9s7UhT:]!<*pT<mgS31Y)s4d.E4mhuChm^=<EUpKArGU#[p9`^UIGan8`Q?TKp:ib_g=(LHomQ0'(+2lsg]-tpC/=^ieb?37>F[fmD#`8]WBKYC<8Y1!DfP?TZ2JUeVtRLT;gmR"^;[Hc\+icr4tV7'HQR"31uBYQ[!UWg6UCOTr,(eKW85mLS(,pTFc-b6jjWe0Z1jr89Cm!u:V5414qs5WbMU=rLY=?)[n/aM?FT]+:d-I\)g`ZA[kuthosB)%i^6$-[/=e-IAkuMI%/X7mWFEu"m+5(\$>\$G"_FD;GXpV/Nsl5:WqY8hM9f:c(E#C^!c@<OnuG.8DgoQ[X?N8BmttE4ASf2,pi4um?#&#okjN#GLQI*[s4L;^.V)`e(Psnhs/te8aiPP/T1)@6%,)ae>K]AqS(LhjceOqo3:#0H%PlF.B-*YL\-"qDp'NAS*%2i`Ua6*>uFRmedgsA<o93=H8j)eEJrudlFWjf5-5jRpT;.]TCd#ihr5Et'@_4t8UXc(V!hN9><_<-1quIp2p*p&]h<WK3N`5O/sUAP;"(<%b<DhoPk6Ti8`d>Me%8Snm6eRZ`\%(XE`1>tPUDaFb"qJ(q6gh,IN#]^F37'Gmo#`V:+JQB9BFnleGEt8ZHjsI-+urs;E:lWoIcDIqbZaZEQ^PDS<WXuj[nR@o$b3M^?n;$T>iJ[S8qNU]9F\.e&kJT;Yda3omRggluU<@8afQK<)+r.]h@JA51FqK?e^/&[/JIcPY[`XhmIn!]4hb/h2?ST6$_2`l!;FZc*?`k55*ehLViIJ]r.McD?'5\jceiZGASH!DONq$pS-MC:nG+FHC+1oF6pNIO*rt3Ts/l@mjTY\gHWAEq4p%E?/*E6S*!Q"]r:Z>Pc*o@hPGVJ*;co+A)C"%.-t9iHO@pEp.t-T5&$%*fClK<VE#?60Bt\(j_=UiG:B.@a1c?dfQYf7[mKIII@&O^1l(Xqnu5rtpNFicdFs*(q_X*!U%50hXnR"aYL2'RgA<^^ntGWR?ENsFcEGXLJ(jcVL[q/0WEu_$G0[;=g4.iR1l(Xqnu5rtpNFicdFs*(q_X*!U%50hXnR"aYL2'RgA<^^ntGWR?ENsFcEGXLJ(jcVL[q/0WEu_$G0]K^Fu\;PRH?;bh</^TIAYEW470XV51A/4reB->)Qga&^'j$YNSWc9W-tPjl9"CF:d3@\IK"uTB,[nde%Q4O1QC5RDlA)]dHWg\]21]?fR<aRg1M>+^=0e(jYMnPkAR;IVU=ZjmCQ1Ye(B*JL>'])1X2V@T!eK?G?_[V9_1L1:SY<.[@?PJD$N/#eX,j3rD37<B^J1SB)>BY_9QcfV0m+Z;uSUWqbXoXrmQ%pF'<u@+5?g[5E45Xe8D_pZlSM'<aX"ip-7Y7UU:W?S*`FW#<Sj6Qh%E[:\iIQm6g8QqbPt_c=usJHu/g]r\RgU:qPE[drqs:>(%hAg]*L&NRg:3A_PGZs$5D2p>3NQdb99CIk/uk5399A:4$p:9kiu[q7i2/4.l(JGGi-`n#!I8T`!]i[%1"gXh3'=gNQS"4&GopA_PG-r79\<n*R_9XW8hi[k_g`;h"'#[.j:MPh$>/s'(o"o-qFsGM7E@DG"[Lb5\S;g\I)k\i];mI5e"1"6H03SHcK+bD479r6)B.>Djm%Uj>&eniU.Nhi[ciIAqUoQd)kEGZ%>;Qa8<jZZZ9gWP@8Ub,9R=4Bm^koqZmolgd/BpYV,0gO6&KWgCu:[<PSFWgC%Eca.co*N?g0Qcc4PffWJs-hX9]3U?5u>PI$;qV-FtI&`OXZaG$U:TBbf0$gkHruJ)Rh3Z9^HJ(DbM^S1nH9(<^4BqR;Oo!g\WI1_4c*Og&;GX<ZZS'Q\J',h2?>4k7f?U"s)tffnZ$3F?k"5C$h^-NCn(RTdG,*nm55#IEdl]'$qn&["l!6B#g2>Deb/`ATAst+/@t0h%5J:jq:YUkT:\iX)fM(n4I-g<bk,3Fjr+Wc?mjT?*#FfG!P`PcKdera?SNgsMl946=mpIrrPObun9:DL0[I^<`7_P^IllBo>Gu?j"G=hDT]6=1\h5L(4O1g/T[554Cm:5$:]r/+'[e?MEVXa"gHr'$;pU,G9];PB;p>+;kPg;1XI?!\eII+\VO+$cpT#/4rg6;)q`j;l=4fOLufClK<T&*DuG?]Dl51=cM281I2Z2<6=p>+2E$N"^V:Wd;gcb@EnUcrs/gW.$TH;@u,D='pj9]OgXpn$!UmVD^PG>IZVm(9A_.A(<:q\n@UqUg45+8bKj4b\<n[3t&lNFuVYHVtrtYItJ.:O1YSPWtF#m9off[!_4'WI2=]h955%qboN)%^lm:bK&J'b.%9%^$NJA5F"V'@/Ed-I-a"qI(QT<bO00C;`W>;[LYgMa53$&\,4mmm(TnmPsaqHqbXYIloh=q]<C&6mVD\u3RePI%n4[^hNQ*kqqAaM^:$7k6g\:Y:pbW:4fNh@YMICiC\q$je./nt7E`a.PKKeL;*K0;rP"OQX]I%1`nlp%Vg;3(G/!phPr#OD/)SA'PKKeL;*K0;rP"OQX]I%1`nlp%Vg;3(G/!phPr#OD/)SA'PKKeL;*K0;rP"OQX]I%1`nlp%Vg;3(G/!phPr#OD/)SA'PKKeL;*K0;rP"OQX]I%1`nlp%Vg;3(G/!phPr#OD/)Os-VsQj"0.LU<r\U6Jhj,Y/YPD#PL!#gL5L$+V\)g3OCHg6lTlR$l:\/;nD0]%WRLf'sW17StdsP>I>FlPDk!OP5.VDra1nRh+Q7'YTq,#t&b*eP[c)9+$j[nuX51FeMEi.qoo4dl7GuFR/&+s5,S8%fJHs1r&SeS/:$d*tQDUWt]cSW\VgZhGngHI3dm:l<0q,!YsNd\CeQccdc>"m]"ma^m%4OY;IDQ>FUDu6o/[\qr^j[4<j3VM90?Rjt,BeaI#]3!12nk=,k]</eH^?sBYg7EJkQ4N)Fk1Fl^IAqVKVo?#+m9V@datq;In$`'jq6j(WBm\RI>!A0`RUb5loqh5GAQb=1=dEW%Q=X3bAQb=1=dEW%Q=X3bAQb=1=dEW%Q=X3bAQb=1=dEW%QN-P@8+?H]~>
+endstream
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000113 00000 n 
+0000000162 00000 n 
+0000000458 00000 n 
+0000000916 00000 n 
+0000001023 00000 n 
+0000001130 00000 n 
+trailer
+<<
+/Size 9
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+8401
+%%EOF

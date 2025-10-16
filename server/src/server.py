@@ -29,6 +29,68 @@ os.makedirs("/home/lab/tatou/server/watermarked_docs", exist_ok=True)
 from flask import Flask, request, jsonify, send_file, abort
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
+import logging
+import os
+import time
+LOG_DIR = "/home/lab/tatou/server/logs"
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# 使用 RotatingFileHandler 防止文件过大
+from logging.handlers import RotatingFileHandler
+
+log_file = os.path.join(LOG_DIR, "security.log")
+file_handler = RotatingFileHandler(
+    log_file,
+    maxBytes=3 * 1024 * 1024,  # 3MB per log
+    backupCount=3              # 保留最近 3 份
+)
+formatter = logging.Formatter("%(asctime)s [%(levelname)s] [%(name)s] %(message)s")
+
+file_handler.setFormatter(formatter)
+file_handler.setLevel(logging.INFO)
+
+# 控制台输出
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+
+# 绑定到名为 security 的 logger
+security_logger = logging.getLogger("security")
+security_logger.setLevel(logging.INFO)
+security_logger.addHandler(file_handler)
+security_logger.addHandler(stream_handler)
+security_logger.propagate = False  # 防止重复输出
+
+security_logger.info("=== Tatou Security Logging Initialized ===")
+
+# --- Access logger (for normal request logging) ---
+from logging.handlers import RotatingFileHandler
+
+access_log_path = os.path.join(LOG_DIR, "access.log")
+access_handler = RotatingFileHandler(
+    access_log_path,
+    maxBytes=5 * 1024 * 1024,  # 5MB per log file
+    backupCount=5
+)
+access_handler.setLevel(logging.INFO)
+access_formatter = logging.Formatter("%(asctime)s [%(levelname)s] [access] %(message)s")
+access_handler.setFormatter(access_formatter)
+
+# ✅ 定义 access_logger 对象（之前缺这个）
+access_logger = logging.getLogger("tatou.access")
+access_logger.setLevel(logging.INFO)
+access_logger.addHandler(access_handler)
+access_logger.addHandler(logging.StreamHandler())
+access_logger.propagate = False
+
+access_logger.info("=== Tatou Access Logger Ready ===")
+
+from logging.handlers import RotatingFileHandler
+access_log = os.path.join(LOG_DIR, "access.log")
+...
+access_logger.info("=== Tatou Access Logger Ready ===")
+
+
+
 # ======================================================
 # 🔧 RMAP PGP Key Fix Patch (Group_18)
 # 作用：修复 rmap 加载公钥时返回 str 而非 PGPKey 导致加密失败问题
@@ -103,6 +165,64 @@ for d in (STORAGE_DIR, UPLOAD_DIR, VERSIONS_DIR):
 
 app = Flask(__name__)
 load_link_map()
+
+# --- Request logging hook ---
+@app.before_request
+def tatou_log_request():
+    ip = request.remote_addr or "unknown"
+    path = request.path
+    method = request.method
+    t0 = time.time()
+
+    # Basic access log
+    access_logger.info(f"{method} {path} from {ip}")
+
+    # Sensitive patterns — raise security notices (but don't dump whole payload)
+    path_lower = path.lower()
+    if "flag" in path_lower or path_lower.endswith("/flag"):
+        security_logger.warning(f"⚠️ FLAG ACCESS ATTEMPT detected: {method} {path} from {ip}")
+
+    if "/api/rmap-initiate" in path_lower or "/api/rmap-get-link" in path_lower:
+        # log meta (size) + redacted body if JSON
+        content_len = request.content_length or 0
+        try:
+            body = request.get_json(silent=True)
+            redacted = redact_payload(body) if isinstance(body, dict) else "<non-json-or-large>"
+        except Exception:
+            redacted = "<parse-error>"
+        security_logger.info(f"RMAP activity: {method} {path} from {ip}, len={content_len}, body={redacted}")
+
+    # Login attempts — record email but redact passwords
+    if "/api/login" in path_lower and method == "POST":
+        try:
+            body = request.get_json(silent=True) or {}
+            email = body.get("email", "unknown")
+            security_logger.info(f"Login attempt from {ip}, email={email}")
+        except Exception as e:
+            security_logger.warning(f"Login logging parse error from {ip}: {e}")
+
+    # Attach start time to g for after_request timing if you want latency logs
+    request._tatou_start_time = t0
+
+
+@app.after_request
+def tatou_after_request(response):
+    # log latency to access log
+    t0 = getattr(request, "_tatou_start_time", None)
+    if t0:
+        latency_ms = int((time.time() - t0) * 1000)
+        access_logger.info(f"{request.method} {request.path} -> {response.status_code} [{latency_ms}ms]")
+    return response
+
+# --- Global exception handler (also logs stacktrace) ---
+@app.errorhandler(Exception)
+def tatou_handle_exc(e):
+    # exception info with stacktrace
+    security_logger.error(f"Unhandled exception at {request.path if request else 'N/A'}: {e}", exc_info=True)
+    # keep JSON response generic (avoid leaking internals)
+    return jsonify({"error": "Internal Server Error"}), 500
+
+
 import logging
 from logging.handlers import RotatingFileHandler
 
