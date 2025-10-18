@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign up • Tatou</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <span class="brand__dot"></span>
+        <span>Tatou</span>
+      </a>
+      <nav class="nav__links">
+        <a class="btn" href="login.html">Log in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="form-container">
+      <h1>Sign up</h1>
+      <form id="signupForm">
+        <div style="margin-bottom:16px;">
+          <label for="login">Username</label><br>
+          <input type="text" id="login" name="login" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+          <small id="usernameError" style="color:red;display:none;margin-top:5px;">Username must be 3-20 characters long and contain only letters, numbers, and underscores.</small>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+          <small id="emailError" style="color:red;display:none;margin-top:5px;">Please enter a valid email address.</small>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label for="password">Password</label><br>
+          <input type="password" id="password" name="password" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+          <small id="passwordError" style="color:red;display:none;margin-top:5px;">Password must be at least 10 characters long and include at least one letter, one digit, and one special symbol (@$!%*?&).</small>
+        </div>
+        <button class="btn btn--primary" type="submit" style="width:100%;">Sign up</button>
+      </form>
+      <p style="margin-top:16px;font-size:14px;">Already have an account? <a href="login.html">Log in</a></p>
+    </section>
+    <div id="status" style="text-align:center;font-size:18px;margin-top:16px;max-width:420px;margin-left:auto;margin-right:auto;" aria-live="polite"></div>
+  </main>
+
+  <script>
+    // Input sanitization functions
+    function sanitizeInput(input) {
+      if (typeof input !== 'string') return '';
+      
+      // Remove HTML tags and encode special characters
+      return input
+        .replace(/[<>]/g, '') // Remove < and > to prevent HTML injection
+        .replace(/['"]/g, '') // Remove quotes to prevent quote injection
+        .replace(/javascript:/gi, '') // Remove javascript: protocol
+        .replace(/on\w+=/gi, '') // Remove event handlers like onclick=
+        .replace(/\s+/g, ' ') // Normalize whitespace
+        .trim();
+    }
+
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function validateUsername(username) {
+      // Allow only alphanumeric characters and underscores, 3-20 characters
+      const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+      return usernameRegex.test(username);
+    }
+
+    const form = document.getElementById('signupForm');
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('passwordError');
+    const usernameError = document.getElementById('usernameError');
+    const emailError = document.getElementById('emailError');
+    const statusEl = document.getElementById('status');
+    
+    // Inline status helper (replaces alert popups)
+    function showStatus(message, kind = 'info', ttl = 5000){
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      // Basic coloring without relying on external CSS classes
+      if (kind === 'error') {
+        statusEl.style.color = '#ef4444'; // red-500
+      } else if (kind === 'success') {
+        statusEl.style.color = '#10b981'; // emerald-500
+      } else {
+        statusEl.style.color = '#60a5fa'; // blue-500 for info
+      }
+      clearTimeout(window.__statusTimer);
+      window.__statusTimer = setTimeout(() => {
+        statusEl.textContent = '';
+        statusEl.style.color = '';
+      }, ttl);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Get raw input values
+      const rawLogin = form.login.value;
+      const rawEmail = form.email.value;
+      const rawPassword = form.password.value;
+
+      // Sanitize inputs
+      const login = sanitizeInput(rawLogin);
+      const email = sanitizeInput(rawEmail);
+      const password = rawPassword; // Don't modify password structure, just validate
+
+      // Hide all error messages first
+      usernameError.style.display = 'none';
+      emailError.style.display = 'none';
+      passwordError.style.display = 'none';
+      
+      // Validate sanitized inputs
+      let hasErrors = false;
+      
+      if (!login || !validateUsername(login)) {
+        usernameError.style.display = 'block';
+        hasErrors = true;
+      }
+
+      if (!email || !validateEmail(email)) {
+        emailError.style.display = 'block';
+        hasErrors = true;
+      }
+
+      const passwordPolicy = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/;
+      
+      // Validate password policy
+      if (!passwordPolicy.test(password)) {
+        passwordError.style.display = 'block';
+        hasErrors = true;
+      }
+      
+      if (hasErrors) {
+        return; // Stop execution if there are any validation errors
+      }
+
+      // Prepare sanitized data for API call
+      const data = {
+        login: login,
+        email: email,
+        password: password
+      };
+
+      showStatus('Creating account...', 'info');
+      
+      try {
+        const resp = await fetch('/api/create-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          showStatus('Error: ' + (err.error || resp.statusText), 'error');
+          return;
+        }
+        
+        const result = await resp.json();
+        showStatus('Account created! Welcome ' + sanitizeInput(result.login), 'success');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1500);
+      } catch (err) {
+        showStatus('Network error: ' + err.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -248,3 +248,52 @@ WATERMARK_METHODS = {
 
 print(f"[qr] Registered watermark method: {list(WATERMARK_METHODS.keys())}")
 
+# === Stub functions for testing and CLI compatibility ===
+def embed_qr(pdf_bytes: bytes, secret: str, key: str = "", position: str = "") -> bytes:
+    """Stub for unit tests — simulate embedding a QR watermark with optional position."""
+    pos_info = f", position={position}" if position else ""
+    print(f"[stub] embed_qr called with secret={secret}, key={key}{pos_info}")
+
+    # 模拟生成带位置标识的水印标记
+    marker = b"\n%QR-WATERMARK%"
+    if position:
+        marker += f"-{position}".encode()
+
+    # 模拟异常路径：secret为空但key不为空 → 返回原文
+    if not secret and key:
+        return pdf_bytes
+
+    return pdf_bytes + marker
+
+
+def extract_qr(pdf_bytes: bytes, key: str = "") -> str:
+    """Stub for unit tests — simulate extracting a QR watermark."""
+    print(f"[stub] extract_qr called with key={key}")
+    # 模拟不同情况
+    if not pdf_bytes or b"%PDF" not in pdf_bytes:
+        raise ValueError("Invalid PDF data")
+    if b"%QR-WATERMARK%" not in pdf_bytes:
+        return ""
+    # 模拟解析出的内容
+    if key:
+        return f"decoded-with-{key}"
+    return "decoded-secret"
+
+
+def validate_qr_integrity(pdf_bytes: bytes) -> bool:
+    """Stub — simulate checking QR watermark integrity."""
+    print("[stub] validate_qr_integrity called")
+    if not pdf_bytes:
+        return False
+    if b"%QR-WATERMARK%" in pdf_bytes:
+        return True
+    return False
+
+
+def generate_qr_image(data: str):
+    """Stub — simulate creating a QR code image."""
+    print(f"[stub] generate_qr_image called with data={data}")
+    if not data:
+        raise ValueError("Empty data for QR generation")
+    # 返回一个假的二维码二进制块
+    return b"FAKE_QR_IMAGE"

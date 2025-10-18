@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login • Tatou</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <span class="brand__dot"></span>
+        <span>Tatou</span>
+      </a>
+      <nav class="nav__links">
+        <a class="btn" href="signup.html">Sign up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" style="max-width:420px;margin:30px auto;">
+      <h1 style="margin-top:0;">Log in to your account</h1>
+      <form id="loginForm" method="post">
+        <div style="margin-bottom:16px;">
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+        </div>
+        <div style="margin-bottom:20px;">
+          <label for="password">Password</label><br>
+          <input type="password" id="password" name="password" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+        </div>
+        <button class="btn btn--primary" type="submit" style="width:100%;">Log in</button>
+      </form>
+      <p style="margin-top:16px;font-size:14px;">Don’t have an account? <a href="signup.html">Sign up</a></p>
+    </section>
+    <div id="status" style="text-align:center;text-emphasis:bolder;font-size:18px;" aria-live="polite"></div>
+  </main>
+
+  <script>
+    // Input sanitization functions
+    function sanitizeInput(input) {
+      if (typeof input !== 'string') return '';
+      
+      // Remove HTML tags and encode special characters
+      return input
+        .replace(/[<>]/g, '') // Remove < and > to prevent HTML injection
+        .replace(/['"]/g, '') // Remove quotes to prevent quote injection
+        .replace(/javascript:/gi, '') // Remove javascript: protocol
+        .replace(/on\w+=/gi, '') // Remove event handlers like onclick=
+        .replace(/\s+/g, ' ') // Normalize whitespace
+        .trim();
+    }
+    
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    function validatePassword(password) {
+      // Basic validation - ensure it's a reasonable length and format
+      if (password.length < 1 || password.length > 1000) return false;
+      // Check for suspicious patterns
+      if (/[<>]/.test(password)) return false;
+      return true;
+    }
+
+    const form = document.getElementById('loginForm');
+    const statusEl = document.getElementById('status');
+
+    // Inline status helper (replaces alert popups)
+    function showStatus(message, kind = 'info', ttl = 5000){
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      // Basic coloring without relying on external CSS classes
+      if (kind === 'error') {
+        statusEl.style.color = '#ef4444'; // red-500
+      } else if (kind === 'success') {
+        statusEl.style.color = '#10b981'; // emerald-500
+      } else {
+        statusEl.style.color = '#60a5fa'; // blue-500 for info
+      }
+      clearTimeout(window.__statusTimer);
+      window.__statusTimer = setTimeout(() => {
+        statusEl.textContent = '';
+        statusEl.style.color = '';
+      }, ttl);
+    }
+    
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Get raw input values
+      const rawEmail = form.email.value;
+      const rawPassword = form.password.value;
+      
+      // Sanitize inputs
+      const email = sanitizeInput(rawEmail);
+      const password = rawPassword; // Don't modify password structure, just validate
+      
+      // Validate sanitized inputs
+      if (!email || !validateEmail(email)) {
+        showStatus('Please enter a valid email address', 'error');
+        return;
+      }
+      
+      if (!validatePassword(password)) {
+        showStatus('Invalid password format', 'error');
+        return;
+      }
+      
+      // Prepare sanitized data for API call
+      const data = {
+        email: email,
+        password: password
+      };
+      
+      showStatus('Signing in...', 'info');
+      
+      try {
+        const resp = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          showStatus('Error: ' + (err.error || resp.statusText), 'error');
+          return;
+        }
+        const result = await resp.json();
+        
+        // Sanitize token before storing
+        if (result.token && typeof result.token === 'string') {
+          localStorage.setItem('authToken', result.token);
+          showStatus('Welcome back!', 'success');
+          setTimeout(() => {
+            window.location.href = 'documents.html';
+          }, 1000);
+        } else {
+          showStatus('Invalid response from server', 'error');
+        }
+      } catch (err) {
+        showStatus('Network error: ' + err.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>
+

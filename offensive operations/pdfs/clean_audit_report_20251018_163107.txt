@@ -1,0 +1,32 @@
+=== PDF Cleanliness Audit (20251018_163107) ===
+Patterns: watermark|axel|tatou|fingerprint|do[[:space:]]+not[[:space:]]+distribute|gAAAAA|secret[_-]?digest|p0[_-]?salt|p0[_-]?mac
+
+==============================
+📄 Group_10_clean2.pdf
+  - meta_hits:    0
+  - strings_hits: 0
+  - text_hits:    0
+  => STATUS: PASS
+
+==============================
+📄 Group_13_clean2.pdf
+  - meta_hits:    0
+  - strings_hits: 1
+  - text_hits:    0
+  => STATUS: FAIL
+  [strings samples]
+    6:<< /Author (\(anonymous\)) /CreationDate (D:20250926100850+02'00') /Creator (Tatou-a4ece7f7) /Keywords (watermark,a4ece7f7-5759-4c96-a11f-7a535e1517e9) /ModDate (D:20250926100850+02'00') /Producer (Tatou Security Watermarker v1) /Subject (tw-a4ece7f7-iGAk2DMYnhrWvUG2UgZEr/0JqbZTKDmdnI/Pql8L+vrgqc7moSKvyCjuDs6vbkcYB2+pYgueDKw+Ddl2PXVX5ds+k6uyufHoeFH5) /Title (iGAk2DMYnhrWvUG2UgZEr/0JqbZTKDmdnI/Pql8L+vrgqc7moSKvyCjuDs6vbkcYB2+pYgueDKw+Ddl2PXVX5ds+k6uyufHoeFH5NF0MPuxl+uo06g2go40F//XZwS5kbgtuz7Wy19xtYOYrqqMHW8Llu8so+jHLhMfdXztL8u9Xflk5ASnDUcJibwpIyXvz/MupUBFlVdhPv1fXrLrs1T4X51w/ukGdDQgCcM+wqVBHMgos7XGYMy/PCGhIX1nKguHZRRLgPnJg8w==) >>
+
+==============================
+📄 Group_19_redacted.pdf
+  - meta_hits:    0
+  - strings_hits: 0
+  - text_hits:    59
+  => STATUS: FAIL
+  [text samples]
+    1:Watermarked with Axel-Watermark (encrypted) gAAAAABo56c_rmub_kvMCWESHelzZYt3cAhU7p3wfaZNsl4aN2dHihOg5vVBCwcJhMxistFL3LK12XNnYW5GIRKOukRcJ2VDCg== Do not distribute
+    3:Watermarked with Axel-Watermark (encrypted) gAAAAABo56c_rmub_kvMCWESHelzZYt3cAhU7p3wfaZNsl4aN2dHihOg5vVBCwcJhMxistFL3LK12XNnYW5GIRKOukRcJ2VDCg== Do not distribute
+    5:Watermarked with Axel-Watermark
+    6:Fingerprint: e2f387e936fa387b90559e41cafcfc2edd2826a8568881873b91a16e78c012a4
+    7:Do not distribute
+

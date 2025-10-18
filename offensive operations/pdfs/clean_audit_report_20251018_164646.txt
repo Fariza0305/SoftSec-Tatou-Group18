@@ -1,0 +1,10 @@
+=== PDF Cleanliness Audit (20251018_164646) ===
+Patterns: watermark|axel|tatou|fingerprint|do[[:space:]]+not[[:space:]]+distribute|gAAAAA|secret[_-]?digest|p0[_-]?salt|p0[_-]?mac
+
+==============================
+📄 Group_13_final.pdf
+  - meta_hits:    0
+  - strings_hits: 0
+  - text_hits:    0
+  => STATUS: PASS
+
