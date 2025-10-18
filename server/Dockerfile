@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends git ca-certificates openssh-client \
+ && apt-get install -y --no-install-recommends git ca-certificates openssh-client gcc build-essential libffi-dev \
  && rm -rf /var/lib/apt/lists/*
 
 # Copy project description, to instal dependencies

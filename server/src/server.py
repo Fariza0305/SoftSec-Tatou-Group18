@@ -25,14 +25,19 @@ sys.path.append(os.path.dirname(__file__))
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Optional
-os.makedirs("/home/lab/tatou/server/watermarked_docs", exist_ok=True)
+
+# 使用相对路径：基于项目根目录
+PROJECT_ROOT = Path(__file__).resolve().parent.parent  # server/src/server.py -> server/
+WATERMARKED_DOCS_DIR = PROJECT_ROOT / "watermarked_docs"
+os.makedirs(WATERMARKED_DOCS_DIR, exist_ok=True)
+
 from flask import Flask, request, jsonify, send_file, abort
 import pymysql
 from werkzeug.security import generate_password_hash, check_password_hash
 import logging
 import os
 import time
-LOG_DIR = "/home/lab/tatou/server/logs"
+LOG_DIR = PROJECT_ROOT / "logs"
 os.makedirs(LOG_DIR, exist_ok=True)
 
 # 使用 RotatingFileHandler 防止文件过大
@@ -222,11 +227,30 @@ def tatou_handle_exc(e):
     # keep JSON response generic (avoid leaking internals)
     return jsonify({"error": "Internal Server Error"}), 500
 
+# --- HTTP Method Not Allowed handler ---
+@app.errorhandler(405)
+def method_not_allowed(e):
+    """Handle 405 Method Not Allowed errors"""
+    security_logger.warning(f"Method not allowed: {request.method} {request.path} from {request.remote_addr or 'unknown'}")
+    return jsonify({"error": "Method Not Allowed"}), 405
+
+# --- Add method validation middleware ---
+@app.before_request
+def validate_http_method():
+    """Validate HTTP methods for each route"""
+    # Get the current route rule
+    rule = request.url_rule
+    if rule and rule.methods:
+        # Check if the current method is allowed for this route
+        if request.method not in rule.methods:
+            security_logger.warning(f"Method not allowed: {request.method} {request.path} from {request.remote_addr or 'unknown'}")
+            return jsonify({"error": "Method Not Allowed"}), 405
+
 
 import logging
 from logging.handlers import RotatingFileHandler
 
-handler = RotatingFileHandler('/home/lab/tatou/server/logs/access.log', maxBytes=10*1024*1024, backupCount=5)
+handler = RotatingFileHandler(str(LOG_DIR / 'access.log'), maxBytes=10*1024*1024, backupCount=5)
 handler.setLevel(logging.INFO)
 app.logger.addHandler(handler)
 
@@ -406,11 +430,11 @@ def _ensure_owner(uid: int, docid: int) -> Dict[str, Any]:
 # --------------------------------------------------------------------------------------
 # Routes
 # --------------------------------------------------------------------------------------
-@app.route("/healthz")
+@app.route("/healthz", methods=["GET"])
 def healthz():
     return jsonify({"ok": True, "time": _now_iso()})
 
-@app.route("/api/get-watermarking-methods")
+@app.route("/api/get-watermarking-methods", methods=["GET"])
 def api_get_methods():
     _load_watermark_modules()
     methods = [{"name": k, "description": v.get("description", "")} for k, v in WATERMARK_METHODS.items()]
@@ -499,7 +523,7 @@ def api_create_watermark(doc_id: int):
         doc = {
             "id": doc_id,
             "filename": f"doc_{doc_id}.pdf",  # ✅ 自动匹配文件名
-            "path": f"/home/lab/tatou/server/storage/uploads/doc_{doc_id}.pdf"  # ✅ 修正为真实路径
+            "path": str(PROJECT_ROOT / f"storage/uploads/doc_{doc_id}.pdf")  # ✅ 使用相对路径
         }
     else:
         uid = require_auth()
@@ -616,7 +640,7 @@ def api_read_watermark(doc_id: int):
         payload = {"secret": ("" if result is None else str(result))}
     return jsonify({"success": True, **payload})
 
-@app.route("/api/list-versions/<int:doc_id>")
+@app.route("/api/list-versions/<int:doc_id>", methods=["GET"])
 def api_list_versions(doc_id: int):
     uid = require_auth()
     _ = _ensure_owner(uid, doc_id)
@@ -636,7 +660,7 @@ def api_list_versions(doc_id: int):
             r["creation"] = str(r["creation"])
     return jsonify({"count": len(rows), "versions": rows})
 
-@app.route("/api/list-all-versions")
+@app.route("/api/list-all-versions", methods=["GET"])
 def api_list_all_versions():
     uid = require_auth()
     conn = get_db()
@@ -863,7 +887,7 @@ def rmap_get_link_production():
 
     # 如果没有明确的 path，就在 storage/versions 目录里自动查找最近的 PDF
     if not file_path or not Path(file_path).exists():
-        storage_dir = Path("/home/lab/tatou/server/storage/versions")
+        storage_dir = PROJECT_ROOT / "storage/versions"
         if storage_dir.exists():
             pdf_files = sorted(storage_dir.glob("*.pdf"), key=lambda p: p.stat().st_mtime, reverse=True)
             if pdf_files:
@@ -874,7 +898,7 @@ def rmap_get_link_production():
                 file_path = str(storage_dir / f"{link_token}.pdf")
         else:
             # 目录不存在时 fallback
-            file_path = f"/home/lab/tatou/server/storage/versions/{link_token}.pdf"
+            file_path = str(PROJECT_ROOT / f"storage/versions/{link_token}.pdf")
 
     # created_at 可以来自内部服务，若没有则填当前时间
     created_at = result.get("created_at") or datetime.now(timezone.utc).isoformat()
@@ -900,7 +924,7 @@ def rmap_get_link_production():
 
         # 如果没有返回 path 或文件不存在，就去 storage/versions 中寻找
         if not file_path or not Path(file_path).exists():
-            storage_dir = Path("/home/lab/tatou/server/storage/versions")
+            storage_dir = PROJECT_ROOT / "storage/versions"
             if storage_dir.exists():
                 # 优先找与 link 同名的 PDF
                 candidate = storage_dir / f"{result_meta['link']}.pdf"
@@ -916,7 +940,7 @@ def rmap_get_link_production():
                         file_path = str(storage_dir / f"{result_meta['link']}.pdf")
             else:
                 # storage 目录不存在则 fallback
-                file_path = f"/home/lab/tatou/server/storage/versions/{result_meta['link']}.pdf"
+                file_path = str(PROJECT_ROOT / f"storage/versions/{result_meta['link']}.pdf")
 
         pdf_path = Path(file_path)
 
