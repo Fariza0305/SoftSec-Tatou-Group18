@@ -408,3 +408,6 @@ evidence/
 .venv/
 __pycache__/
 *.pyc
+
+# Local Docker Compose overrides
+docker-compose.override.yml
