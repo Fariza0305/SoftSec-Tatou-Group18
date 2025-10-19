@@ -1,163 +1,239 @@
-# tatou
-A web platform for pdf watermarking. This project is intended for pedagogical use, and contain security vulnerabilities. Do not deploy on an open network.
+# Tatou - PDF Watermarking Platform
 
-## Instructions
+A secure web platform for PDF watermarking with comprehensive security controls. This project demonstrates security best practices including XSS protection, SQL injection prevention, path traversal protection, and more.
 
-The following instructions are meant for a bash terminal on a Linux machine. If you are using something else, you will need to adapt them.
-
-To clone the repo, you can simply run:
-
-```bash
-git clone https://github.com/nharrand/tatou.git
-```
-
-Note that you should probably fork the repo and clone your own repo.
-
-
-### Run python unit tests
-
-```bash
-cd tatou/server
-
-# Create a python virtual environement
-python3 -m venv .venv
-
-# Activate your virtual environement
-. .venv/bin/activate
-
-# Install the necessary dependencies
-python -m pip install -e ".[dev]"
-
-# Run the unit tests
-python -m pytest
-```
-
-### Deploy
-
-From the root of the directory:
-
-```bash
-# Create a file to set environement variables like passwords.
-cp sample.env .env
-
-# Edit .env and pick the passwords you want
-
-# Rebuild the docker image and deploy the containers
-docker compose up --build -d
-
-# Monitor logs in realtime 
-docker compose logs -f
-
-# Test if the API is up
-http -v :5000/healthz
-
-# Open your browser at 127.0.0.1:5000 to check if the website is up.
-```
-
-
-
+⚠️ **Note:** This project is intended for pedagogical use. Do not deploy on an open network.
 
 ---
 
-## 🎉 Security Assessment & Remediation - COMPLETE
+## 🚀 Quick Start
 
-**Status:** ✅ **ALL VULNERABILITIES FIXED - PRODUCTION READY**  
-**Completion Date:** October 17, 2025
+### Prerequisites
+- Docker & Docker Compose
+- Python 3.8+ (for local testing)
+- Git
 
-### Executive Summary
-
-This project has undergone a comprehensive security assessment and remediation. All discovered vulnerabilities have been fixed, tested, and validated.
-
-| Metric | Before | After |
-|--------|--------|-------|
-| **Critical Vulnerabilities** | 4 | ✅ 0 |
-| **High Severity** | 7 | ✅ 0 |
-| **Medium Severity** | 4 | ✅ 0 |
-| **Low Severity** | 2 | ✅ 0 |
-| **Risk Reduction** | - | **100%** |
-
-### 🛡️ Security Controls Implemented
-
-- ✅ **XSS Protection** - Comprehensive input sanitization
-- ✅ **Path Traversal Protection** - Advanced filename validation
-- ✅ **SQL Injection Prevention** - Parameterized queries throughout
-- ✅ **XXE Protection** - Safe XML parsing with entities disabled
-- ✅ **Rate Limiting** - Prevents brute force and DoS attacks
-- ✅ **Security Headers** - Complete HTTP security header suite
-- ✅ **Safe Error Handling** - No information disclosure
-
-### 📊 Testing Coverage
-
-| Test Suite | Tests | Status |
-|------------|-------|--------|
-| **Regression Tests** | 17 | ✅ 100% Pass |
-| **Non-Regression Tests** | 9 | ✅ 100% Pass |
-| **Overall Coverage** | 26 tests | ✅ All Pass |
-
-### 🚀 Quick Start - Validation
-
-Run a quick security validation:
+### 1. Clone Repository
 ```bash
-./QUICK_VALIDATION.sh http://localhost:5000
+git clone https://github.com/nharrand/tatou.git
+cd tatou
 ```
 
-Run comprehensive regression tests:
+### 2. Configure Environment
 ```bash
+# Copy environment template
+cp sample.env .env
+
+# Edit .env with your passwords
+nano .env
+```
+
+### 3. Deploy with Docker
+```bash
+# Build and start all services
+docker compose up --build -d
+
+# Monitor logs
+docker compose logs -f
+
+# Verify server is running
+curl http://127.0.0.1:5000/healthz
+```
+
+**Services:**
+- **API Server:** http://127.0.0.1:5000
+- **phpMyAdmin:** http://127.0.0.1:8080
+- **Database:** MariaDB on port 3306
+
+---
+
+## 🧪 Testing
+
+### Unit Tests
+
+Run Python unit tests using pytest:
+
+```bash
+cd server
+
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies with dev tools
+pip install -e ".[dev]"
+
+# Run all unit tests
+pytest
+
+# Run specific test file
+pytest ../tests/test_watermark_qr_unit.py
+
+# Run with verbose output
+pytest -v
+```
+
+**Test Coverage:**
+- 17 unit test files in `tests/`
+- Tests for watermarking, authentication, API endpoints, and security features
+
+### API Tests (Regression Tests)
+
+Verify security fixes with regression tests:
+
+```bash
+# Ensure server is running first
+docker compose up -d
+
+# Run all regression tests
 cd fuzzing/regression_tests
 ./run_all_regression_tests.sh http://localhost:5000
+
+# Run individual test
+./rt_xss_create_user_login.sh http://localhost:5000
 ```
 
-Run non-regression tests (functionality):
+**Available Test Categories:**
+- XSS Protection (4 tests)
+- Path Traversal Protection (4 tests)
+- SQL Injection Prevention (3 tests)
+- XXE Protection (2 tests)
+- Rate Limiting (2 tests)
+- Information Disclosure (2 tests)
+
+### Non-Regression Tests (Functionality)
+
+Ensure core functionality still works:
+
 ```bash
 cd fuzzing/non_regression_tests
 ./run_all_non_regression_tests.sh http://localhost:5000
 ```
 
-### 📚 Documentation
+### Quick Validation
 
-| Document | Description |
-|----------|-------------|
-| **[FINAL_SECURITY_REPORT.md](FINAL_SECURITY_REPORT.md)** | 📋 Complete security assessment (START HERE) |
-| **[PROJECT_COMPLETION_SUMMARY.md](PROJECT_COMPLETION_SUMMARY.md)** | 🎯 Project completion overview |
-| **[SECURITY_FIXES_APPLIED.md](SECURITY_FIXES_APPLIED.md)** | 🔧 Detailed technical fixes |
-| **[TESTING_TOOLS_INDEX.md](TESTING_TOOLS_INDEX.md)** | 🛠️ Testing tools quick reference |
-| **fuzzing/FUZZING_REPORT.md** | 📊 Fuzzing methodology & results |
-
-### 🧪 Testing Tools
-
-All testing tools are organized in `testing_tools/`:
+Fast security check (recommended for CI/CD):
 
 ```bash
-testing_tools/
-├── fuzzers/          # Vulnerability discovery tools
-├── generators/       # Test generation tools
-└── validators/       # Quick validation scripts
+./QUICK_VALIDATION.sh http://localhost:5000
 ```
-
-### 🔒 Security Highlights
-
-**Vulnerabilities Fixed:**
-- 4 XSS vulnerabilities (CRITICAL)
-- 4 Path Traversal issues (HIGH)
-- 3 SQL Injection vectors (HIGH)
-- 2 XXE vulnerabilities (HIGH)
-- 2 Rate limiting issues (MEDIUM)
-- 2 Information disclosure issues (MEDIUM)
-
-**All security fixes validated through:**
-- ✅ Automated regression testing
-- ✅ Fuzzing campaign validation
-- ✅ Manual security review
-- ✅ Functionality preservation tests
-
-### 📈 Next Steps
-
-1. **Deploy**: Application is production-ready
-2. **Monitor**: Set up security monitoring and logging
-3. **Maintain**: Run regression tests before each deployment
-4. **Update**: Keep dependencies current with security patches
 
 ---
 
-**For detailed information, start with [FINAL_SECURITY_REPORT.md](FINAL_SECURITY_REPORT.md)**
+## 📊 Coverage Analysis
 
+### Generate Coverage Report
+
+```bash
+cd server
+source .venv/bin/activate
+
+# Run tests with coverage
+pytest --cov=src --cov-report=html --cov-report=term
+
+# View HTML report
+firefox htmlcov/index.html
+```
+
+Coverage report will be generated in `htmlcov/` directory.
+
+---
+
+## 🔒 Security Features
+
+This platform implements multiple security controls:
+
+✅ **XSS Protection** - Input sanitization and output encoding  
+✅ **SQL Injection Prevention** - Parameterized queries  
+✅ **Path Traversal Protection** - Filename validation  
+✅ **XXE Protection** - Safe XML parsing  
+✅ **Rate Limiting** - Brute force prevention  
+✅ **Security Headers** - CSP, X-Frame-Options, etc.  
+✅ **Safe Error Handling** - No information disclosure  
+
+**Vulnerability Status:** All known vulnerabilities fixed ✅
+
+---
+
+## 🛠️ Development
+
+### Project Structure
+```
+tatou/
+├── server/              # Flask API server
+│   ├── src/            # Source code
+│   │   ├── server.py           # Main API server
+│   │   ├── security_utils.py   # Security functions
+│   │   ├── watermark_*.py      # Watermarking modules
+│   │   └── rmap/              # RMAP integration
+│   ├── pyproject.toml  # Python dependencies
+│   └── Dockerfile      # Server container
+├── tests/              # Unit tests (pytest)
+├── fuzzing/            # Security testing
+│   ├── regression_tests/      # Security tests
+│   └── non_regression_tests/  # Functionality tests
+├── db/                 # Database initialization
+├── docker-compose.yml  # Service orchestration
+└── README.md          # This file
+```
+
+### Running Server Locally (without Docker)
+
+```bash
+cd server
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Set environment variables
+export DB_HOST=localhost
+export DB_USER=tatou
+export DB_PASSWORD=your_password
+
+# Run server
+cd src
+python server.py
+```
+
+**Note: If rmap connection fails, run the following commands:**
+```bash
+export SERVICE_TOKEN=softsec2025
+flask run --host=0.0.0.0 --port=5000
+```
+
+### Stop Services
+
+```bash
+# Stop all containers
+docker compose down
+
+# Stop and remove volumes (⚠️ deletes data)
+docker compose down -v
+```
+
+---
+
+## 📚 Documentation
+
+- **[API.md](server/API.md)** - API endpoint documentation
+- **[FUZZING_REPORT.md](fuzzing/FUZZING_REPORT.md)** - Security testing methodology
+- **[SECURITY_QUICK_REFERENCE.txt](SECURITY_QUICK_REFERENCE.txt)** - Security guidelines
+- **[PROJECT_STATUS.txt](PROJECT_STATUS.txt)** - Development status
+
+---
+
+## 📝 License
+
+This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
+
+---
+
+## 🎓 Educational Purpose
+
+This platform is designed for security education and demonstrates:
+- Common web vulnerabilities (historical)
+- Security remediation techniques
+- Secure coding practices
+- Security testing methodologies
+
+**Do not use in production without thorough security review.**

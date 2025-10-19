@@ -1,0 +1,10 @@
+=== Group_17.pdf ===
+http://www.reportlab.com  # from: raw_bytes/URI
+http://www.reportlab.com  # from: raw_bytes/URI
+http://www.reportlab.com  # from: strings
+http://www.reportlab.com  # from: strings
+
+=== Group_10.pdf ===
+http://www.w3.org/1999/02/22-rdf-syntax-ns#  # from: raw_bytes/URI
+http://www.w3.org/1999/02/22-rdf-syntax-ns#  # from: strings
+

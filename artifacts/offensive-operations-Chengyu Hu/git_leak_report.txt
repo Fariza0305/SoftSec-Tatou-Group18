@@ -1,0 +1,75 @@
+============================
+📡 10.11.202.5
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.6
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.7
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.9
+✅ 泄露: http://10.11.202.9:5000/.git/HEAD  [HTTP 403]
+    {"error":"file type not allowed"}
+✅ 泄露: http://10.11.202.9:5000/.git/config  [HTTP 403]
+    {"error":"file type not allowed"}
+✅ 泄露: http://10.11.202.9:5000/.git/index  [HTTP 403]
+    {"error":"file type not allowed"}
+✅ 泄露: http://10.11.202.9:5000/.git/refs/heads/master  [HTTP 403]
+    {"error":"file type not allowed"}
+✅ 泄露: http://10.11.202.9:5000/.git/refs/heads/main  [HTTP 403]
+    {"error":"file type not allowed"}
+============================
+📡 10.11.202.10
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.11
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.13
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.14
+ℹ️  /.git/HEAD  [HTTP 500]
+ℹ️  /.git/config  [HTTP 500]
+ℹ️  /.git/index  [HTTP 500]
+ℹ️  /.git/refs/heads/master  [HTTP 500]
+ℹ️  /.git/refs/heads/main  [HTTP 500]
+============================
+📡 10.11.202.15
+ℹ️  /.git/HEAD  [HTTP 404]
+ℹ️  /.git/config  [HTTP 404]
+ℹ️  /.git/index  [HTTP 404]
+ℹ️  /.git/refs/heads/master  [HTTP 404]
+ℹ️  /.git/refs/heads/main  [HTTP 404]
+============================
+📡 10.11.202.16
+ℹ️  /.git/HEAD  [HTTP 000]
+ℹ️  /.git/config  [HTTP 000]
+ℹ️  /.git/index  [HTTP 000]
+ℹ️  /.git/refs/heads/master  [HTTP 000]
+ℹ️  /.git/refs/heads/main  [HTTP 000]

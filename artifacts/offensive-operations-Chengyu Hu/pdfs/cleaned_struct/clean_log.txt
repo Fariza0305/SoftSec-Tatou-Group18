@@ -1,0 +1,5 @@
+Group_10.pdf: doclevel=2, annots_xobj=0, contents=2 -> Group_10_struct_clean.pdf
+Group_13.pdf: doclevel=1, annots_xobj=0, contents=2 -> Group_13_struct_clean.pdf
+Group_17.pdf: doclevel=1, annots_xobj=0, contents=2 -> Group_17_struct_clean.pdf
+Group_19.pdf: doclevel=1, annots_xobj=0, contents=118 -> Group_19_struct_clean.pdf
+Group_24.pdf: doclevel=0, annots_xobj=0, contents=3 -> Group_24_struct_clean.pdf

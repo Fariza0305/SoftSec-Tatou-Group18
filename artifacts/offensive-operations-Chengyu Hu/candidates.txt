@@ -1,0 +1,14 @@
+=== Group_17.pdf ===
+No candidates found.
+
+=== Group_13.pdf ===
+No candidates found.
+
+=== Group_10.pdf ===
+[Truncated from 64 hex]
+  07daba0259118b2886ce8b015f541fac3b564f7a
+  62e668ff12e0ff8d633d2d6d6b99c67482a00bdc
+[SHA256-like 64 hex]
+  07daba0259118b2886ce8b015f541fac3b564f7afd524d01c985a6d79e074b59
+  62e668ff12e0ff8d633d2d6d6b99c67482a00bdc52fa81225e51bc04e0a9603b
+

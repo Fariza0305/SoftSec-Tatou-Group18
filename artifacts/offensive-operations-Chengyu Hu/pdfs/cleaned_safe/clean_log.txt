@@ -1,0 +1,5 @@
+Group_10.pdf: doc=2 annots=0 xobj=0 => Group_10_safe.pdf
+Group_13.pdf: doc=1 annots=0 xobj=0 => Group_13_safe.pdf
+Group_17.pdf: doc=1 annots=0 xobj=0 => Group_17_safe.pdf
+Group_19.pdf: doc=1 annots=0 xobj=0 => Group_19_safe.pdf
+Group_24.pdf: doc=0 annots=0 xobj=0 => Group_24_safe.pdf

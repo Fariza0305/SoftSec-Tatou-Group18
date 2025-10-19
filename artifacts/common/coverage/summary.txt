@@ -1,0 +1,13 @@
+Name                                          Stmts   Miss  Cover
+-----------------------------------------------------------------
+server/src/add_after_eof.py                      70     33    53%
+server/src/server.py                            550    277    50%
+server/src/unsafe_bash_bridge_append_eof.py      21      9    57%
+server/src/watermark_attachment.py               83     57    31%
+server/src/watermark_metadata.py                 56     34    39%
+server/src/watermark_qr.py                      128     93    27%
+server/src/watermarking_cli.py                  126     68    46%
+server/src/watermarking_method.py                59     15    75%
+server/src/watermarking_utils.py                 31     13    58%
+-----------------------------------------------------------------
+TOTAL                                          1124    599    47%

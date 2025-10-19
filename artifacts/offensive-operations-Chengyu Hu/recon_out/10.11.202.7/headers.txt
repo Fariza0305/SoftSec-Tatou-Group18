@@ -1,0 +1,12 @@
+—— headers ——
+HTTP/1.1 200 OK
+Server: gunicorn
+Date: Fri, 17 Oct 2025 20:02:07 GMT
+Connection: close
+Content-Disposition: inline; filename=index.html
+Content-Type: text/html; charset=utf-8
+Content-Length: 3209
+Last-Modified: Thu, 16 Oct 2025 09:01:44 GMT
+Cache-Control: no-cache
+ETag: "1760605304.0-3209-2158758345"
+

