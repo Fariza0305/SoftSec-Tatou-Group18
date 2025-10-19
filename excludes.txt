@@ -1,0 +1,12 @@
+# 排除虚拟环境、数据库文件、可再生文件
+.venv
+venv
+server/mysql-data
+server/storage/versions
+server/downloads
+server/tmp-gnupg
+server/.cache
+*.pyc
+__pycache__
+.env
+*.sqlite3

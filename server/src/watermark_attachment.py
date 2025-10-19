@@ -94,6 +94,9 @@ class AttachmentWatermark:
         将信息写入 PDF 附件（JSON）。
         返回新的 PDF bytes。
         """
+        import io, json, time, warnings
+        from PyPDF2 import PdfReader, PdfWriter
+
         payload: Dict[str, Any] = {
             "secret": secret or "",
             "intended_for": intended_for or "",
@@ -104,17 +107,28 @@ class AttachmentWatermark:
             "version": "v1",
             "timestamp": int(time.time()),
         }
-        payload_bytes = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        payload_bytes = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
 
-        reader = PdfReader(io.BytesIO(pdf))
-        writer = _copy_pages(reader)
+        try:
+            reader = PdfReader(io.BytesIO(pdf))
+            writer = _copy_pages(reader)
+            if len(reader.pages) == 0:
+                warnings.warn("[attachment] ⚠️ Input PDF has no pages — adding a blank page.")
+                writer.add_blank_page(width=595, height=842)
+        except Exception as e:
+            print(f"[attachment] ⚠️ Failed to read input PDF: {e}")
+            writer = PdfWriter()
+            writer.add_blank_page(width=595, height=842)
 
-        # pypdf 的附件写入
+        # ✅ 把 JSON 附件加入 PDF
         writer.add_attachment(ATTACH_NAME, payload_bytes)
 
         out = io.BytesIO()
         writer.write(out)
-        return out.getvalue()
+        result = out.getvalue()
+
+        print(f"[attachment] ✅ Watermark embedded ({len(result)} bytes, method={METHOD_NAME})")
+        return result
 
     def read_secret(
         self,

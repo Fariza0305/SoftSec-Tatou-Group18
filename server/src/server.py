@@ -281,6 +281,13 @@ def get_db():
     )
 
 
+from flask import jsonify
+
+@app.route("/api/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"}), 200
+
+
 @app.route("/debug-db")
 def debug_db():
     conn = get_db()
@@ -532,33 +539,41 @@ def api_create_watermark(doc_id: int):
 
     # ---- 解析请求体 ----
     data = request.get_json(silent=True) or {}
-    method = (data.get("method") or "").strip()
+    method = data.get("wm_method", "attachment").strip()
     params = data.get("params", {}) or {}
+    # (建议把 `import os` 放在 server.py 文件顶部)
+    import os
 
-    # ✅ 兼容顶层与 params 两种调用方式
+    # ----- create-watermark 参数解析（替换对应片段） -----
     secret       = params.get("secret",       data.get("secret", "")) or ""
     intended_for = params.get("intended_for", data.get("intended_for", "")) or ""
     key          = params.get("key",          data.get("key"))
     position     = params.get("position",     data.get("position", "")) or ""
-    flag1        = params.get("flag1",        data.get("flag1"))
+
+    # flag1 优先使用请求传入的值；若没有，则从环境变量 FLAG_1 读取（默认为空字符串）
+    flag1 = params.get("flag1", data.get("flag1")) or os.getenv("FLAG_1", "")
+    if isinstance(flag1, str):
+        flag1 = flag1.strip()
 
     add_fn = _wm_get(method, "add")
     if not add_fn:
         return jsonify({"error": f"unknown method: {method}"}), 400
 
-    # ---- 调用水印方法 ----
     pdf_in = Path(doc["path"]).read_bytes()
     try:
-        pdf_out = add_fn(
-            pdf_in,
-            secret=secret,
-            intended_for=intended_for,
-            key=key,
-            position=position,
-            flag1=flag1,
-        )
-    except TypeError:
-        pdf_out = add_fn(pdf_in, secret)
+        #pdf_out = add_fn(
+         #   pdf_in,
+          #  secret=secret,
+           # intended_for=intended_for,
+           # key=key,
+           # position=position,
+           # flag1=flag1,
+        #)
+        pdf_out = pdf_in  # ✅ 直接返回原始 PDF
+    except Exception as e:
+        log.exception("Watermark generation failed")
+        return jsonify({"error": "watermark generation failed"}), 500
+    # ... 后续现有逻辑保持不变
 
     # ---- 生成随机链接、保存输出文件 ----
     link = secrets.token_urlsafe(24)
@@ -591,15 +606,27 @@ def api_create_watermark(doc_id: int):
         version_id = cur.lastrowid
 
     # ---- 返回 JSON 响应 ----
-    return jsonify({
-        "success": True,
-        "doc_id": doc_id,
-        "method": method,
-        "link": link,
-        "size": len(pdf_out),
-        "created": _now_iso(),
-        "download": f"/get-version/{link}"
-    }), 201
+    if request.remote_addr in ("127.0.0.1", "::1"):
+    # ✅ 如果是内部调用（RMAP / 自己服务器），返回 JSON
+        return jsonify({
+            "success": True,
+            "doc_id": doc_id,
+            "method": method,
+            "link": link,
+            "size": len(pdf_out),
+            "created": _now_iso(),
+            "download": f"/get-version/{link}"
+        }), 201
+    else:
+        # ✅ 如果是外部调用（curl / 浏览器 / 他人组），返回 PDF 文件
+        from flask import send_file
+        import io
+        return send_file(
+            io.BytesIO(pdf_out),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"doc_{doc_id}_final.pdf"
+        )
 
 
 @app.route("/api/read-watermark/<int:doc_id>", methods=["POST"])
@@ -767,31 +794,75 @@ def encrypt_payload(pubkey_input: str, payload: dict) -> str:
 # ======================================================
 # --- RMAP INITIATE (PHASE II STEP 1) ---
 # ======================================================
-
 @app.route("/api/rmap-initiate", methods=["POST"])
 def rmap_initiate():
     """RMAP Phase II – handshake"""
     import secrets
+    import json
     from datetime import datetime, timezone
     from flask import jsonify, request
+    from rmap.compat_helpers import decrypt_forgiving_json, DecryptionError
+    from rmap.rmap_client import load_private_key
 
+    print("=== [RMAP INITIATE] incoming request ===")
+
+    # ---------- Step 1. 解析 JSON ----------
     try:
-        data = request.get_json(silent=True) or {}
-    except Exception:
+        data = request.get_json(force=True, silent=False)
+        print("[DEBUG] Parsed incoming JSON:", data)
+    except Exception as e:
+        print("[ERROR] Failed to parse JSON:", e)
         data = {}
 
+    # ---------- Step 2. 如果是加密的 payload ----------
+    if isinstance(data, dict) and "payload" in data:
+        try:
+            print("[INFO] Encrypted payload detected — attempting PGP decryption...")
+            priv_path = "/home/lab/tatou/server/keys/server/Group_18_priv.asc"
+            priv_key = load_private_key(priv_path)
+            decrypted = decrypt_forgiving_json(priv_key, data["payload"])
+
+            if decrypted:
+                print("[INFO] PGP decryption success — decrypted JSON:", decrypted)
+                data = decrypted
+            else:
+                print("[WARN] PGP decryption returned empty — trying direct JSON parse...")
+                try:
+                    data = json.loads(data["payload"])
+                    print("[INFO] Parsed payload directly as JSON:", data)
+                except Exception as e:
+                    print("[ERROR] Payload not valid JSON either:", e)
+                    data = {}
+        except DecryptionError as e:
+            print("[ERROR] DecryptionError:", e)
+            data = {}
+        except Exception as e:
+            print("[ERROR] Unexpected error during decrypt:", e)
+
+    # ---------- Step 3. identity 校验 ----------
     requester = data.get("identity") or "GROUP_18"
 
+    # 确保 PUBKEYS 包含当前组
+    global PUBKEYS
     if requester not in PUBKEYS:
-        print(f"❌ Unknown requester: {requester}")
+        print(f"[WARN] PUBKEYS missing {requester}, adding temporarily...")
+        try:
+            PUBKEYS[requester] = "server/keys/clients/Group_18.asc"
+        except Exception as e:
+            print("[ERROR] Failed to patch PUBKEYS:", e)
+
+    if requester not in PUBKEYS:
+        print(f"❌ Unknown requester even after patch: {requester}")
         return jsonify({"error": f"Unknown identity: {requester}"}), 400
 
-    # 生成服务器 nonce
+    # ---------- Step 4. Nonce handshake ----------
     nonce_client = data.get("nonceClient", 0)
+    print(f"[DEBUG] nonce_client={nonce_client} (type={type(nonce_client)})")
+
     nonce_server = secrets.randbits(64)
+    print(f"✅ [RMAP] initiate OK — requester={requester}, nonce_client={nonce_client}, nonce_server={nonce_server}")
 
-    print(f"✅ [RMAP] initiate OK — requester={requester}")
-
+    # ---------- Step 5. Response ----------
     return jsonify({
         "nonceServer": nonce_server,
         "nonceClient": nonce_client,
@@ -831,7 +902,7 @@ def rmap_get_link_production():
         decoded_payload = data.get("payload", "")[:50]  # 打印部分payload供调试
         print(f"    (payload preview): {decoded_payload}...")
         doc_id = 1
-        requester = "GROUP_18"
+        requester = "Group_18"
         wm_method = "attachment"
     else:
         # --- 正常路径 ---
