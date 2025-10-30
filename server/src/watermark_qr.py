@@ -12,13 +12,22 @@ import base64
 import json
 import io
 
-from watermarking_method import (
-    InvalidKeyError,
-    SecretNotFoundError,
-    WatermarkingError,
-    WatermarkingMethod,
-    load_pdf_bytes,
-)
+try:
+    from watermarking_method import (
+        InvalidKeyError,
+        SecretNotFoundError,
+        WatermarkingError,
+        WatermarkingMethod,
+        load_pdf_bytes,
+    )
+except ImportError:
+    from server.src.watermarking_method import (
+        InvalidKeyError,
+        SecretNotFoundError,
+        WatermarkingError,
+        WatermarkingMethod,
+        load_pdf_bytes,
+    )
 
 try:
     import qrcode
