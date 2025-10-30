@@ -18,8 +18,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from server.src import server as srv
 
 
-class FakeCursor:
-    """模拟数据库游标"""
+class MockDBHandler:
+    """模拟数据库处理器"""
     def __init__(self, store):
         self.store = store
         self._rows = []
@@ -71,8 +71,8 @@ class FakeConn:
     def __init__(self, store):
         self.store = store
 
-    def cursor(self):
-        return FakeCursor(self.store)
+    def get_handler(self):
+        return MockDBHandler(self.store)
 
     def commit(self):
         return None
@@ -333,5 +333,9 @@ class TestDebugDB:
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
+
+
+
+
 
 

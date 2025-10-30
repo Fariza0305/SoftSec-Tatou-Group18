@@ -11,7 +11,7 @@ from server.src import server as srv
 from werkzeug.security import generate_password_hash
 
 
-class FakeCursor:
+class MockDBHandler:
     def __init__(self, store):
         self.store = store
         self._rows = []
@@ -43,8 +43,8 @@ class FakeConn:
     def __init__(self, store):
         self.store = store
 
-    def cursor(self):
-        return FakeCursor(self.store)
+    def get_handler(self):
+        return MockDBHandler(self.store)
 
     def commit(self):
         return None

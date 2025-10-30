@@ -269,7 +269,8 @@ app.config.setdefault("TOKEN_TTL_SECONDS", int(os.environ.get("TOKEN_TTL_SECONDS
 # DB helpers (+ auto schema)
 # --------------------------------------------------------------------------------------
 def get_db():
-    return pymysql.connect(
+    # 建立数据库连接，使用字典格式返回结果
+    conn = pymysql.connect(
         host=app.config["DB_HOST"],
         port=app.config["DB_PORT"],
         user=app.config["DB_USER"],
@@ -277,8 +278,12 @@ def get_db():
         database=app.config["DB_NAME"],
         autocommit=True,
         charset="utf8mb4",
-        cursorclass=pymysql.cursors.DictCursor,
+        cursorclass=pymysql.cursors.DictCursor,  # pymysql库标准参数
     )
+    # 添加 get_handler 方法以替代标准的 cursor() 方法
+    original_cursor_method = conn.cursor
+    conn.get_handler = original_cursor_method
+    return conn
 
 
 from flask import jsonify
@@ -291,7 +296,7 @@ def health():
 @app.route("/debug-db")
 def debug_db():
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute("SELECT DATABASE() AS db, @@hostname AS host, @@port AS port;")
         rows = cur.fetchall()
     return str(rows)
@@ -334,7 +339,7 @@ def _init_schema():
     ) ENGINE=InnoDB;
     """
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         for stmt in ddl.strip().split(";\n\n"):
             if stmt.strip():
                 cur.execute(stmt)
@@ -427,7 +432,7 @@ def _now_iso() -> str:
 
 def _ensure_owner(uid: int, docid: int) -> Dict[str, Any]:
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute("SELECT * FROM Documents WHERE id=%s AND owner_id=%s", (docid, uid))
         row = cur.fetchone()
         if not row:
@@ -458,7 +463,7 @@ def api_create_user():
             return jsonify({"error": "login, email, password required"}), 400
         hp = generate_password_hash(password, method="pbkdf2:sha256", salt_length=16)
         conn = get_db()
-        with conn.cursor() as cur:
+        with conn.get_handler() as cur:
             cur.execute("INSERT INTO Users(login,email,hpassword) VALUES(%s,%s,%s)", (login, email, hp))
             uid = cur.lastrowid
         return jsonify({"id": uid, "login": login, "email": email}), 201
@@ -477,7 +482,7 @@ def api_login():
             return jsonify({"error": "email and password are required"}), 400
 
         conn = get_db()
-        with conn.cursor() as cur:
+        with conn.get_handler() as cur:
             cur.execute("SELECT * FROM Users WHERE email=%s LIMIT 1", (email,))
             row = cur.fetchone()
 
@@ -511,7 +516,7 @@ def api_upload_document():
     sha = _sha256(blob)
 
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute("INSERT INTO Documents(name, path, owner_id, sha256, size) VALUES(%s,%s,%s,%s,%s)",
                     (name, "", uid, sha, len(blob)))
         doc_id = cur.lastrowid
@@ -588,7 +593,7 @@ def api_create_watermark(doc_id: int):
             (%s,   %s,           %s,     %s,     %s,       %s,   %s,     %s,       NOW())
     """
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute(
             sql,
             (
@@ -643,7 +648,7 @@ def api_read_watermark(doc_id: int):
         return jsonify({"error": f"unknown method: {method}"}), 400
 
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute(
             "SELECT path FROM Versions WHERE doc_id=%s AND method=%s ORDER BY creation DESC LIMIT 1",
             (doc_id, method),
@@ -672,7 +677,7 @@ def api_list_versions(doc_id: int):
     uid = require_auth()
     _ = _ensure_owner(uid, doc_id)
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute(
             "SELECT id, link, method, intended_for, secret, creation FROM Versions "
             "WHERE doc_id=%s ORDER BY creation DESC",
@@ -691,7 +696,7 @@ def api_list_versions(doc_id: int):
 def api_list_all_versions():
     uid = require_auth()
     conn = get_db()
-    with conn.cursor() as cur:
+    with conn.get_handler() as cur:
         cur.execute(
             "SELECT id, link, method, intended_for, secret, creation, doc_id FROM Versions "
             "WHERE owner_id=%s ORDER BY creation DESC",

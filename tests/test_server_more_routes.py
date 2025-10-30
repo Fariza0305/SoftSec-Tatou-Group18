@@ -55,7 +55,7 @@ def test_global_error_handler_on_extract_exception(ensure_storage, monkeypatch, 
         def fetchall(self):
             return list(self._rows)
     class Conn:
-        def cursor(self):
+        def get_handler(self):
             return Cur()
     monkeypatch.setattr(srv, "get_db", lambda: Conn())
 
@@ -91,7 +91,7 @@ def test_login_bcrypt_success(monkeypatch):
         def fetchall(self):
             return list(self._rows)
     class Conn:
-        def cursor(self): return Cur()
+        def get_handler(self): return Cur()
     monkeypatch.setattr(srv, "get_db", lambda: Conn())
 
     r = c.post("/api/login", json={"email": "bx@x", "password": "pw123"})

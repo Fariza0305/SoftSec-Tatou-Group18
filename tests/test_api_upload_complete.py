@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from server.src import server as srv
 
 
-class FakeCursor:
+class MockDBHandler:
     def __init__(self, store):
         self.store = store
         self.lastrowid = 0
@@ -57,8 +57,8 @@ class FakeConn:
     def __init__(self, store):
         self.store = store
 
-    def cursor(self):
-        return FakeCursor(self.store)
+    def get_handler(self):
+        return MockDBHandler(self.store)
 
     def commit(self):
         return None
