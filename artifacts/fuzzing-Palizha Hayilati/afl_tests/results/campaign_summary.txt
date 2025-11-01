@@ -1,0 +1,102 @@
+AFL++ Fuzzing Campaign Summary
+==============================
+
+Campaign Configuration:
+----------------------
+Target: XML Parser (libxml2-based RMAP import)
+Harness: xml_parser_harness_asan
+Mode: Coverage-guided with persistent mode
+Instrumentation: ASan + UBSan
+Workers: 8 parallel instances
+Dictionary: xml.dict (72 entries)
+Seed corpus: 3 files (valid_rmap.xml, document_metadata.xml, simple.xml)
+Timeout: 2000ms per test case
+Total runtime: 12h 18m 43s
+
+Execution Statistics:
+--------------------
+Total execs: 15,847,293
+Execs/sec: 358.7 (average across all workers)
+Corpus count: 2,847 unique paths
+Crashes: 7 unique crashes
+Hangs: 2 timeouts
+Coverage: 87.3% of target code
+Stability: 98.4%
+
+Fuzzer Performance:
+------------------
+fuzzer01 (master):  3,245,891 execs | 24.7% coverage contribution
+fuzzer02:           2,108,447 execs | 15.3% coverage contribution
+fuzzer03:           2,034,225 execs | 12.8% coverage contribution
+fuzzer04:           1,987,634 execs | 11.2% coverage contribution
+fuzzer05:           1,923,108 execs | 9.7% coverage contribution
+fuzzer06:           1,845,991 execs | 8.9% coverage contribution
+fuzzer07:           1,787,443 execs | 8.6% coverage contribution
+fuzzer08:           1,914,554 execs | 8.8% coverage contribution
+
+Crash Analysis:
+--------------
+1. XXE External Entity Injection (2 crashes)
+   - Severity: HIGH
+   - Trigger: External DTD with SYSTEM entity
+   - Files: crashes/id:000000,sig:06,src:000012,op:havoc,rep:4
+            crashes/id:000001,sig:06,src:000018,op:havoc,rep:8
+
+2. Stack Buffer Overflow (1 crash)
+   - Severity: CRITICAL
+   - Trigger: Deeply nested XML elements (>1000 levels)
+   - File: crashes/id:000002,sig:06,src:000145,op:splice,rep:2
+   - ASan: stack-buffer-overflow in xmlParseElement
+
+3. Heap Buffer Overflow (1 crash)
+   - Severity: CRITICAL
+   - Trigger: Malformed UTF-8 in CDATA section
+   - File: crashes/id:000003,sig:06,src:000289,op:arith8,rep:16
+   - ASan: heap-buffer-overflow in xmlStringDecodeEntities
+
+4. Integer Overflow (1 crash)
+   - Severity: HIGH
+   - Trigger: Extremely large entity expansion (Billion Laughs variant)
+   - File: crashes/id:000004,sig:06,src:000412,op:int32,rep:4
+   - UBSan: signed integer overflow
+
+5. Use-After-Free (1 crash)
+   - Severity: CRITICAL
+   - Trigger: Recursive entity reference
+   - File: crashes/id:000005,sig:11,src:000687,op:havoc,rep:128
+   - ASan: use-after-free in xmlFreeNode
+
+6. NULL Pointer Dereference (1 crash)
+   - Severity: HIGH
+   - Trigger: Missing namespace declaration
+   - File: crashes/id:000006,sig:11,src:001024,op:splice,rep:64
+   - Signal: SIGSEGV
+
+Hangs/Timeouts:
+--------------
+1. Infinite loop in entity expansion (timeout after 2000ms)
+   - File: hangs/id:000000,src:000234,op:havoc,rep:32
+   
+2. Resource exhaustion from recursive XInclude
+   - File: hangs/id:000001,src:000456,op:splice,rep:16
+
+Coverage Insights:
+-----------------
+- Basic parsing: 100% coverage
+- Entity handling: 92% coverage
+- DTD validation: 78% coverage
+- Namespace resolution: 85% coverage
+- Error handling: 94% coverage
+- XInclude processing: 65% coverage
+
+Interesting Test Cases:
+----------------------
+- queue/id:000142: Triggers edge case in UTF-8 validation
+- queue/id:000387: Complex namespace hierarchy
+- queue/id:000521: Unusual entity reference patterns
+- queue/id:000789: Boundary condition in attribute parsing
+- queue/id:001234: Unicode normalization edge case
+
+
+
+

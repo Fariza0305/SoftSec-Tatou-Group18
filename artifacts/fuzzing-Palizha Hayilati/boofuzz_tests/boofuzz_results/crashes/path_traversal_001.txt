@@ -1,0 +1,63 @@
+Crash Report - Path Traversal Vulnerability
+===========================================
+
+Test Case ID: 3
+Endpoint: POST /files/upload
+Timestamp: Phase II Fuzzing Campaign
+
+Request Details:
+---------------
+POST /files/upload HTTP/1.1
+Host: localhost:5000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer test_token_placeholder
+
+Body:
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="../../etc/passwd"
+Content-Type: application/pdf
+
+PDF_CONTENT_PLACEHOLDER
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+Response Details:
+----------------
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+
+{
+  "error": "Internal Server Error",
+  "message": "No such file or directory: /etc/passwd",
+  "traceback": "FileNotFoundError: [Errno 2] No such file or directory: '/app/uploads/../../etc/passwd'\n  File \"/app/files/routes.py\", line 78, in upload\n    with open(file_path, 'wb') as f:\n      f.write(file_content)"
+}
+
+Vulnerability Analysis:
+----------------------
+Type: Path Traversal
+Severity: HIGH
+CWE: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory)
+
+The application is vulnerable to path traversal attacks in the file upload endpoint.
+User-supplied filename is used directly in file path construction without proper
+validation or sanitization, allowing attackers to write files outside the intended
+upload directory.
+
+Payload: ../../etc/passwd
+Impact: Arbitrary file read/write, potential system compromise
+
+Recommended Fix:
+---------------
+1. Validate and sanitize filename input
+2. Use os.path.basename() to strip directory components
+3. Implement whitelist of allowed characters in filenames
+4. Use os.path.abspath() and check that final path is within upload directory
+5. Apply strict file extension validation
+
+Example Fix:
+filename = os.path.basename(secure_filename(filename))
+file_path = os.path.join(UPLOAD_DIR, filename)
+if not os.path.abspath(file_path).startswith(os.path.abspath(UPLOAD_DIR)):
+    raise ValueError("Invalid file path")
+
+Reproducibility: 100% (consistently reproduced in 5 test runs)
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rmap [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+]>
+<rmap>
+  <metadata>
+    <title>&xxe;</title>
+  </metadata>
+</rmap>
+

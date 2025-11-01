@@ -1,0 +1,70 @@
+Crash Report - SVG XSS Vulnerability
+====================================
+
+Test Case ID: 101
+Endpoint: POST /files/upload
+Timestamp: Phase II Fuzzing Campaign
+
+Request Details:
+---------------
+POST /files/upload HTTP/1.1
+Host: localhost:5000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer test_token_placeholder
+
+Body:
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="malicious.svg"
+Content-Type: image/svg+xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <script>alert('XSS')</script>
+  <circle cx="50" cy="50" r="40" fill="red"/>
+</svg>
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+Response Details:
+----------------
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "status": "success",
+  "message": "File uploaded successfully",
+  "file_id": "svg_12345",
+  "file_url": "/files/view?path=uploads/malicious.svg"
+}
+
+Vulnerability Analysis:
+----------------------
+Type: Cross-Site Scripting (XSS) via SVG Upload
+Severity: MEDIUM
+CWE: CWE-79 (Improper Neutralization of Input During Web Page Generation)
+
+The application accepts SVG files containing JavaScript code without sanitization.
+When these files are served directly to users, the embedded JavaScript executes
+in the context of the application's domain, leading to XSS attacks.
+
+Payload: <script>alert('XSS')</script> inside SVG file
+Impact: Session hijacking, credential theft, malicious actions on behalf of users
+
+Recommended Fix:
+---------------
+1. Sanitize SVG files to remove dangerous elements (<script>, <foreignObject>, event handlers)
+2. Serve uploaded files from a separate domain (Content Security Policy)
+3. Set Content-Type header to force download instead of inline display
+4. Implement Content-Security-Policy header with 'img-src self'
+5. Consider blocking SVG uploads entirely if not essential
+
+Example Fix:
+if file_extension == '.svg':
+    # Sanitize SVG content
+    content = sanitize_svg(file_content)
+    # Or serve with Content-Disposition: attachment
+    response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+    response.headers['Content-Security-Policy'] = "default-src 'none'"
+
+Reproducibility: 100% (consistently reproduced in 5 test runs)
+Attack Vector: User uploads malicious SVG, shares link with victim, victim views file
+

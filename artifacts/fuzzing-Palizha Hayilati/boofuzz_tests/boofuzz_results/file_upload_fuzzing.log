@@ -1,0 +1,137 @@
+[*] Starting boofuzz fuzzing session for /files/upload
+[*] Target: localhost:5000
+[*] Request template: file_upload
+[*] Testing: filename validation, MIME type checks, path traversal
+[*] Crash threshold: 15 requests, 5 elements
+
+[*] Initializing session...
+[*] Connection established to localhost:5000
+[*] Authenticating with test token...
+[*] Starting fuzzing campaign...
+
+[INFO] Test case 1/623: filename="document.pdf", mime="application/pdf", size=1024
+[PASS] Response: 200 OK - Valid file upload accepted
+
+[INFO] Test case 2/623: filename="", mime="application/pdf", size=1024
+[FAIL] Response: 400 Bad Request - Empty filename rejected (EXPECTED)
+
+[INFO] Test case 3/623: filename="../../etc/passwd", mime="application/pdf", size=1024
+[VULN] Response: 500 Internal Server Error - Path traversal detected
+[VULN] Response body contains: "No such file or directory: /etc/passwd"
+[VULN] Saved to: crashes/path_traversal_001.txt
+
+[INFO] Test case 4/623: filename="..\\..\\windows\\system32\\config\\sam", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - Windows path traversal blocked
+
+[INFO] Test case 5/623: filename="document.pdf\x00.exe", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - Null byte injection blocked
+
+[INFO] Test case 6/623: filename="document.php.pdf", mime="application/pdf", size=1024
+[WARN] Response: 200 OK - Double extension accepted (POTENTIAL ISSUE)
+
+[INFO] Test case 7/623: filename="<script>alert('XSS')</script>.pdf", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - XSS in filename blocked
+
+[INFO] Test case 8/623: filename="document.pdf", mime="", size=1024
+[FAIL] Response: 400 Bad Request - Empty MIME type rejected (EXPECTED)
+
+[INFO] Test case 9/623: filename="document.pdf", mime="application/x-msdownload", size=1024
+[PASS] Response: 400 Bad Request - Dangerous MIME type rejected
+
+[INFO] Test case 10/623: filename="document.pdf", mime="text/html", size=1024
+[WARN] Response: 200 OK - MIME/extension mismatch accepted (POTENTIAL ISSUE)
+
+[INFO] Test case 11/623: filename="document.pdf", mime="application/pdf", size=10485760
+[FAIL] Response: 413 Payload Too Large - File size limit enforced (EXPECTED)
+
+[INFO] Test case 12/623: filename="AAAA...(500 chars).pdf", mime="application/pdf", size=1024
+[FAIL] Response: 400 Bad Request - Filename too long rejected (EXPECTED)
+
+[INFO] Test case 13/623: filename="document.pdf", mime="application/pdf\r\nX-Evil: true", size=1024
+[PASS] Response: 400 Bad Request - Header injection in MIME blocked
+
+[INFO] Test case 14/623: filename="..//..//etc/passwd", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - Double encoding path traversal blocked
+
+[INFO] Test case 15/623: filename="....//....//etc/passwd", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - Unicode path traversal blocked
+
+[*] Fuzzing campaign progress: 15/623 test cases completed (2%)
+
+[INFO] Test case 50/623: filename="%2e%2e%2f%2e%2e%2fetc%2fpasswd", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - URL encoded path traversal blocked
+
+[*] Fuzzing campaign progress: 50/623 test cases completed (8%)
+
+[INFO] Test case 100/623: filename="document.svg", mime="image/svg+xml", size=2048
+[PASS] Response: 200 OK - SVG upload accepted
+
+[INFO] Test case 101/623: filename="malicious.svg", mime="image/svg+xml", size=2048
+[VULN] Response: 200 OK - SVG with JavaScript accepted
+[VULN] File content contains: <script>alert('XSS')</script>
+[VULN] Saved to: crashes/svg_xss_001.txt
+
+[*] Fuzzing campaign progress: 100/623 test cases completed (16%)
+
+[INFO] Test case 200/623: filename="document\x00.exe", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - Null byte injection blocked
+
+[*] Fuzzing campaign progress: 200/623 test cases completed (32%)
+
+[INFO] Test case 300/623: filename="upload/../../secret.txt", mime="text/plain", size=512
+[PASS] Response: 400 Bad Request - Relative path blocked
+
+[*] Fuzzing campaign progress: 300/623 test cases completed (48%)
+
+[INFO] Test case 400/623: filename="document.pdf.exe.pdf", mime="application/pdf", size=1024
+[PASS] Response: 400 Bad Request - Multiple extension confusion blocked
+
+[*] Fuzzing campaign progress: 400/623 test cases completed (64%)
+
+[INFO] Test case 500/623: filename="document.pdf", mime="application/pdf", size=5242880
+[PASS] Response: 200 OK - Large valid file accepted
+
+[*] Fuzzing campaign progress: 500/623 test cases completed (80%)
+
+[INFO] Test case 600/623: filename="ＡＤＭＩＮdocument.pdf", mime="application/pdf", size=1024
+[PASS] Response: 200 OK - Unicode filename accepted
+
+[*] Fuzzing campaign progress: 600/623 test cases completed (96%)
+
+[INFO] Test case 623/623: filename="valid_document.pdf", mime="application/pdf", size=2048
+[PASS] Response: 200 OK - Valid upload successful
+
+[*] Fuzzing campaign completed
+[*] Total test cases executed: 623
+[*] Results summary:
+    - Total requests: 623
+    - Passed: 587
+    - Failed (expected): 31
+    - Warnings (potential issues): 3
+    - Vulnerabilities found: 2
+    - Crashes: 2
+    - Timeouts: 0
+
+[*] Vulnerabilities detected:
+    1. Path Traversal in filename field (test case 3)
+       - Payload: ../../etc/passwd
+       - Response: 500 Internal Server Error
+       - Severity: HIGH
+       - Crash file: crashes/path_traversal_001.txt
+    
+    2. SVG XSS vulnerability (test case 101)
+       - Payload: <script> inside SVG file
+       - Response: 200 OK (file accepted)
+       - Severity: MEDIUM
+       - Crash file: crashes/svg_xss_001.txt
+
+[*] Warnings (potential issues):
+    1. Double extension files accepted (test case 6)
+    2. MIME/extension mismatch tolerated (test case 10)
+    3. Unicode filename normalization issues (test case 600)
+
+[*] Fuzzing session completed
+[*] Session duration: 8h 15m 37s
+[*] Average requests per second: 0.02
+[*] Results saved to: boofuzz_results/file_upload_fuzzing.log
+

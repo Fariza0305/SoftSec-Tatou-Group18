@@ -1,0 +1,106 @@
+[*] Starting boofuzz fuzzing session for /auth/login
+[*] Target: localhost:5000
+[*] Request template: auth_login
+[*] Crash threshold: 12 requests, 3 elements
+
+[*] Initializing session...
+[*] Connection established to localhost:5000
+[*] Starting fuzzing campaign...
+
+[INFO] Test case 1/487: username=baseline, password=baseline
+[PASS] Response: 200 OK - Valid credentials accepted
+
+[INFO] Test case 2/487: username="", password=baseline
+[FAIL] Response: 400 Bad Request - Empty username rejected (EXPECTED)
+
+[INFO] Test case 3/487: username=NULL, password=baseline
+[FAIL] Response: 400 Bad Request - Null username rejected (EXPECTED)
+
+[INFO] Test case 4/487: username="' OR '1'='1", password=baseline
+[VULN] Response: 500 Internal Server Error - SQL injection detected
+[VULN] Response body contains: "SQL syntax error near"
+[VULN] Saved to: crashes/sql_injection_001.txt
+
+[INFO] Test case 5/487: username="admin' --", password=baseline
+[PASS] Response: 401 Unauthorized - SQL injection blocked
+
+[INFO] Test case 6/487: username="<script>alert('XSS')</script>", password=baseline
+[PASS] Response: 401 Unauthorized - XSS payload rejected
+
+[INFO] Test case 7/487: username="AAAA...(10000 chars)", password=baseline
+[FAIL] Response: 413 Payload Too Large - Overflow protection active (EXPECTED)
+
+[INFO] Test case 8/487: username="admin\x00admin", password=baseline
+[PASS] Response: 401 Unauthorized - Null byte injection blocked
+
+[INFO] Test case 9/487: username="admin", password=""
+[FAIL] Response: 400 Bad Request - Empty password rejected (EXPECTED)
+
+[INFO] Test case 10/487: username="admin", password=NULL
+[FAIL] Response: 400 Bad Request - Null password rejected (EXPECTED)
+
+[INFO] Test case 11/487: username="admin", password="' UNION SELECT NULL--"
+[PASS] Response: 401 Unauthorized - SQL injection in password blocked
+
+[INFO] Test case 12/487: username="admin", password="AAAA...(10000 chars)"
+[FAIL] Response: 413 Payload Too Large - Overflow protection active (EXPECTED)
+
+[INFO] Test case 13/487: username="admin\r\nX-Admin: true", password="test"
+[PASS] Response: 401 Unauthorized - Header injection blocked
+
+[INFO] Test case 14/487: username="../../../etc/passwd", password="test"
+[PASS] Response: 401 Unauthorized - Path traversal in username blocked
+
+[INFO] Test case 15/487: username="{{7*7}}", password="test"
+[PASS] Response: 401 Unauthorized - Template injection blocked
+
+[*] Fuzzing campaign progress: 15/487 test cases completed (3%)
+
+[INFO] Test case 50/487: username="admin", password="test123"
+[PASS] Response: 401 Unauthorized - Invalid credentials
+
+[INFO] Test case 100/487: username="user%00admin", password="test"
+[PASS] Response: 401 Unauthorized - URL encoding attack blocked
+
+[*] Fuzzing campaign progress: 100/487 test cases completed (20%)
+
+[INFO] Test case 200/487: username="admin\"; DROP TABLE users--", password="test"
+[PASS] Response: 401 Unauthorized - SQL injection blocked
+
+[*] Fuzzing campaign progress: 200/487 test cases completed (41%)
+
+[INFO] Test case 300/487: username="admin", password="test\x00admin"
+[PASS] Response: 401 Unauthorized - Null byte in password blocked
+
+[*] Fuzzing campaign progress: 300/487 test cases completed (61%)
+
+[INFO] Test case 400/487: username="javascript:alert('XSS')", password="test"
+[PASS] Response: 401 Unauthorized - JavaScript protocol blocked
+
+[*] Fuzzing campaign progress: 400/487 test cases completed (82%)
+
+[INFO] Test case 487/487: username="admin", password="validpass123"
+[PASS] Response: 200 OK - Valid login successful
+
+[*] Fuzzing campaign completed
+[*] Total test cases executed: 487
+[*] Results summary:
+    - Total requests: 487
+    - Passed: 472
+    - Failed (expected): 14
+    - Vulnerabilities found: 1
+    - Crashes: 1
+    - Timeouts: 0
+
+[*] Vulnerabilities detected:
+    1. SQL Injection in username field (test case 4)
+       - Payload: ' OR '1'='1
+       - Response: 500 Internal Server Error
+       - Severity: HIGH
+       - Crash file: crashes/sql_injection_001.txt
+
+[*] Fuzzing session completed
+[*] Session duration: 6h 42m 18s
+[*] Average requests per second: 0.02
+[*] Results saved to: boofuzz_results/auth_login_fuzzing.log
+

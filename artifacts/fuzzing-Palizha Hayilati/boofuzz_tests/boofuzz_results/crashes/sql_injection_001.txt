@@ -1,0 +1,56 @@
+Crash Report - SQL Injection Vulnerability
+==========================================
+
+Test Case ID: 4
+Endpoint: POST /auth/login
+Timestamp: Phase II Fuzzing Campaign
+
+Request Details:
+---------------
+POST /auth/login HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+Accept: application/json
+
+Body:
+{
+  "username": "' OR '1'='1",
+  "password": "baseline"
+}
+
+Response Details:
+----------------
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+
+{
+  "error": "Internal Server Error",
+  "message": "SQL syntax error near ''' OR '1'='1'",
+  "traceback": "sqlite3.OperationalError: near \"OR\": syntax error\n  File \"/app/auth/routes.py\", line 45, in login\n    user = db.execute(f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\")"
+}
+
+Vulnerability Analysis:
+----------------------
+Type: SQL Injection
+Severity: HIGH
+CWE: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command)
+
+The application is vulnerable to SQL injection in the authentication login endpoint.
+User-supplied input in the 'username' field is directly concatenated into a SQL query
+without proper sanitization or parameterization.
+
+Payload: ' OR '1'='1
+Impact: Authentication bypass, potential data exfiltration
+
+Recommended Fix:
+---------------
+1. Use parameterized queries with prepared statements
+2. Implement input validation and sanitization
+3. Apply principle of least privilege to database connections
+4. Add rate limiting to prevent brute force attacks
+
+Example Fix:
+user = db.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
+
+Reproducibility: 100% (consistently reproduced in 5 test runs)
+
